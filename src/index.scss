@@ -1,11 +1,9 @@
-body {
-  margin: 0;
-  font-family: 'Figtree', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+// This is our main entry point for styles
+// Import our styles in the correct order
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+// First import our base styles
+@import './styles/variables';
+@import './styles/mixins';
+@import './styles/base';
+
+// Component specific styles are imported within their respective .scss files

@@ -1,0 +1,67 @@
+// Colors
+$primary-color: #df1067;
+$primary-color-dark: #cb0e5c;
+$secondary-color: #4a6fa5;
+$text-primary: #161616;
+$text-secondary: #666;
+$background-light: #f9f9f9;
+$background-white: #ffffff;
+$border-light: #e0e0e0;
+$shadow-color: rgba(0, 0, 0, 0.05);
+$shadow-color-hover: rgba(0, 0, 0, 0.08);
+$overlay-background: rgba(0, 0, 0, 0.3);
+$message-user-bg: $primary-color;
+$message-assistant-bg: #f0f2f5;
+
+// Typography
+$font-family-main: 'Figtree', sans-serif;
+$font-family-code: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+$font-size-base: 16px;
+$font-size-small: 0.875rem;
+$font-size-medium: 1rem;
+$font-size-large: 1.25rem;
+$font-size-xlarge: 1.5rem;
+$font-size-xxlarge: 2rem;
+$line-height-base: 1.5;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+$spacing-xxxl: 64px;
+
+// Border radius
+$border-radius-sm: 8px;
+$border-radius-md: 16px;
+$border-radius-lg: 32px;
+$border-radius-xl: 56px;
+$border-radius-full: 50%;
+
+// Box shadows
+$box-shadow-light: 0 2px 6px $shadow-color;
+$box-shadow-medium: 0 8px 12px $shadow-color;
+$box-shadow-hover: 0 2px 8px $shadow-color-hover;
+
+// Transitions
+$transition-fast: 0.2s;
+$transition-medium: 0.3s;
+
+// Breakpoints
+$breakpoint-sm: 480px;
+$breakpoint-md: 600px;
+$breakpoint-lg: 768px;
+$breakpoint-xl: 1200px;
+
+// Layout
+$header-height: 72px;
+$drawer-width: 600px;
+$container-max-width: 1200px;
+$content-padding: 20px;
+
+// Z-index
+$z-index-header: 100;
+$z-index-drawer: 1000;
+$z-index-overlay: 999;
