@@ -57,9 +57,15 @@
     width: 100%;
   }
   
-  h1 {
-    font-size: $font-size-large;
-    margin: 0;
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    
+    h1 {
+      font-size: $font-size-large;
+      margin: 0;
+    }
   }
   
   .header-actions {
@@ -95,6 +101,14 @@
       background-color: rgba(255, 255, 255, 0.25);
     }
   }
+}
+
+// Centered Icon
+.centered-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: $spacing-xl;
+  animation: message-fade-in 0.5s ease-out;
 }
 
 // Centered Title

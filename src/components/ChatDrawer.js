@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ChatDrawer.scss';
+import SparkIcon from './SparkIcon'; // Import the SparkIcon component
 
 // Handle formatted message content
 const FormattedMessageContent = ({ content }) => {
@@ -167,7 +168,10 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   return (
     <div className={`chat-drawer ${isOpen ? 'open' : ''}`}>
       <header className={`chat-header ${!hasInteracted ? 'hidden' : ''}`}>
-        <h1>Assistant</h1>
+        <div className="header-title">
+          <SparkIcon width={24} height={24} />
+          <h1>Assistant</h1>
+        </div>
         <div className="header-actions">
           {/* New conversation button - only visible after interaction */}
           <button onClick={handleReset} className="reset-button" title="Start a new conversation">
@@ -208,7 +212,10 @@ const ChatDrawer = ({ isOpen, onClose }) => {
         <div className="input-container">
           {!hasInteracted && (
             <>
-              <h1 className="centered-title">Assistant</h1>
+              <div className="centered-icon">
+                <SparkIcon width={64} height={64} />
+              </div>
+              <h1 className="centered-title">How can I help you?</h1>
               <div className="welcome-text">
                 Ask me anything about your store data, business operations, or customer reviews.
               </div>
