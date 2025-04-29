@@ -42,28 +42,44 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null); // Reference to the input field
   
   const backendURL = "https://8e3f7f7953d7.ngrok.app";
 
+  // Handle initial transition when the drawer opens
+  useEffect(() => {
+    if (isOpen) {
+      // Small timeout to ensure the drawer animation has started
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 300); // Matches the drawer transition time
+    }
+  }, [isOpen]);
+  
   // Auto-scroll to bottom of messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
   
-  // Auto-focus input when drawer opens
+  // Handle transitions between states
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      // Small timeout to ensure the drawer animation has started
+    if (hasInteracted) {
+      // When transitioning to interacted state, ensure smooth header transition
       setTimeout(() => {
-        inputRef.current.focus();
-      }, 300); // Matches the drawer transition time
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     }
-  }, [isOpen]);
+  }, [hasInteracted]);
 
   const handleSend = async () => {
     if (input.trim() === '') return;
+    
+    // Mark as interacted on first user message
+    if (!hasInteracted) {
+      setHasInteracted(true);
+    }
     
     // Add user message to chat
     const userMessage = { sender: 'user', content: input };
@@ -130,10 +146,11 @@ const ChatDrawer = ({ isOpen, onClose }) => {
         throw new Error('Reset request failed');
       }
       
-      // Reset the UI
+      // Reset the UI and interaction state
       setMessages([
         { sender: 'assistant', content: 'Hi there! How can I help you today?' }
       ]);
+      setHasInteracted(false);
       
       // Focus the input field after reset
       inputRef.current?.focus();
@@ -142,12 +159,17 @@ const ChatDrawer = ({ isOpen, onClose }) => {
     }
   };
 
+  // Determine container class based on interaction state
+  const chatContainerClass = hasInteracted 
+    ? "chat-container bottom-input" 
+    : "chat-container centered-input";
+
   return (
     <div className={`chat-drawer ${isOpen ? 'open' : ''}`}>
-      <header className="chat-header">
+      <header className={`chat-header ${!hasInteracted ? 'hidden' : ''}`}>
         <h1>Assistant</h1>
         <div className="header-actions">
-          {/* New conversation button */}
+          {/* New conversation button - only visible after interaction */}
           <button onClick={handleReset} className="reset-button" title="Start a new conversation">
             <span className="material-symbols-rounded">refresh</span>
           </button>
@@ -159,16 +181,18 @@ const ChatDrawer = ({ isOpen, onClose }) => {
         </div>
       </header>
       
-      <div className="chat-container">
+      <div className={chatContainerClass}>
         <div className="messages-container">
-          {messages.map((message, index) => (
+          {hasInteracted && messages.map((message, index) => (
             <div key={index} className={`message ${message.sender}`}>
               <div className="message-content">
                 <FormattedMessageContent content={message.content} />
               </div>
             </div>
           ))}
-          {isLoading && (
+          
+          {/* Only show typing indicator when loading and has interacted */}
+          {isLoading && hasInteracted && (
             <div className="message assistant">
               <div className="message-content typing-indicator">
                 <span></span>
@@ -177,26 +201,41 @@ const ChatDrawer = ({ isOpen, onClose }) => {
               </div>
             </div>
           )}
+          
           <div ref={messagesEndRef} />
         </div>
         
         <div className="input-container">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="Ask something about your store..."
-            disabled={isLoading}
-            ref={inputRef} // Add ref to the input element
-          />
-          <button onClick={handleSend} disabled={isLoading} className="send-button">
-            {isLoading ? (
-              <span className="sending-text">Sending...</span>
-            ) : (
-              <span className="material-symbols-rounded">send</span>
-            )}
-          </button>
+          {!hasInteracted && (
+            <>
+              <h1 className="centered-title">Assistant</h1>
+              <div className="welcome-text">
+                Ask me anything about your store data, business operations, or customer reviews.
+              </div>
+            </>
+          )}
+          <div className="input-wrapper">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+              placeholder="Ask something about your store..."
+              disabled={isLoading}
+              ref={inputRef}
+            />
+            <button onClick={handleSend} disabled={isLoading} className="send-button">
+              {isLoading ? (
+                <div className="typing-indicator">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              ) : (
+                <span className="material-symbols-rounded">arrow_upward</span>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>
