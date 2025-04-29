@@ -36,6 +36,21 @@
     right: 0;
   }
   
+  // Apply gradient when in initial state
+  &.initial-state {
+    background-color: #fff;
+    // background-image: linear-gradient(
+    //   235deg,
+    //   rgba(adjust-color($primary-color, $hue: +33deg, $saturation: 100%), 0.2),
+    //   rgba($primary-color, 0.04),
+    //   rgba(adjust-color($primary-color, $hue: -33deg, $saturation: 100%), 0.2)
+    // );
+    // background-size: 200% 200%;
+    
+    // // Add transition for smooth fade out
+    // @include transition(all, $transition-medium, cubic-bezier(0, 0, 0.2, 1));
+  }
+  
   @include respond-to(medium) {
     border-radius: 0;
     width: 100%;
@@ -146,7 +161,7 @@
     .welcome-text {
       text-align: center;
       font-size: $font-size-base;
-      color: $text-secondary;
+      color: $text-primary;
       line-height: $line-height-base;
       margin-bottom: $spacing-xl;
       @include slide-in('up', 20px, 0.5s);
@@ -201,7 +216,7 @@
   
   .message-content {
     max-width: 70%;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border-radius: $border-radius-md;
     line-height: $line-height-base;
   }

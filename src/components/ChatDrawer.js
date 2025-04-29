@@ -165,8 +165,11 @@ const ChatDrawer = ({ isOpen, onClose }) => {
     ? "chat-container bottom-input" 
     : "chat-container centered-input";
 
+  // Determine drawer class based on open state and interaction state
+  const drawerClass = `chat-drawer ${isOpen ? 'open' : ''} ${!hasInteracted ? 'initial-state' : ''}`;
+
   return (
-    <div className={`chat-drawer ${isOpen ? 'open' : ''}`}>
+    <div className={drawerClass}>
       <header className="chat-header">
         {/* Only show title and reset button after interaction */}
         <div className={`header-title ${!hasInteracted ? 'hidden' : ''}`}>
@@ -220,7 +223,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
               <div className="centered-icon">
                 <SparkIcon width={64} height={64} />
               </div>
-              <h1 className="centered-title">How can I help you?</h1>
+              <h1 className="centered-title">What can I help with?</h1>
               <div className="welcome-text">
                 You can ask me about your business operations, performance, customer reviews, advertising and more.
               </div>
