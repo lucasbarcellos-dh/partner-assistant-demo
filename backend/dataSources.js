@@ -2,8 +2,7 @@ const dataSources = {
   dashboard: {
     sales: {
       weekly: { 
-        total: 12450, 
-        change: 12, 
+        total: 20450,  
         prev: 11116 
       },
       orders: { 
