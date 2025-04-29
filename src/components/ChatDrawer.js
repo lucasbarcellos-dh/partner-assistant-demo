@@ -43,6 +43,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null); // Reference to the input field
   
   const backendURL = "https://8e3f7f7953d7.ngrok.app";
 
@@ -50,6 +51,16 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+  
+  // Auto-focus input when drawer opens
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      // Small timeout to ensure the drawer animation has started
+      setTimeout(() => {
+        inputRef.current.focus();
+      }, 300); // Matches the drawer transition time
+    }
+  }, [isOpen]);
 
   const handleSend = async () => {
     if (input.trim() === '') return;
@@ -76,6 +87,8 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       ]);
     } finally {
       setIsLoading(false);
+      // Re-focus the input after sending
+      inputRef.current?.focus();
     }
   };
 
@@ -121,6 +134,9 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       setMessages([
         { sender: 'assistant', content: 'Hi there! How can I help you today?' }
       ]);
+      
+      // Focus the input field after reset
+      inputRef.current?.focus();
     } catch (error) {
       console.error('Error resetting conversation:', error);
     }
@@ -172,6 +188,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             placeholder="Ask something about your store..."
             disabled={isLoading}
+            ref={inputRef} // Add ref to the input element
           />
           <button onClick={handleSend} disabled={isLoading} className="send-button">
             {isLoading ? (

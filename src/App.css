@@ -6,9 +6,13 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Figtree', sans-serif;
   background-color: #f9f9f9;
-  color: #333;
+  color: #161616;
+}
+
+input {
+  caret-color: #df1067;
 }
 
 .app {
@@ -23,7 +27,7 @@ body {
 }
 
 .main-content h1 {
-  color: #333;
+  color: #161616;
   margin-bottom: 30px;
   padding-bottom: 10px;
   border-bottom: 2px solid #4a6fa5;
@@ -32,7 +36,6 @@ body {
 .dashboard-placeholder {
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 30px;
   text-align: center;
 }
@@ -53,7 +56,6 @@ body {
 .stat-card {
   background-color: white;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   min-width: 250px;
   text-align: left;
@@ -69,7 +71,7 @@ body {
 .stat-value {
   font-size: 2rem;
   font-weight: bold;
-  color: #333;
+  color: #161616;
   margin-bottom: 5px;
 }
 
