@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import './ChatDrawer.css';
+import './ChatDrawer.scss';
 
 // Handle formatted message content
 const FormattedMessageContent = ({ content }) => {

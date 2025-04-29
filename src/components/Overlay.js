@@ -1,5 +1,5 @@
 import React from 'react';
-import './Overlay.css';
+import './Overlay.scss';
 
 const Overlay = ({ isVisible, onClick }) => {
   if (!isVisible) return null;
