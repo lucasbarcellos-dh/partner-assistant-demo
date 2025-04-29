@@ -34,7 +34,10 @@ app.post('/api/assistant', async (req, res) => {
     
     // Create messages array with system prompt, conversation history, and current message
     const messages = [
-      { role: "system", content: STATIC_SYSTEM_PROMPT },
+      {
+        role: "assistant",
+        content: STATIC_SYSTEM_PROMPT
+      },
       // Only include last 5 messages to avoid token limit issues
       ...conversationHistory.slice(-config.maxConversationHistory)
     ];

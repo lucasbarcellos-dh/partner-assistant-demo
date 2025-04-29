@@ -1,5 +1,5 @@
 module.exports = {
-  model: "o4-mini", // Can easily change to "o4-medium" or other models
-  maxConversationHistory: 5, // Number of past messages to include
+  model: "gpt-4.1",
+  maxConversationHistory: 5,
   port: process.env.PORT || 3001
 };
