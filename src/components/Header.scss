@@ -8,7 +8,6 @@
   position: sticky;
   top: 0;
   z-index: $z-index-header;
-  height: $header-height;
   
   .header-container {
     @include container;
@@ -22,12 +21,12 @@
   }
   
   .chat-toggle-button {
-    @include icon-button(40px);
-    padding-right: 2px;
+    @include icon-button(56px);
+    padding-right: 4px;
     
     .material-symbols-rounded,
     svg {
-      font-size: 24px;
+      font-size: 32px;
       fill: $primary-color;
     }
     
