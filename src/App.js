@@ -2,6 +2,41 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 
+// New component to handle formatted message content
+const FormattedMessageContent = ({ content }) => {
+  // Function to convert plain text with newlines to proper HTML formatting
+  const formatText = (text) => {
+    if (!text) return null;
+    
+    // Split by newlines
+    return text.split('\n').map((line, i) => {
+      // Check if this is a list item (starts with -, *, or numbers followed by .)
+      const isListItem = /^\s*(?:[-*]|\d+\.)\s+/.test(line);
+      
+      if (line.trim() === '') {
+        // Empty line - add a line break
+        return <br key={i} />;
+      } else if (isListItem) {
+        // List item - add proper styling
+        return (
+          <div key={i} className="list-item">
+            {line}
+          </div>
+        );
+      } else {
+        // Regular paragraph
+        return <p key={i} className="paragraph">{line}</p>;
+      }
+    });
+  };
+
+  return (
+    <div className="formatted-content">
+      {formatText(content)}
+    </div>
+  );
+};
+
 function App() {
   const [messages, setMessages] = useState([
     { sender: 'assistant', content: 'Hi there! I\'m your restaurant assistant. How can I help you today?' }
@@ -104,7 +139,8 @@ function App() {
           {messages.map((message, index) => (
             <div key={index} className={`message ${message.sender}`}>
               <div className="message-content">
-                {message.content}
+                {/* Use the new component instead of directly showing message.content */}
+                <FormattedMessageContent content={message.content} />
               </div>
             </div>
           ))}

@@ -94,6 +94,33 @@ body {
   border-radius: 18px 18px 18px 0;
 }
 
+/* New styles for formatted content */
+.formatted-content {
+  width: 100%;
+}
+
+.formatted-content p {
+  margin-bottom: 8px;
+}
+
+.formatted-content p:last-child {
+  margin-bottom: 0;
+}
+
+.formatted-content .list-item {
+  margin-bottom: 6px;
+  margin-left: 8px;
+  display: flex;
+}
+
+.formatted-content .paragraph {
+  margin-bottom: 8px;
+}
+
+.formatted-content .paragraph:last-child {
+  margin-bottom: 0;
+}
+
 .input-container {
   display: flex;
   padding: 15px;

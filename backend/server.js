@@ -1,10 +1,12 @@
-// backend/server.js
+// backend/server.js (enhanced version)
 require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { OpenAI } = require('openai');
+// Import the enhanced data sources
+const dataSources = require('./dataSources');
 
 const app = express();
 const port = 3001;
@@ -18,74 +20,17 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Data sources - in a real app, these would come from databases or APIs
-const dataSources = {
-  dashboard: {
-    sales: {
-      weekly: { total: 12450, change: 12, prev: 11116 },
-      orders: { count: 430, avgValue: 28.95 },
-      popular: ["Chicken Parmesan", "Margherita Pizza", "Tiramisu"],
-      busyHours: {
-        weekdays: "6-8 PM",
-        weekends: "12-2 PM"
-      },
-      inventory: {
-        alerts: ["chicken breast", "tomatoes", "heavy cream"]
-      }
-    }
-  },
-  reviews: {
-    overall: { rating: 4.2, count: 20 },
-    positive: [
-      { topic: "Delivery speed", mentions: 7 },
-      { topic: "Food quality", mentions: 5 }
-    ],
-    critical: [
-      { topic: "Missing items", mentions: 2 },
-      { topic: "Incorrect orders", mentions: 1 }
-    ],
-    recent: [
-      { 
-        text: "The food was excellent as always, but it took a bit longer than usual to arrive.",
-        author: "John S.",
-        rating: 3
-      }
-    ]
-  },
-  orders: {
-    repeat: { percentage: 65 },
-    delivery: { avgTime: 32 },
-    sources: { 
-      direct: 45, 
-      apps: 55 
-    },
-    issues: {
-      delayed: { percentage: 4 },
-      incorrect: { percentage: 2 }
-    }
-  },
-  operations: {
-    staff: { fullTime: 12, partTime: 8 },
-    promotions: [
-      "10% off orders over $50",
-      "Free delivery on Mondays"
-    ],
-    reservations: {
-      upcoming: { largeParties: 5, weekend: true }
-    }
-  }
-};
-
 // Base system prompt
 const BASE_SYSTEM_PROMPT = `
-You are an AI assistant for restaurant owners using a restaurant management application.
-Your role is to:
-- Answer restaurant owners' questions about their business data
+You are an AI assistant for vendors using a restaurant management application. Your role is to:
+- Answer vendors' questions about their business data
 - Provide recommendations for improving operations
 - Help identify trends and opportunities
 - Offer supportive guidance based on actual performance metrics
 
 Keep responses concise, relevant, and focused on actionable insights that would help the restaurant owner improve their business.
+
+Only provide directions to features or functionality in the application if the directions are explicitly mentioned in this prompt.
 `;
 
 // Keep a simple conversation memory for the demo
@@ -126,6 +71,12 @@ function getRelevantContext(query) {
     relevantData.operations = dataSources.operations;
   }
   
+  // Check for help/guidance related queries
+  if (queryLower.includes('help') || queryLower.includes('guide') || queryLower.includes('article') ||
+      queryLower.includes('how to') || queryLower.includes('tips')) {
+    relevantData.helpCenter = dataSources.helpCenter;
+  }
+  
   // If no specific match, provide all data
   if (Object.keys(relevantData).length === 0) {
     return dataSources;
@@ -134,7 +85,7 @@ function getRelevantContext(query) {
   return relevantData;
 }
 
-// Format context for the prompt
+// Enhanced formatContextData function to handle the richer data structure
 function formatContextData(contextData) {
   let formattedContext = "";
   
@@ -143,19 +94,21 @@ function formatContextData(contextData) {
     const sales = contextData.dashboard.sales;
     formattedContext += "DASHBOARD DATA:\n";
     if (sales.weekly) {
-      formattedContext += `- Total sales this week: $${sales.weekly.total} (up ${sales.weekly.change}% from last week)\n`;
+      formattedContext += `- Total sales this week: $${sales.weekly.total} (up ${sales.weekly.change}% from last week: $${sales.weekly.prev})\n`;
     }
     if (sales.orders) {
       formattedContext += `- Total orders: ${sales.orders.count} (average order value: $${sales.orders.avgValue})\n`;
     }
-    if (sales.popular) {
-      formattedContext += `- Most popular items: ${sales.popular.join(', ')}\n`;
+    if (sales.popular && sales.popular.length > 0) {
+      const popularItems = sales.popular.map(item => `${item.name} (${item.orders} orders)`).join(', ');
+      formattedContext += `- Most popular items: ${popularItems}\n`;
     }
     if (sales.busyHours) {
       formattedContext += `- Busiest hours: ${sales.busyHours.weekdays} weekdays, ${sales.busyHours.weekends} weekends\n`;
     }
-    if (sales.inventory && sales.inventory.alerts) {
-      formattedContext += `- Current inventory alerts: Low on ${sales.inventory.alerts.join(', ')}\n`;
+    if (sales.inventory && sales.inventory.alerts && sales.inventory.alerts.length > 0) {
+      const alerts = sales.inventory.alerts.map(alert => `${alert.item} (${alert.status})`).join(', ');
+      formattedContext += `- Current inventory alerts: ${alerts}\n`;
     }
     formattedContext += "\n";
   }
@@ -167,17 +120,19 @@ function formatContextData(contextData) {
     if (reviews.overall) {
       formattedContext += `- Overall rating: ${reviews.overall.rating}/5 stars (${reviews.overall.count} new reviews)\n`;
     }
-    if (reviews.positive) {
+    if (reviews.positive && reviews.positive.length > 0) {
       const positiveMentions = reviews.positive.map(item => `${item.topic} (${item.mentions} mentions)`).join(', ');
       formattedContext += `- Positive mentions: ${positiveMentions}\n`;
     }
-    if (reviews.critical) {
+    if (reviews.critical && reviews.critical.length > 0) {
       const criticalMentions = reviews.critical.map(item => `${item.topic} (${item.mentions} mentions)`).join(', ');
       formattedContext += `- Critical mentions: ${criticalMentions}\n`;
     }
     if (reviews.recent && reviews.recent.length > 0) {
-      const recent = reviews.recent[0];
-      formattedContext += `- Most recent review: "${recent.text}" - ${recent.author} (${recent.rating} stars)\n`;
+      formattedContext += "- Recent reviews:\n";
+      reviews.recent.slice(0, 2).forEach(review => {
+        formattedContext += `  * "${review.text}" - ${review.author} (${review.rating} stars, ${review.date})\n`;
+      });
     }
     formattedContext += "\n";
   }
@@ -198,6 +153,13 @@ function formatContextData(contextData) {
     if (orders.issues) {
       formattedContext += `- Most common issues: Delayed deliveries (${orders.issues.delayed.percentage}%), Incorrect items (${orders.issues.incorrect.percentage}%)\n`;
     }
+    if (orders.recent && orders.recent.length > 0) {
+      formattedContext += "- Recent orders:\n";
+      orders.recent.forEach(order => {
+        const time = new Date(order.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        formattedContext += `  * ${order.orderId}: ${order.customer} ordered ${order.items.join(', ')} - $${order.total} at ${time}\n`;
+      });
+    }
     formattedContext += "\n";
   }
   
@@ -208,12 +170,24 @@ function formatContextData(contextData) {
     if (ops.staff) {
       formattedContext += `- Staff scheduled this week: ${ops.staff.fullTime} full-time, ${ops.staff.partTime} part-time\n`;
     }
-    if (ops.promotions) {
-      formattedContext += `- Current promotions: ${ops.promotions.join(', ')}\n`;
+    if (ops.promotions && ops.promotions.length > 0) {
+      formattedContext += "- Current promotions:\n";
+      ops.promotions.forEach(promo => {
+        formattedContext += `  * ${promo.description} (code: ${promo.code})\n`;
+      });
     }
-    if (ops.reservations && ops.reservations.upcoming) {
-      formattedContext += `- Upcoming reservation requests: ${ops.reservations.upcoming.largeParties} parties of 6+ people this weekend\n`;
+    if (ops.reservations) {
+      formattedContext += `- Upcoming reservations: ${ops.reservations.totalReservations} total, including ${ops.reservations.largeParties} parties of 6+ people this weekend\n`;
     }
+    formattedContext += "\n";
+  }
+  
+  // Format help center data if available
+  if (contextData.helpCenter && contextData.helpCenter.articles) {
+    formattedContext += "HELP CENTER ARTICLES:\n";
+    contextData.helpCenter.articles.forEach(article => {
+      formattedContext += `- ${article.title}: ${article.summary}\n`;
+    });
   }
   
   return formattedContext;
