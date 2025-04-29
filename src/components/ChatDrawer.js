@@ -167,18 +167,23 @@ const ChatDrawer = ({ isOpen, onClose }) => {
 
   return (
     <div className={`chat-drawer ${isOpen ? 'open' : ''}`}>
-      <header className={`chat-header ${!hasInteracted ? 'hidden' : ''}`}>
-        <div className="header-title">
+      <header className="chat-header">
+        {/* Only show title and reset button after interaction */}
+        <div className={`header-title ${!hasInteracted ? 'hidden' : ''}`}>
           <SparkIcon width={24} height={24} />
           <h1>Assistant</h1>
         </div>
         <div className="header-actions">
           {/* New conversation button - only visible after interaction */}
-          <button onClick={handleReset} className="reset-button" title="Start a new conversation">
+          <button 
+            onClick={handleReset} 
+            className={`reset-button ${!hasInteracted ? 'hidden' : ''}`} 
+            title="Start a new conversation"
+          >
             <span className="material-symbols-rounded">refresh</span>
           </button>
           
-          {/* Close button */}
+          {/* Close button - always visible */}
           <button onClick={onClose} className="close-button" title="Close chat">
             <span className="material-symbols-rounded">close</span>
           </button>
@@ -217,7 +222,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
               </div>
               <h1 className="centered-title">How can I help you?</h1>
               <div className="welcome-text">
-                Ask me anything about your store data, business operations, or customer reviews.
+                You can ask me about your business operations, performance, customer reviews, advertising and more.
               </div>
             </>
           )}

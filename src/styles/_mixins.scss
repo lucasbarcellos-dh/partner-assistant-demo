@@ -180,3 +180,15 @@
       @include card-shadow-hover;
     }
   }
+
+  // Brand gradient
+  @mixin brand-gradient {
+		background:linear-gradient(
+			235deg,
+			adjust-color($primary-color, $hue: +33deg, $saturation: 100%),
+			$primary-color  ,
+			adjust-color($primary-color, $hue: -33deg, $saturation: 100%)
+		),  #fff;
+    opacity: 0.2;
+		background-size: 200% 200%;
+	}

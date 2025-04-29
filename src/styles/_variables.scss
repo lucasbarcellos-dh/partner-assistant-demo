@@ -6,10 +6,10 @@ $text-primary: #161616;
 $text-secondary: #666;
 $background-light: #f9f9f9;
 $background-white: #ffffff;
-$border-light: #e0e0e0;
+$border-light: rgba(0, 0, 0, 0.12);
 $shadow-color: rgba(0, 0, 0, 0.05);
 $shadow-color-hover: rgba(0, 0, 0, 0.08);
-$overlay-background: rgba(0, 0, 0, 0.3);
+$overlay-background: rgba(0, 0, 0, 0.4);
 $message-user-bg: $primary-color;
 $message-assistant-bg: #f0f2f5;
 
@@ -21,7 +21,7 @@ $font-size-small: 0.875rem;
 $font-size-medium: 1rem;
 $font-size-large: 1.25rem;
 $font-size-xlarge: 1.5rem;
-$font-size-xxlarge: 2rem;
+$font-size-xxlarge: 2.25rem;
 $line-height-base: 1.5;
 
 // Spacing
@@ -35,7 +35,7 @@ $spacing-xxxl: 64px;
 
 // Border radius
 $border-radius-sm: 8px;
-$border-radius-md: 16px;
+$border-radius-md: 24px;
 $border-radius-lg: 32px;
 $border-radius-xl: 56px;
 $border-radius-full: 50%;

@@ -30,7 +30,7 @@
   @include transition(right, $transition-medium, cubic-bezier(0, 0, 0.2, 1));
   @include flex-column;
   z-index: $z-index-drawer;
-  border-radius: $border-radius-lg 0 0 $border-radius-lg;
+  border-radius: $border-radius-lg 0 0 44px;
   
   &.open {
     right: 0;
@@ -50,11 +50,11 @@
   z-index: 2;
   @include transition((opacity, transform), $transition-medium);
   
-  &.hidden {
-    opacity: 0;
-    transform: translateY(-100%);
-    position: absolute;
-    width: 100%;
+  .header-title,
+  .reset-button {
+    &.hidden {
+      display: none;
+    }
   }
   
   .header-title {
@@ -71,6 +71,7 @@
   .header-actions {
     display: flex;
     gap: $spacing-sm;
+    margin-left: auto; // Push to the right
   }
   
   .reset-button,
@@ -80,15 +81,7 @@
     height: 32px;
     border-radius: $border-radius-full;
     @include flex-center;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.4);
     color: $text-primary;
-    @include transition(background-color);
-    
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-    
     .material-symbols-rounded {
       font-size: 24px;
     }
@@ -114,6 +107,7 @@
 // Centered Title
 .centered-title {
   font-size: $font-size-xxlarge;
+  font-weight: 700;
   margin: 0 0 $spacing-md 0;
   text-align: center;
   color: $text-primary;
@@ -142,13 +136,11 @@
     
     .input-container {
       position: relative;
-      padding: $spacing-lg $spacing-xl $spacing-xl;
       @include flex-column;
       align-items: center;
-      width: 90%;
-      max-width: 500px;
-      margin: 0 auto;
-      padding-bottom: 30%;
+      // width: 90%;
+      margin: 0 48px;
+      padding-bottom: 50%;
     }
     
     .welcome-text {
@@ -156,18 +148,12 @@
       font-size: $font-size-base;
       color: $text-secondary;
       line-height: $line-height-base;
-      margin-bottom: $spacing-lg;
+      margin-bottom: $spacing-xl;
       @include slide-in('up', 20px, 0.5s);
     }
     
     .input-wrapper {
       @include slide-in('up', 20px, 0.5s);
-    }
-    
-    @include respond-to(medium) {
-      .input-container {
-        width: 95%;
-      }
     }
   }
   
@@ -185,7 +171,7 @@
     
     .input-container {
       position: relative;
-      padding: $spacing-md;
+      padding: $spacing-lg;
       display: flex;
       flex-direction: row;
       width: 100%;
@@ -215,7 +201,7 @@
   
   .message-content {
     max-width: 70%;
-    padding: $spacing-md $spacing-md;
+    padding: 10px 20px;
     border-radius: $border-radius-md;
     line-height: $line-height-base;
   }
@@ -286,12 +272,13 @@
   @include form-input;
   padding-right: 48px; // Make room for the button
   box-shadow: $box-shadow-light;
+  font-size: 20px;
 }
 
 // Send Button
 .send-button {
   position: absolute;
-  right: 8px;
+  right: 12px;
   width: 40px;
   height: 40px;
   background-color: $primary-color;
