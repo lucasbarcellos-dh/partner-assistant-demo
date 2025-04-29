@@ -2,7 +2,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 
-// New component to handle formatted message content
+const backendURL = "https://8e3f7f7953d7.ngrok.app"
+
+// Handle formatted message content
 const FormattedMessageContent = ({ content }) => {
   // Function to convert plain text with newlines to proper HTML formatting
   const formatText = (text) => {
@@ -81,7 +83,7 @@ function App() {
   // Call the backend API
   const callAssistantAPI = async (userInput) => {
     try {
-      const response = await fetch('http://localhost:3001/api/assistant', {
+      const response = await fetch(backendURL + '/api/assistant', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -105,7 +107,7 @@ function App() {
   const handleReset = async () => {
     try {
       // Reset the conversation history on the server
-      const response = await fetch('http://localhost:3001/api/reset', {
+      const response = await fetch(backendURL + '/api/reset', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

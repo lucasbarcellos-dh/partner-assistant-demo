@@ -22,7 +22,7 @@ const openai = new OpenAI({
 
 // Base system prompt
 const BASE_SYSTEM_PROMPT = `
-You are an AI assistant for vendors using a restaurant management application. Your role is to:
+You are an AI assistant inside a store/restaurant management application used by vendors to manage orders and their business. Your role is to:
 - Answer vendors' questions about their business data
 - Provide recommendations for improving operations
 - Help identify trends and opportunities
