@@ -1,0 +1,76 @@
+/* Header.css */
+.app-header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .app-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+  }
+  
+  .chat-toggle-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #df1067;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    width: 40px;
+    height: 40px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  
+  .chat-toggle-button:hover {
+    background-color: #df1067;
+  }
+  
+  .chat-toggle-button .material-symbols-rounded {
+    font-size: 24px;
+  }
+  
+  .button-text {
+    font-size: 14px;
+  }
+  
+  /* Media queries for responsive design */
+  @media (max-width: 768px) {
+    .app-title {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .button-text {
+      display: none;
+    }
+    
+    .chat-toggle-button {
+      padding: 10px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      justify-content: center;
+    }
+    
+    .chat-toggle-button .material-symbols-rounded {
+      margin-right: 0;
+    }
+  }

@@ -36,10 +36,9 @@ const FormattedMessageContent = ({ content }) => {
   );
 };
 
-const ChatDrawer = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const ChatDrawer = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([
-    { sender: 'assistant', content: 'Hi there! I\'m your restaurant assistant. How can I help you today?' }
+    { sender: 'assistant', content: 'Hi there! How can I help you today?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -51,10 +50,6 @@ const ChatDrawer = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
-  const toggleDrawer = () => {
-    setIsOpen(!isOpen);
-  };
 
   const handleSend = async () => {
     if (input.trim() === '') return;
@@ -124,7 +119,7 @@ const ChatDrawer = () => {
       
       // Reset the UI
       setMessages([
-        { sender: 'assistant', content: 'Hi there! I\'m your restaurant assistant. How can I help you today?' }
+        { sender: 'assistant', content: 'Hi there! How can I help you today?' }
       ]);
     } catch (error) {
       console.error('Error resetting conversation:', error);
@@ -132,67 +127,59 @@ const ChatDrawer = () => {
   };
 
   return (
-    <div className="chat-widget">
-      {/* Chat toggle button */}
-      <button 
-        className={`chat-toggle-button ${isOpen ? 'open' : ''}`} 
-        onClick={toggleDrawer}
-        aria-label="Toggle chat"
-      >
-        {isOpen ? (
-          <span className="material-symbols-rounded">close</span>
-        ) : (
-          <span className="material-symbols-rounded">chat</span>
-        )}
-      </button>
-      
-      {/* Chat drawer */}
-      <div className={`chat-drawer ${isOpen ? 'open' : ''}`}>
-        <header className="chat-header">
-          <h1>Restaurant AI Assistant</h1>
-          {/* <button onClick={handleReset} className="reset-button">
-            New Conversation
-          </button> */}
-        </header>
-        
-        <div className="chat-container">
-          <div className="messages-container">
-            {messages.map((message, index) => (
-              <div key={index} className={`message ${message.sender}`}>
-                <div className="message-content">
-                  <FormattedMessageContent content={message.content} />
-                </div>
-              </div>
-            ))}
-            {isLoading && (
-              <div className="message assistant">
-                <div className="message-content typing-indicator">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
+    <div className={`chat-drawer ${isOpen ? 'open' : ''}`}>
+      <header className="chat-header">
+        <h1>Assistant</h1>
+        <div className="header-actions">
+          {/* New conversation button */}
+          <button onClick={handleReset} className="reset-button" title="Start a new conversation">
+            <span className="material-symbols-rounded">refresh</span>
+          </button>
           
-          <div className="input-container">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              placeholder="Ask something about your restaurant..."
-              disabled={isLoading}
-            />
-            <button onClick={handleSend} disabled={isLoading} className="send-button">
-              {isLoading ? (
-                <span className="sending-text">Sending...</span>
-              ) : (
-                <span className="material-symbols-rounded">send</span>
-              )}
-            </button>
-          </div>
+          {/* Close button */}
+          <button onClick={onClose} className="close-button" title="Close chat">
+            <span className="material-symbols-rounded">close</span>
+          </button>
+        </div>
+      </header>
+      
+      <div className="chat-container">
+        <div className="messages-container">
+          {messages.map((message, index) => (
+            <div key={index} className={`message ${message.sender}`}>
+              <div className="message-content">
+                <FormattedMessageContent content={message.content} />
+              </div>
+            </div>
+          ))}
+          {isLoading && (
+            <div className="message assistant">
+              <div className="message-content typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+        
+        <div className="input-container">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+            placeholder="Ask something about your store..."
+            disabled={isLoading}
+          />
+          <button onClick={handleSend} disabled={isLoading} className="send-button">
+            {isLoading ? (
+              <span className="sending-text">Sending...</span>
+            ) : (
+              <span className="material-symbols-rounded">send</span>
+            )}
+          </button>
         </div>
       </div>
     </div>
