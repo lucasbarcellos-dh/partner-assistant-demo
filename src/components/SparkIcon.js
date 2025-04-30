@@ -1,3 +1,4 @@
+// src/components/SparkIcon.js
 import React from 'react';
 
 const SparkIcon = ({ width = 32, height = 32, fill = "#FF2B85" }) => (

@@ -1,57 +1,106 @@
+// src/components/Header.scss
 @import '../styles/variables';
 @import '../styles/mixins';
 
 .app-header {
-  padding: $spacing-md 0;
-  position: sticky;
-  top: 0;
-  z-index: $z-index-header;
+  // width: 1312px;
+  height: 112px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  height: 48px;
+  padding: 0 16px;
+  border-radius: 24px;
   
-  .header-container {
-    @include container;
-    @include flex-between;
+  .status-dot {
+    width: 16px;
+    height: 16px;
+    background-color: #4caf50;
+    border-radius: 50%;
+    margin-right: 12px;
   }
   
-  .app-title {
-    font-size: $font-size-xlarge;
-    color: $text-primary;
-    margin: 0;
+  .status-text {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+}
+
+.action-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  color: $text-primary;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
   }
   
-  .chat-toggle-button {
-    @include icon-button(56px);
-    padding-right: 4px;
-    
-    .material-symbols-rounded,
-    svg {
-      font-size: 32px;
-      fill: $primary-color;
-    }
-    
-    .button-text {
-      font-size: 14px;
-    }
+  .material-symbols-rounded {
+    font-size: 24px;
   }
+}
+
+.notification-button {
+  position: relative;
   
-  // Media queries using our mixins
-  @include respond-to(large) {
-    .app-title {
-      font-size: $font-size-large;
-    }
+  &::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    background-color: $primary-color;
+    border-radius: 50%;
+    border: 2px solid white;
   }
-  
-  @include respond-to(small) {
-    .button-text {
-      display: none;
-    }
-    
-    .chat-toggle-button {
-      padding: $spacing-sm;
-      justify-content: center;
-      
-      .material-symbols-rounded {
-        margin-right: 0;
-      }
-    }
+}
+
+.chat-toggle-button {
+  svg {
+    fill: $primary-color;
   }
+}
+
+.user-profile {
+  cursor: pointer;
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
