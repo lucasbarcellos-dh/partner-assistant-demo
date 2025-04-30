@@ -5,12 +5,26 @@ import SparkIcon from './SparkIcon'; // Import the SparkIcon component
 
 // Handle formatted message content
 const FormattedMessageContent = ({ content }) => {
-  // Function to convert plain text with newlines to proper HTML formatting
+  // Function to convert plain text with Markdown-like syntax to proper HTML formatting
   const formatText = (text) => {
     if (!text) return null;
     
     // Split by newlines
     return text.split('\n').map((line, i) => {
+      // Check for headings (lines starting with #, ##, ###)
+      const headingMatch = line.match(/^(#{1,6})\s+(.+)$/);
+      if (headingMatch) {
+        const level = headingMatch[1].length; // Number of # symbols
+        const headingContent = formatBoldText(headingMatch[2]);
+        
+        // Return appropriate heading based on level
+        return (
+          <div key={i} className={`markdown-heading markdown-h${level}`}>
+            {headingContent}
+          </div>
+        );
+      }
+      
       // Check if this is a list item (starts with -, *, or numbers followed by .)
       const isListItem = /^\s*(?:[-*]|\d+\.)\s+/.test(line);
       
