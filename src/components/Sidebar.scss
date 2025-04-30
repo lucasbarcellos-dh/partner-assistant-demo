@@ -3,9 +3,9 @@
 @import '../styles/mixins';
 
 .sidebar {
-  width: 226px;
+  width: 280px;
   background-color: white;
-  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  border-right: 1px solid rgba(0, 0, 0, 0.04);
   overflow-y: auto;
   height: 100vh;
   padding: $spacing-md 0;
@@ -14,8 +14,8 @@
 }
 
 .logo-container {
-  padding: 0 $spacing-lg $spacing-lg;
-  margin-bottom: $spacing-md;
+  padding: 24px 32px 0;
+  margin-bottom: 32px;
 }
 
 .logo {
@@ -25,7 +25,7 @@
   font-weight: 700;
   
   .logo-text {
-    color: #333;
+    color: #161616;
   }
   
   .logo-partner {
@@ -43,10 +43,10 @@
   margin-bottom: $spacing-lg;
   
   .nav-section-title {
-    padding: 0 $spacing-lg;
-    font-size: 13px;
+    padding: 0 32px;
+    font-size: 14px;
     color: $text-secondary;
-    margin-bottom: $spacing-xs;
+    margin-bottom: 8px;
   }
 }
 
@@ -63,10 +63,11 @@
 .nav-link {
   display: flex;
   align-items: center;
-  padding: $spacing-sm $spacing-lg;
+  padding: 8px 32px;
   color: $text-primary;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 500;
   transition: background-color 0.2s;
   
   &:hover, &.active {
@@ -84,7 +85,7 @@
 }
 
 .nav-icon {
-  margin-right: $spacing-sm;
+  margin-right: 16px;
   width: 24px;
   height: 24px;
   display: flex;
