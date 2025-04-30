@@ -109,11 +109,33 @@ You have access to the information sources:
 | 2025-04-28 | 18       | 0           | 1,311.00 | 18              | 0             | 18                | 0               | 1,311.00       | 0            | 1,311.00         | 0              | Kids Veggies, Sweet Potato Fries, Arwa Water                                                    |
 | 2025-04-29 | 30       | 0           | 2,689.00 | 29              | 1             | 30                | 0               | 2,621.00       | 68           | 2,689.00         | 0              | Chicken Chutney Wrap, The Ploughman, Strawberry Ice Cream, Vegan Salted Caramel Cheesecake      |
 
-## SALES:
-- Last 7 days: XXX
-- Total orders: 430 (average order value: €28.95)
-- Most popular items: Chicken Parmesan (78 orders), Margherita Pizza (65 orders), Tiramisu (43 orders)
-- Busiest hours: 6-8 PM weekdays, 12-2 PM weekends
+## SALES PER HOUR DATA (Last 30 Days):
+| Hour   | Orders   | Sales     |
+|:-------|:---------|:----------|
+| 0      | 13       | 1,055.00  |
+| 1      | 0        | 0.00      |
+| 2      | 0        | 0.00      |
+| 3      | 0        | 0.00      |
+| 4      | 0        | 0.00      |
+| 5      | 0        | 0.00      |
+| 6      | 0        | 0.00      |
+| 7      | 0        | 0.00      |
+| 8      | 0        | 0.00      |
+| 9      | 0        | 0.00      |
+| 10     | 52       | 3,594.00  |
+| 11     | 144      | 13,048.70 |
+| 12     | 160      | 13,076.00 |
+| 13     | 120      | 9,066.20  |
+| 14     | 84       | 7,288.00  |
+| 15     | 85       | 7,589.50  |
+| 16     | 100      | 9,647.50  |
+| 17     | 125      | 11,543.00 |
+| 18     | 165      | 16,777.00 |
+| 19     | 262      | 26,066.00 |
+| 20     | 185      | 16,276.50 |
+| 21     | 152      | 13,996.50 |
+| 22     | 116      | 9,719.00  |
+| 23     | 46       | 3,861.00  |
 
 ## CUSTOMER REVIEWS (Last 7 Days):
 - Overall rating: 4.2/5 stars
@@ -133,14 +155,11 @@ You have access to the information sources:
 - Repeat customers: 65% of orders
 - Average delivery time: 32 minutes
 - Most common issues: Delayed deliveries (4%), Incorrect items (2%)
-- Recent orders:
-* 4892: Emma W. ordered Fettuccine Alfredo, Garlic Bread, Tiramisu - $42.75 at 6:42 PM
-* 4891: Michael T. ordered Chicken Parmesan, Caesar Salad - $31.95 at 6:15 PM
 - Opening times: 9am to 8pm on weekdays, 9am to 10pm on weekends
 
 ## BUSINESS GROWTH:
 - Current promotions:
-* 10% off orders over $50 (code: SAVE10)
+* 10% off orders over €50 (code: SAVE10)
 * Free delivery on Mondays (code: MONDAYFREE)
 
 ## HELP CENTER ARTICLES:

@@ -7,8 +7,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="logo-container">
         <div className="logo">
-          <span className="logo-text">panda</span>
-          <span className="logo-partner">partner</span>
+          <img src="/dh-logo.svg" alt="Deliveryhero Logo" className="dh-logo" />
         </div>
       </div>
       

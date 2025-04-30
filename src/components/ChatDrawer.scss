@@ -171,12 +171,12 @@
       align-items: center;
       // width: 90%;
       margin: 0 48px;
-      padding-bottom: 33%;
+      padding-bottom: 50%;
     }
     
     .welcome-text {
       text-align: center;
-      font-size: $font-size-base;
+      font-size: 18px;
       color: $text-branded-primary;
       line-height: $line-height-base;
       margin-bottom: $spacing-xl;
@@ -305,6 +305,35 @@
   strong {
     font-weight: 600;
   }
+  
+  // New styles for headings
+  .heading {
+    font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    color: $text-primary;
+    
+    &.heading-1 {
+      font-size: 22px;
+      margin-top: 16px;
+    }
+    
+    &.heading-2 {
+      font-size: 20px;
+    }
+    
+    &.heading-3 {
+      font-size: 18px;
+    }
+    
+    &.heading-4 {
+      font-size: 16px;
+    }
+    
+    &.heading-5, &.heading-6 {
+      font-size: 14px;
+    }
+  }
 }
 
 // Input Container
@@ -325,7 +354,7 @@
 // Text Input
 .input-container input {
   @include form-input;
-  padding-right: 48px; // Make room for the button
+  padding-right: 56px; // Make room for the button
   font-size: 20px;
   @include transition(all, $transition-fast);
 }
@@ -403,7 +432,7 @@
 // Question Chips Container and Subtitle
 .question-chips-container {
   width: 100%;
-  padding: 0 $spacing-sm;
+  padding: 0 2px;
   
   // Container animation in the initial state
   .centered-input & {
@@ -461,7 +490,7 @@
   @include button-reset;
   color: $text-branded-secondary;
   padding: 4px 12px;
-  border-radius: 12px;
+  border-radius: 24px;
   font-size: $font-size-medium;
   line-height: 1.5;
   border: 1.5px solid rgba($primary-color, 0.12);

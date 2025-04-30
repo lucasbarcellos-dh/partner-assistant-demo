@@ -21,21 +21,10 @@
 .logo {
   display: flex;
   align-items: center;
-  font-size: 22px;
-  font-weight: 700;
   
-  .logo-text {
-    color: #161616;
-  }
-  
-  .logo-partner {
-    display: inline-block;
-    background-color: $primary-color;
-    color: white;
-    padding: 1px 6px;
-    border-radius: 4px;
-    font-size: 16px;
-    margin-left: 4px;
+  .dh-logo {
+    height: 28px;
+    width: auto;
   }
 }
 
@@ -101,6 +90,4 @@
       'GRAD' 0,
       'opsz' 24;
   }
-  
-  
 }

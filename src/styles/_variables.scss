@@ -4,7 +4,7 @@ $primary-color-dark: #cb0e5c;
 $secondary-color: #4a6fa5;
 $text-primary: #161616;
 $text-secondary: #666;
-$text-branded-primary: adjust-color($primary-color, $lightness: -40%, $saturation: 30%);
+$text-branded-primary: adjust-color($primary-color, $lightness: -30%, $saturation: 20%);
 $text-branded-secondary: adjust-color($primary-color, $lightness: -10%, $saturation: -70%);
 $text-branded-disabled: adjust-color($primary-color, $lightness: 16%, $saturation: -80%);
 $background-light: #f9f9f9;

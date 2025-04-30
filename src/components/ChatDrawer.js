@@ -11,6 +11,28 @@ const FormattedMessageContent = ({ content }) => {
     
     // Split by newlines
     return text.split('\n').map((line, i) => {
+      // Check if this is a heading (starts with one or more # followed by a space)
+      const headingMatch = line.match(/^(#{1,6})\s+(.+)$/);
+      if (headingMatch) {
+        const headingLevel = headingMatch[1].length; // Number of # characters
+        const headingText = headingMatch[2];
+        // Create appropriate heading element based on heading level
+        return (
+          <div 
+            key={i} 
+            className={`heading heading-${headingLevel}`}
+            style={{ 
+              fontSize: `${22 - headingLevel * 2}px`, 
+              fontWeight: 'bold',
+              marginBottom: '8px',
+              marginTop: '16px'
+            }}
+          >
+            {formatBoldText(headingText)}
+          </div>
+        );
+      }
+      
       // Check if this is a list item (starts with -, *, or numbers followed by .)
       const isListItem = /^\s*(?:[-*]|\d+\.)\s+/.test(line);
       
@@ -82,7 +104,7 @@ const QuestionChips = ({ onSelectQuestion, isLoading }) => {
 
   return (
     <div className="question-chips-container">
-      <div className="chips-subtitle">Some things you can ask:</div>
+      
       <div className="question-chips">
         {suggestedQuestions.map((question, index) => (
           <button 
@@ -342,7 +364,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              placeholder="Ask something about your store..."
+              placeholder="Ask something about your business…"
               disabled={isLoading}
               ref={inputRef}
             />
