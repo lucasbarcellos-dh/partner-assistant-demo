@@ -391,3 +391,189 @@
     animation: blink 1s infinite 0.5s;
   }
 }
+
+// Question Chips Container and Subtitle
+.question-chips-container {
+  width: 100%;
+  
+  // Make container and subtitle appear with a nice animation in the initial state
+  .centered-input & {
+    margin-top: $spacing-lg;
+    @include slide-in('up', 20px, 0.6s);
+  }
+}
+
+.chips-subtitle {
+  font-size: $font-size-small;
+  color: $text-secondary;
+  margin-bottom: $spacing-xs;
+  text-align: center;
+  
+  // Style differences in different states
+  .centered-input & {
+    margin-bottom: $spacing-sm;
+  }
+  
+  .bottom-input & {
+    text-align: left;
+    font-size: 11px;
+    padding: 0 $spacing-md;
+    margin-top: $spacing-xs;
+  }
+}
+
+// Question Chips
+.question-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  padding: $spacing-xs 0 $spacing-md;
+  width: 100%;
+  justify-content: center;
+  
+  // Make chips stack in a centered way when in the initial state
+  .centered-input & {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  // Make chips more compact in bottom-input state
+  .bottom-input & {
+    padding: 0 $spacing-md $spacing-md;
+    justify-content: flex-start;
+    margin-top: 0;
+  }
+}
+
+/* Add this to the end of your src/components/ChatDrawer.scss file */
+
+// Question Chips Container and Subtitle
+.question-chips-container {
+  width: 100%;
+  padding: 0 $spacing-sm;
+  
+  // Container animation in the initial state
+  .centered-input & {
+    margin-top: $spacing-lg;
+    @include slide-in('up', 20px, 0.6s);
+  }
+  
+  // Less padding in conversation state to align with messages
+  .bottom-input & {
+    padding: 0 $spacing-lg;
+  }
+}
+
+.chips-subtitle {
+  font-size: $font-size-small;
+  color: $text-secondary;
+  margin-bottom: $spacing-xs;
+  text-align: left;
+  
+  // Style differences in different states
+  .centered-input & {
+    margin-bottom: $spacing-sm;
+  }
+  
+  .bottom-input & {
+    font-size: 11px;
+    margin-top: $spacing-xs;
+  }
+}
+
+// Question Chips - grid layout
+.question-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  padding: $spacing-xs 0 $spacing-md;
+  width: 100%;
+  justify-content: flex-start; // Left alignment
+  
+  // Grid behavior is handled by flex-wrap: wrap
+  
+  // Styles for initial state
+  .centered-input & {
+    max-width: 100%;
+  }
+  
+  // Make chips compact in bottom-input state
+  .bottom-input & {
+    padding: 0 0 $spacing-md;
+    margin-top: 0;
+  }
+}
+
+.question-chip {
+  @include button-reset;
+  background-color: $background-light;
+  color: $text-primary;
+  padding: $spacing-xs $spacing-md;
+  border-radius: $border-radius-xl;
+  font-size: $font-size-small;
+  line-height: 1.5;
+  border: 1px solid $border-light;
+  white-space: nowrap;
+  transition: all $transition-fast ease;
+  box-shadow: none;
+  
+  &:hover {
+    background-color: lighten($background-light, 2%);
+    border-color: rgba($primary-color, 0.3);
+    transform: translateY(-1px);
+    box-shadow: $box-shadow-light;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    &:hover {
+      transform: none;
+      box-shadow: none;
+      background-color: $background-light;
+      border-color: $border-light;
+    }
+  }
+  
+  // Apply different styling when in initial state
+  .centered-input & {
+    background-color: $background-white;
+    &:hover {
+      box-shadow: $box-shadow-light;
+      border-color: rgba($primary-color, 0.2);
+    }
+  }
+  
+  // Apply more modest styling when in bottom state
+  .bottom-input & {
+    background-color: $background-light;
+    box-shadow: none;
+    font-size: 12px;
+    padding: 4px 12px;
+  }
+  
+  // Responsive styles
+  @include respond-to(medium) {
+    font-size: 11px;
+    padding: 3px 10px;
+    
+    .centered-input & {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+  }
+}
+
+// Update input-container for new chips layout
+.input-container {
+  @include transition(all, $transition-medium);
+  
+  // Adjust padding when in bottom-input state to make room for chips
+  &.bottom-input & {
+    padding-bottom: $spacing-sm;
+  }
+}

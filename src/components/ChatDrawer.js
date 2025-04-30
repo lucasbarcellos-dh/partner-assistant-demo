@@ -1,3 +1,4 @@
+// src/components/ChatDrawer.js
 import React, { useState, useRef, useEffect } from 'react';
 import './ChatDrawer.scss';
 import SparkIcon from './SparkIcon'; // Import the SparkIcon component
@@ -69,6 +70,39 @@ const FormattedMessageContent = ({ content }) => {
   );
 };
 
+// Question Chips Component
+const QuestionChips = ({ onSelectQuestion, isLoading }) => {
+  // Sample suggested questions - extended list for grid layout
+  const suggestedQuestions = [
+    "How did last week go?",
+    "What are my top selling items?",
+    "What's my customer rating?",
+    "How can I improve my reviews?",
+    "Show me my sales performance",
+    "Which days was I offline?",
+    "When was I busiest?",
+    "How many orders did I get this month?"
+  ];
+
+  return (
+    <div className="question-chips-container">
+      <div className="chips-subtitle">Some things you can ask:</div>
+      <div className="question-chips">
+        {suggestedQuestions.map((question, index) => (
+          <button 
+            key={index} 
+            className="question-chip"
+            onClick={() => onSelectQuestion(question)}
+            disabled={isLoading}
+          >
+            {question}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const ChatDrawer = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([
     { sender: 'assistant', content: 'Hi there! How can I help you today?' }
@@ -105,6 +139,51 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       }, 100);
     }
   }, [hasInteracted]);
+
+  // Handle selection of a suggested question and auto-submit
+  const handleSelectQuestion = (question) => {
+    // Set the input first
+    setInput(question);
+    
+    // Then trigger the send process with the selected question
+    // We need to use setTimeout to ensure the input state is updated before sending
+    setTimeout(() => {
+      // Create a copy of the question for the API call
+      const selectedQuestion = question;
+      
+      // Mark as interacted on first user message
+      if (!hasInteracted) {
+        setHasInteracted(true);
+      }
+      
+      // Add user message to chat
+      const userMessage = { sender: 'user', content: selectedQuestion };
+      setMessages(prevMessages => [...prevMessages, userMessage]);
+      setInput('');
+      setIsLoading(true);
+      
+      // Call your backend API
+      callAssistantAPI(selectedQuestion)
+        .then(response => {
+          // Add assistant response to chat
+          const assistantMessage = { sender: 'assistant', content: response };
+          setMessages(prevMessages => [...prevMessages, assistantMessage]);
+        })
+        .catch(error => {
+          console.error('Error calling assistant API:', error);
+          // Handle error - show message to user
+          setMessages(prevMessages => [
+            ...prevMessages, 
+            { sender: 'assistant', content: 'Sorry, I encountered an error. Please try again.' }
+          ]);
+        })
+        .finally(() => {
+          setIsLoading(false);
+          // Re-focus the input after sending
+          inputRef.current?.focus();
+        });
+    }, 0);
+  };
 
   const handleSend = async () => {
     if (input.trim() === '') return;
@@ -283,6 +362,12 @@ const ChatDrawer = ({ isOpen, onClose }) => {
               )}
             </button>
           </div>
+          
+          {/* Add Question Chips */}
+          <QuestionChips 
+            onSelectQuestion={handleSelectQuestion}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </div>
