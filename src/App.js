@@ -3,6 +3,7 @@ import './App.scss';
 import Header from './components/Header';
 import ChatDrawer from './components/ChatDrawer';
 import Overlay from './components/Overlay';
+import BackgroundImage from './components/BackgroundImage';
 
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);

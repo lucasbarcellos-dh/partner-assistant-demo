@@ -2,8 +2,6 @@
 @import '../styles/mixins';
 
 .app-header {
-  background-color: $background-white;
-  box-shadow: $box-shadow-medium;
   padding: $spacing-md 0;
   position: sticky;
   top: 0;
