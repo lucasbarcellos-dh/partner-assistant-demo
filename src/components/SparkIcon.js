@@ -1,7 +1,7 @@
 // Create a separate SparkIcon component for reusability
 import React from 'react';
 
-const SparkIcon = ({ width = 32, height = 32, fill = "#df1067" }) => (
+const SparkIcon = ({ width = 32, height = 32, fill = "#FF2B85" }) => (
   <svg 
     xmlns="http://www.w3.org/2000/svg" 
     enableBackground="new 0 0 24 24" 

@@ -1,5 +1,5 @@
 // Colors
-$primary-color: #df1067;
+$primary-color: #FF2B85;
 $primary-color-dark: #cb0e5c;
 $secondary-color: #4a6fa5;
 $text-primary: #161616;
@@ -44,6 +44,7 @@ $border-radius-full: 50%;
 $box-shadow-light: 0 2px 6px $shadow-color;
 $box-shadow-medium: 0 8px 12px $shadow-color;
 $box-shadow-hover: 0 2px 8px $shadow-color-hover;
+$box-shadow-branded: 0px 4px 32px 0px rgba($primary-color, 0.10), 0px 2px 4px 0px rgba($primary-color, 0.06);
 
 // Transitions
 $transition-fast: 0.2s;

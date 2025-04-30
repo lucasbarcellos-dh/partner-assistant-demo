@@ -82,7 +82,7 @@
 }
 
 @mixin card-shadow-hover {
-  box-shadow: $box-shadow-hover;
+  box-shadow: $box-shadow-branded;
 }
 
 // Container Styles
@@ -167,7 +167,7 @@
 @mixin form-input {
   width: 100%;
   padding: $spacing-md $spacing-lg;
-  border: 1px solid $border-light;
+  border: none;
   border-radius: $border-radius-xl;
   font-size: $font-size-base;
   line-height: $line-height-base;
@@ -176,7 +176,6 @@
   @include transition(border-color);
   
   &:focus {
-    border-color: rgba(0, 0, 0, 0.16);
     @include card-shadow-hover;
   }
 }
