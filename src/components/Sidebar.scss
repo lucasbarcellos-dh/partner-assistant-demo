@@ -91,71 +91,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $text-secondary;
-}
-
-// Simulate icons for the demo
-.icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  color: $text-primary;
   
-  &.icon-bag:before {
-    content: "🛍️";
+  .material-symbols-rounded {
+    font-size: 24px;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 300,
+      'GRAD' 0,
+      'opsz' 24;
   }
   
-  &.icon-grid:before {
-    content: "📊";
-  }
   
-  &.icon-chart:before {
-    content: "📈";
-  }
-  
-  &.icon-clock:before {
-    content: "⏱️";
-  }
-  
-  &.icon-star:before {
-    content: "⭐";
-  }
-  
-  &.icon-trophy:before {
-    content: "🏆";
-  }
-  
-  &.icon-chart-up:before {
-    content: "📈";
-  }
-  
-  &.icon-megaphone:before {
-    content: "📣";
-  }
-  
-  &.icon-tag:before {
-    content: "🏷️";
-  }
-  
-  &.icon-menu:before {
-    content: "📋";
-  }
-  
-  &.icon-clock-outline:before {
-    content: "🕒";
-  }
-  
-  &.icon-wallet:before {
-    content: "💰";
-  }
-  
-  &.icon-graduation-cap:before {
-    content: "🎓";
-  }
-  
-  &.icon-settings:before {
-    content: "⚙️";
-  }
 }

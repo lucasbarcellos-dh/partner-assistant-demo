@@ -18,7 +18,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link active">
               <span className="nav-icon">
-                <i className="icon icon-bag"></i>
+                <span className="material-symbols-rounded">shopping_bag</span>
               </span>
               <span className="nav-text">Live orders</span>
             </a>
@@ -26,7 +26,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-grid"></i>
+                <span className="material-symbols-rounded">dashboard</span>
               </span>
               <span className="nav-text">Overview</span>
             </a>
@@ -40,7 +40,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-chart"></i>
+                <span className="material-symbols-rounded">monitoring</span>
               </span>
               <span className="nav-text">Reports</span>
             </a>
@@ -48,7 +48,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-clock"></i>
+                <span className="material-symbols-rounded">history</span>
               </span>
               <span className="nav-text">Order history</span>
             </a>
@@ -56,7 +56,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-star"></i>
+                <span className="material-symbols-rounded">star</span>
               </span>
               <span className="nav-text">Reviews</span>
             </a>
@@ -64,7 +64,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-trophy"></i>
+                <span className="material-symbols-rounded">trophy</span>
               </span>
               <span className="nav-text">Rewards</span>
             </a>
@@ -78,7 +78,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-chart-up"></i>
+                <span className="material-symbols-rounded">trending_up</span>
               </span>
               <span className="nav-text">Smart Marketer</span>
             </a>
@@ -86,7 +86,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-megaphone"></i>
+                <span className="material-symbols-rounded">campaign</span>
               </span>
               <span className="nav-text">Advertising</span>
             </a>
@@ -94,7 +94,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-tag"></i>
+                <span className="material-symbols-rounded">local_offer</span>
               </span>
               <span className="nav-text">Promotions</span>
             </a>
@@ -108,7 +108,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-menu"></i>
+                <span className="material-symbols-rounded">restaurant_menu</span>
               </span>
               <span className="nav-text">Menu</span>
             </a>
@@ -116,7 +116,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-clock-outline"></i>
+                <span className="material-symbols-rounded">schedule</span>
               </span>
               <span className="nav-text">Opening times</span>
             </a>
@@ -124,7 +124,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-wallet"></i>
+                <span className="material-symbols-rounded">account_balance_wallet</span>
               </span>
               <span className="nav-text">Finances</span>
             </a>
@@ -132,7 +132,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-graduation-cap"></i>
+                <span className="material-symbols-rounded">school</span>
               </span>
               <span className="nav-text">University</span>
             </a>
@@ -140,7 +140,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <i className="icon icon-settings"></i>
+                <span className="material-symbols-rounded">settings</span>
               </span>
               <span className="nav-text">Settings</span>
             </a>
