@@ -20,14 +20,46 @@ const FormattedMessageContent = ({ content }) => {
         // List item - add proper styling
         return (
           <div key={i} className="list-item">
-            {line}
+            {formatBoldText(line)}
           </div>
         );
       } else {
         // Regular paragraph
-        return <p key={i} className="paragraph">{line}</p>;
+        return <p key={i} className="paragraph">{formatBoldText(line)}</p>;
       }
     });
+  };
+  
+  // Function to handle bold text formatting (text wrapped in ** or __)
+  const formatBoldText = (text) => {
+    if (!text) return null;
+    
+    // Regular expression to match text between ** or __ markers
+    const boldRegex = /(\*\*|__)(.*?)\1/g;
+    
+    // Split text by bold markers
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+    
+    while ((match = boldRegex.exec(text)) !== null) {
+      // Add text before match
+      if (match.index > lastIndex) {
+        parts.push(text.substring(lastIndex, match.index));
+      }
+      
+      // Add bold text
+      parts.push(<strong key={match.index}>{match[2]}</strong>);
+      
+      lastIndex = match.index + match[0].length;
+    }
+    
+    // Add remaining text
+    if (lastIndex < text.length) {
+      parts.push(text.substring(lastIndex));
+    }
+    
+    return parts.length > 0 ? parts : text;
   };
 
   return (

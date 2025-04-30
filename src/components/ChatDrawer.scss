@@ -281,9 +281,8 @@
   }
   
   .list-item {
-    margin-bottom: 6px;
-    margin-left: $spacing-sm;
-    display: flex;
+    margin-bottom: 4px;
+    margin-left: 0;
   }
   
   .paragraph {
@@ -292,6 +291,10 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+  
+  strong {
+    font-weight: 600;
   }
 }
 
