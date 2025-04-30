@@ -179,3 +179,11 @@
     @include card-shadow-hover;
   }
 }
+
+@mixin branded-gradient {
+  background: linear-gradient(
+    adjust-color($primary-color, $hue: -33deg, $saturation: 100%),
+    rgba($primary-color, 0.1),
+    adjust-color($primary-color, $hue: +33deg, $saturation: 100%)
+  );
+}
