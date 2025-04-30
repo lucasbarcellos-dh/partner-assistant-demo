@@ -1,4 +1,3 @@
-// Create a separate SparkIcon component for reusability
 import React from 'react';
 
 const SparkIcon = ({ width = 32, height = 32, fill = "#FF2B85" }) => (
@@ -10,6 +9,19 @@ const SparkIcon = ({ width = 32, height = 32, fill = "#FF2B85" }) => (
     width={`${width}px`} 
     fill={fill}
   >
+    <defs>
+      <linearGradient id="brandedGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#FF5B9E" /> {/* Hue shifted -20deg, more saturated */}
+        <stop offset="50%" stopColor="#FF2B85" /> {/* Primary color */}
+        <stop offset="100%" stopColor="#FF2B5B" /> {/* Hue shifted +20deg, more saturated */}
+      </linearGradient>
+      
+      <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#FF5B9E" /> {/* Hue shifted -20deg, more saturated */}
+        <stop offset="50%" stopColor="#FF2B85" /> {/* Primary color */}
+        <stop offset="100%" stopColor="#FF2B5B" /> {/* Hue shifted +20deg, more saturated */}
+      </linearGradient>
+    </defs>
     <g><rect fill="none" height="24" width="24" x="0"/></g>
     <g>
       <g>

@@ -26,8 +26,7 @@
   right: -$drawer-width;
   width: $drawer-width;
   height: 100vh;
-  // background-color: $background-white;
-  @include branded-gradient;
+  background-color: $background-white;
   @include transition(right, $transition-medium, cubic-bezier(0, 0, 0.2, 1));
   @include flex-column;
   z-index: $z-index-drawer;
@@ -46,9 +45,9 @@
       rgba(rgba(255,255,255), 1),
     ),
     linear-gradient(
-      rgba(adjust-color($primary-color, $hue: -33deg, $saturation: 100%), 0.1),
-      rgba($primary-color, 0.1),
-      rgba(adjust-color($primary-color, $hue: +33deg, $saturation: 100%), 0.1),
+      rgba(adjust-color($primary-color, $hue: -33deg, $saturation: 100%), 0.08),
+      rgba($primary-color, 0.08),
+      rgba(adjust-color($primary-color, $hue: +33deg, $saturation: 100%), 0.08),
     );
     // Add transition for smooth fade out
     @include transition(all, $transition-medium, cubic-bezier(0, 0, 0.2, 1));
@@ -84,6 +83,13 @@
       font-size: $font-size-large;
       margin: 0;
     }
+    
+    // Apply gradient to sparkle icon in header
+    svg {
+      path, circle {
+        fill: url(#headerGradient);
+      }
+    }
   }
   
   .header-actions {
@@ -112,15 +118,30 @@
   justify-content: center;
   margin-bottom: $spacing-xl;
   animation: message-fade-in 0.5s ease-out;
+  // Apply gradient to centered sparkle icon
+  svg {
+    path, circle {
+      fill: url(#brandedGradient);
+    }
+  }
 }
 
 // Centered Title
 .centered-title {
   font-size: $font-size-xxlarge;
+  letter-spacing: -0.5px;
   font-weight: 700;
   margin: 0 0 $spacing-md 0;
   text-align: center;
-  color: $text-primary;
+  color: transparent;  // Make text color transparent to show gradient
+  background: linear-gradient(
+    225deg,
+    adjust-color($primary-color, $hue: +20deg, $saturation: 70%),
+    $primary-color,
+    adjust-color($primary-color, $hue: -20deg, $saturation: 70%)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
   width: 100%;
   opacity: 1;
   @include transition(opacity);
@@ -304,24 +325,27 @@
   right: 12px;
   width: 40px;
   height: 40px;
-  background-color: $primary-color;
-  color: $background-white;
   border: none;
   border-radius: $border-radius-full;
   @include flex-center;
   cursor: pointer;
   @include transition((background-color, transform), $transition-fast);
   
-  &:hover {
-    background-color: $primary-color-dark;
-  }
+  // Apply gradient to the send button
+  background: linear-gradient(
+    225deg,
+    adjust-color($primary-color, $hue: +20deg, $saturation: 70%),
+    $primary-color,
+    adjust-color($primary-color, $hue: -20deg, $saturation: 70%)
+  );
+  color: $background-white;
   
   &:active {
     transform: scale(0.95);
   }
   
   &:disabled {
-    background-color: $primary-color-dark;
+    background: $primary-color-dark;
     cursor: not-allowed;
   }
   
