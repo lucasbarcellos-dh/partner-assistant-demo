@@ -11,15 +11,15 @@ const SparkIcon = ({ width = 32, height = 32, fill = "#FF2B85" }) => (
   >
     <defs>
       <linearGradient id="brandedGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FF5B9E" /> {/* Hue shifted -20deg, more saturated */}
-        <stop offset="50%" stopColor="#FF2B85" /> {/* Primary color */}
-        <stop offset="100%" stopColor="#FF2B5B" /> {/* Hue shifted +20deg, more saturated */}
+        <stop offset="0%" stopColor="#FF2BFA" /> 
+        <stop offset="50%" stopColor="#FF2B85" /> 
+        <stop offset="100%" stopColor="#FF462B" /> 
       </linearGradient>
       
       <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#FF5B9E" /> {/* Hue shifted -20deg, more saturated */}
-        <stop offset="50%" stopColor="#FF2B85" /> {/* Primary color */}
-        <stop offset="100%" stopColor="#FF2B5B" /> {/* Hue shifted +20deg, more saturated */}
+        <stop offset="0%" stopColor="#FF2BFA" /> 
+        <stop offset="50%" stopColor="#FF2B85" /> 
+        <stop offset="100%" stopColor="#FF462B" /> 
       </linearGradient>
     </defs>
     <g><rect fill="none" height="24" width="24" x="0"/></g>

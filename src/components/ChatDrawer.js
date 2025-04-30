@@ -75,13 +75,9 @@ const QuestionChips = ({ onSelectQuestion, isLoading }) => {
   // Sample suggested questions - extended list for grid layout
   const suggestedQuestions = [
     "How did last week go?",
-    "What are my top selling items?",
-    "What's my customer rating?",
-    "How can I improve my reviews?",
-    "Show me my sales performance",
-    "Which days was I offline?",
-    "When was I busiest?",
-    "How many orders did I get this month?"
+    "Is it worth investing in ads?",
+    "What do people order most on weekends?",
+    "How are my recent reviews?",
   ];
 
   return (
@@ -285,7 +281,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
         {/* Only show title and reset button after interaction */}
         <div className={`header-title ${!hasInteracted ? 'hidden' : ''}`}>
           <SparkIcon width={24} height={24} />
-          <h1>Assistant</h1>
+          <h1>Chefie</h1>
         </div>
         <div className="header-actions">
           {/* New conversation button - only visible after interaction */}
@@ -363,11 +359,13 @@ const ChatDrawer = ({ isOpen, onClose }) => {
             </button>
           </div>
           
-          {/* Add Question Chips */}
-          <QuestionChips 
-            onSelectQuestion={handleSelectQuestion}
-            isLoading={isLoading}
-          />
+          {/* Only show Question Chips in initial state */}
+          {!hasInteracted && (
+            <QuestionChips 
+              onSelectQuestion={handleSelectQuestion}
+              isLoading={isLoading}
+            />
+          )}
         </div>
       </div>
     </div>

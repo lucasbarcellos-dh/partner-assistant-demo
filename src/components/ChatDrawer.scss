@@ -45,9 +45,9 @@
       rgba(rgba(255,255,255), 1),
     ),
     linear-gradient(
-      rgba(adjust-color($primary-color, $hue: -33deg, $saturation: 100%), 0.05),
-      rgba($primary-color, 0.05),
-      rgba(adjust-color($primary-color, $hue: +33deg, $saturation: 100%), 0.05),
+      rgba(adjust-color($primary-color, $hue: -33deg, $saturation: 100%), 0.04),
+      rgba($primary-color, 0.04),
+      rgba(adjust-color($primary-color, $hue: +33deg, $saturation: 100%), 0.04),
     );
     // Add transition for smooth fade out
     @include transition(all, $transition-medium, cubic-bezier(0, 0, 0.2, 1));
@@ -171,13 +171,13 @@
       align-items: center;
       // width: 90%;
       margin: 0 48px;
-      padding-bottom: 50%;
+      padding-bottom: 33%;
     }
     
     .welcome-text {
       text-align: center;
       font-size: $font-size-base;
-      color: $text-primary;
+      color: $text-branded-primary;
       line-height: $line-height-base;
       margin-bottom: $spacing-xl;
       @include slide-in('up', 20px, 0.5s);
@@ -191,6 +191,7 @@
     .input-wrapper input {
       box-shadow: $box-shadow-branded;
       border: none;
+      color: $text-primary;
     }
   }
   
@@ -218,6 +219,9 @@
     .input-wrapper input {
       box-shadow: none;
       border: 1px solid $border-light;
+      &::placeholder {
+        color: rgba($text-primary, 0.37);
+      }
     }
   }
 }
@@ -250,7 +254,12 @@
   }
   
   &.user .message-content {
-    background-color: $message-user-bg;
+    font-weight: 600;
+    background: linear-gradient(
+      225deg,
+      adjust-color($primary-color, $hue: -8deg),
+      $primary-color,
+    );
     color: $background-white;
     border-radius: $border-radius-md $border-radius-md 0 $border-radius-md;
   }
@@ -319,7 +328,6 @@
   padding-right: 48px; // Make room for the button
   font-size: 20px;
   @include transition(all, $transition-fast);
-  // Base styling - specific shadows/borders applied in state classes
 }
 
 // Send Button
@@ -395,61 +403,6 @@
 // Question Chips Container and Subtitle
 .question-chips-container {
   width: 100%;
-  
-  // Make container and subtitle appear with a nice animation in the initial state
-  .centered-input & {
-    margin-top: $spacing-lg;
-    @include slide-in('up', 20px, 0.6s);
-  }
-}
-
-.chips-subtitle {
-  font-size: $font-size-small;
-  color: $text-secondary;
-  margin-bottom: $spacing-xs;
-  text-align: center;
-  
-  // Style differences in different states
-  .centered-input & {
-    margin-bottom: $spacing-sm;
-  }
-  
-  .bottom-input & {
-    text-align: left;
-    font-size: 11px;
-    padding: 0 $spacing-md;
-    margin-top: $spacing-xs;
-  }
-}
-
-// Question Chips
-.question-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $spacing-sm;
-  padding: $spacing-xs 0 $spacing-md;
-  width: 100%;
-  justify-content: center;
-  
-  // Make chips stack in a centered way when in the initial state
-  .centered-input & {
-    max-width: 100%;
-    margin: 0 auto;
-  }
-  
-  // Make chips more compact in bottom-input state
-  .bottom-input & {
-    padding: 0 $spacing-md $spacing-md;
-    justify-content: flex-start;
-    margin-top: 0;
-  }
-}
-
-/* Add this to the end of your src/components/ChatDrawer.scss file */
-
-// Question Chips Container and Subtitle
-.question-chips-container {
-  width: 100%;
   padding: 0 $spacing-sm;
   
   // Container animation in the initial state
@@ -466,7 +419,7 @@
 
 .chips-subtitle {
   font-size: $font-size-small;
-  color: $text-secondary;
+  color: $text-branded-secondary;
   margin-bottom: $spacing-xs;
   text-align: left;
   
@@ -506,22 +459,18 @@
 
 .question-chip {
   @include button-reset;
-  background-color: $background-light;
-  color: $text-primary;
-  padding: $spacing-xs $spacing-md;
-  border-radius: $border-radius-xl;
-  font-size: $font-size-small;
+  color: $text-branded-secondary;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: $font-size-medium;
   line-height: 1.5;
-  border: 1px solid $border-light;
+  border: 1.5px solid rgba($primary-color, 0.12);
   white-space: nowrap;
   transition: all $transition-fast ease;
   box-shadow: none;
   
   &:hover {
-    background-color: lighten($background-light, 2%);
-    border-color: rgba($primary-color, 0.3);
-    transform: translateY(-1px);
-    box-shadow: $box-shadow-light;
+    border-color: 1.5px solid rgba($primary-color, 0.24);
   }
   
   &:active {
@@ -541,9 +490,7 @@
   
   // Apply different styling when in initial state
   .centered-input & {
-    background-color: $background-white;
     &:hover {
-      box-shadow: $box-shadow-light;
       border-color: rgba($primary-color, 0.2);
     }
   }
