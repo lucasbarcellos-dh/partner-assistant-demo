@@ -45,9 +45,9 @@
       rgba(rgba(255,255,255), 1),
     ),
     linear-gradient(
-      rgba(adjust-color($primary-color, $hue: -33deg, $saturation: 100%), 0.08),
-      rgba($primary-color, 0.08),
-      rgba(adjust-color($primary-color, $hue: +33deg, $saturation: 100%), 0.08),
+      rgba(adjust-color($primary-color, $hue: -33deg, $saturation: 100%), 0.05),
+      rgba($primary-color, 0.05),
+      rgba(adjust-color($primary-color, $hue: +33deg, $saturation: 100%), 0.05),
     );
     // Add transition for smooth fade out
     @include transition(all, $transition-medium, cubic-bezier(0, 0, 0.2, 1));
