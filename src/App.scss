@@ -2,10 +2,6 @@
 @import './styles/variables';
 @import './styles/mixins';
 
-input {
-  caret-color: $primary-color;
-}
-
 
 .app {
   display: flex;

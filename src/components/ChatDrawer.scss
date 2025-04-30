@@ -30,7 +30,7 @@
   @include transition(right, $transition-medium, cubic-bezier(0, 0, 0.2, 1));
   @include flex-column;
   z-index: $z-index-drawer;
-  border-radius: $border-radius-lg 0 0 44px;
+  border-radius: $border-radius-lg 0 0 32px;
   
   &.open {
     right: 0;
@@ -131,7 +131,7 @@
   font-size: $font-size-xxlarge;
   letter-spacing: -0.5px;
   font-weight: 700;
-  margin: 0 0 $spacing-md 0;
+  margin: 0 0 12px 0;
   text-align: center;
   color: transparent;  // Make text color transparent to show gradient
   background: linear-gradient(
@@ -188,10 +188,9 @@
     }
     
     // Apply branded shadow only in initial state
-    .input-wrapper input {
+    .input-wrapper .chat-textarea {
       box-shadow: $box-shadow-branded;
       border: none;
-      color: $text-primary;
     }
   }
   
@@ -203,7 +202,7 @@
     .messages-container {
       flex: 1;
       overflow-y: auto;
-      padding: $spacing-xl;
+      padding: 16px $spacing-xl $spacing-xl;
       display: block;
     }
     
@@ -216,9 +215,10 @@
     }
     
     // Apply subtle border after interaction
-    .input-wrapper input {
+    .input-wrapper .chat-textarea {
       box-shadow: none;
       border: 1px solid $border-light;
+      font-size: 18px;
       &::placeholder {
         color: rgba($text-primary, 0.37);
       }
@@ -305,35 +305,6 @@
   strong {
     font-weight: 600;
   }
-  
-  // New styles for headings
-  .heading {
-    font-weight: 600;
-    margin-top: 12px;
-    margin-bottom: 8px;
-    color: $text-primary;
-    
-    &.heading-1 {
-      font-size: 22px;
-      margin-top: 16px;
-    }
-    
-    &.heading-2 {
-      font-size: 20px;
-    }
-    
-    &.heading-3 {
-      font-size: 18px;
-    }
-    
-    &.heading-4 {
-      font-size: 16px;
-    }
-    
-    &.heading-5, &.heading-6 {
-      font-size: 14px;
-    }
-  }
 }
 
 // Input Container
@@ -348,25 +319,40 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end; // Change from center to flex-end to align with textarea bottom
 }
 
-// Text Input
-.input-container input {
+// Chat Textarea
+.chat-textarea {
   @include form-input;
-  padding-right: 56px; // Make room for the button
+  padding-right: 64px; // Make room for the button
   font-size: 20px;
+  resize: none; // Disable manual resizing
+  overflow-y: hidden; // Hide scrollbar
+  min-height: 56px; // Set a minimum height
+  max-height: 160px; // Limit maximum height
+  line-height: 1.5;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  width: 100%;
   @include transition(all, $transition-fast);
+  
+  caret-color: $primary-color;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 // Send Button
 .send-button {
   position: absolute;
   right: 12px;
-  width: 40px;
-  height: 40px;
+  top: 11px; // Adjust to align with textarea
+  width: 36px;
+  height: 36px;
   border: none;
-  border-radius: $border-radius-full;
+  border-radius: 14px;
   @include flex-center;
   cursor: pointer;
   @include transition((background-color, transform), $transition-fast);
@@ -432,7 +418,6 @@
 // Question Chips Container and Subtitle
 .question-chips-container {
   width: 100%;
-  padding: 0 2px;
   
   // Container animation in the initial state
   .centered-input & {
@@ -490,7 +475,7 @@
   @include button-reset;
   color: $text-branded-secondary;
   padding: 4px 12px;
-  border-radius: 24px;
+  border-radius: 12px;
   font-size: $font-size-medium;
   line-height: 1.5;
   border: 1.5px solid rgba($primary-color, 0.12);

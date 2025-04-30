@@ -166,13 +166,14 @@
 // Input Styles
 @mixin form-input {
   width: 100%;
-  padding: $spacing-md $spacing-lg;
+  padding: $spacing-md 20px;
   border: none;
-  border-radius: $border-radius-xl;
-  font-size: $font-size-base;
+  border-radius: 20px;
+  font-size: 20px;
   line-height: $line-height-base;
   font-family: $font-family-main;
   outline: none;
+  background-color: $background-white;
   @include transition(border-color);
 
   &::placeholder {

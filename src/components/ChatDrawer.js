@@ -11,28 +11,6 @@ const FormattedMessageContent = ({ content }) => {
     
     // Split by newlines
     return text.split('\n').map((line, i) => {
-      // Check if this is a heading (starts with one or more # followed by a space)
-      const headingMatch = line.match(/^(#{1,6})\s+(.+)$/);
-      if (headingMatch) {
-        const headingLevel = headingMatch[1].length; // Number of # characters
-        const headingText = headingMatch[2];
-        // Create appropriate heading element based on heading level
-        return (
-          <div 
-            key={i} 
-            className={`heading heading-${headingLevel}`}
-            style={{ 
-              fontSize: `${22 - headingLevel * 2}px`, 
-              fontWeight: 'bold',
-              marginBottom: '8px',
-              marginTop: '16px'
-            }}
-          >
-            {formatBoldText(headingText)}
-          </div>
-        );
-      }
-      
       // Check if this is a list item (starts with -, *, or numbers followed by .)
       const isListItem = /^\s*(?:[-*]|\d+\.)\s+/.test(line);
       
@@ -104,7 +82,6 @@ const QuestionChips = ({ onSelectQuestion, isLoading }) => {
 
   return (
     <div className="question-chips-container">
-      
       <div className="question-chips">
         {suggestedQuestions.map((question, index) => (
           <button 
@@ -129,7 +106,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const messagesEndRef = useRef(null);
-  const inputRef = useRef(null); // Reference to the input field
+  const textareaRef = useRef(null); // Reference to the textarea field
   
   const backendURL = "https://8e3f7f7953d7.ngrok.app";
 
@@ -138,7 +115,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
     if (isOpen) {
       // Small timeout to ensure the drawer animation has started
       setTimeout(() => {
-        inputRef.current?.focus();
+        textareaRef.current?.focus();
       }, 300); // Matches the drawer transition time
     }
   }, [isOpen]);
@@ -157,6 +134,30 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       }, 100);
     }
   }, [hasInteracted]);
+
+  // Auto-resize textarea as content grows
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+    
+    // Function to adjust height based on content
+    const adjustHeight = () => {
+      textarea.style.height = 'auto';
+      const scrollHeight = textarea.scrollHeight;
+      textarea.style.height = `${scrollHeight}px`;
+    };
+    
+    // Initial adjustment
+    adjustHeight();
+    
+    // Add event listener for input changes
+    textarea.addEventListener('input', adjustHeight);
+    
+    // Cleanup
+    return () => {
+      textarea.removeEventListener('input', adjustHeight);
+    };
+  }, [input]);
 
   // Handle selection of a suggested question and auto-submit
   const handleSelectQuestion = (question) => {
@@ -197,8 +198,8 @@ const ChatDrawer = ({ isOpen, onClose }) => {
         })
         .finally(() => {
           setIsLoading(false);
-          // Re-focus the input after sending
-          inputRef.current?.focus();
+          // Re-focus the textarea after sending
+          textareaRef.current?.focus();
         });
     }, 0);
   };
@@ -233,8 +234,8 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       ]);
     } finally {
       setIsLoading(false);
-      // Re-focus the input after sending
-      inputRef.current?.focus();
+      // Re-focus the textarea after sending
+      textareaRef.current?.focus();
     }
   };
 
@@ -282,10 +283,19 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       ]);
       setHasInteracted(false);
       
-      // Focus the input field after reset
-      inputRef.current?.focus();
+      // Focus the textarea field after reset
+      textareaRef.current?.focus();
     } catch (error) {
       console.error('Error resetting conversation:', error);
+    }
+  };
+
+  // Handle key down event for textarea
+  const handleKeyDown = (e) => {
+    // If Enter is pressed without Shift, send the message
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Prevent default to avoid new line
+      handleSend();
     }
   };
 
@@ -359,14 +369,15 @@ const ChatDrawer = ({ isOpen, onClose }) => {
             </>
           )}
           <div className="input-wrapper">
-            <input
-              type="text"
+            <textarea
+              ref={textareaRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+              onKeyDown={handleKeyDown}
               placeholder="Ask something about your business…"
               disabled={isLoading}
-              ref={inputRef}
+              rows="1"
+              className="chat-textarea"
             />
             <button onClick={handleSend} disabled={isLoading} className="send-button">
               {isLoading ? (
