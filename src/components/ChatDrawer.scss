@@ -171,7 +171,7 @@
       align-items: center;
       // width: 90%;
       margin: 0 48px;
-      padding-bottom: 33%;
+      padding-bottom: 30%;
     }
     
     .welcome-text {
@@ -387,7 +387,7 @@
   width: 36px;
   height: 36px;
   border: none;
-  border-radius: 14px;
+  border-radius: 12px;
   @include flex-center;
   cursor: pointer;
   @include transition((background-color, transform), $transition-fast);

@@ -122,7 +122,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null); // Reference to the textarea field
   
-  const backendURL = "https://8e3f7f7953d7.ngrok.app";
+  const backendURL = "https://a32f124a5971.ngrok.app";
 
   // Handle initial transition when the drawer opens
   useEffect(() => {
