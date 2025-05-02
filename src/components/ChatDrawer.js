@@ -122,7 +122,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null); // Reference to the textarea field
   
-  const backendURL = "https://a32f124a5971.ngrok.app";
+  const backendURL = "http://localhost:3001";
 
   // Handle initial transition when the drawer opens
   useEffect(() => {
@@ -261,7 +261,10 @@ const ChatDrawer = ({ isOpen, onClose }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message: userInput }),
+        body: JSON.stringify({ 
+          message: userInput,
+          userId: 'user-123' // Optional: Add user identification for thread management
+        }),
       });
       
       if (!response.ok) {
@@ -284,7 +287,10 @@ const ChatDrawer = ({ isOpen, onClose }) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
+        body: JSON.stringify({ 
+          userId: 'user-123' // Optional: Add user identification for thread management
+        })
       });
       
       if (!response.ok) {
