@@ -1,4 +1,4 @@
-// backend/server.js (updated to use OpenAI Responses API with streaming)
+// backend/server.js (using OpenAI Chat Completions API with streaming)
 require('dotenv').config();
 
 const express = require('express');
@@ -63,7 +63,7 @@ app.post('/api/assistant', async (req, res) => {
     
     let responseContent = '';
     
-    // Call the Responses API with streaming enabled
+    // Call the Chat Completions API with streaming enabled
     const stream = await openai.chat.completions.create({
       model: config.model,
       messages: messages,
@@ -73,7 +73,6 @@ app.post('/api/assistant', async (req, res) => {
     
     // Process the stream
     for await (const chunk of stream) {
-      // Extract the content delta from the chunk
       const content = chunk.choices[0]?.delta?.content || '';
       
       if (content) {
@@ -145,7 +144,7 @@ app.get('/api/assistant', async (req, res) => {
     
     let responseContent = '';
     
-    // Call the Responses API with streaming enabled
+    // Call the Chat Completions API with streaming enabled
     const stream = await openai.chat.completions.create({
       model: config.model,
       messages: messages,
@@ -155,7 +154,6 @@ app.get('/api/assistant', async (req, res) => {
     
     // Process the stream
     for await (const chunk of stream) {
-      // Extract the content delta from the chunk
       const content = chunk.choices[0]?.delta?.content || '';
       
       if (content) {
