@@ -236,42 +236,68 @@
   @include transition(all, $transition-medium);
 }
 
-// Message Component
+// Message Component - Updated for a plain style
 .message {
-  margin-bottom: $spacing-md;
-  display: flex;
+  margin-bottom: $spacing-xl;
   animation: message-fade-in 0.3s ease;
   
   &.user {
+    margin-bottom: $spacing-md;
+    display: flex;
     justify-content: flex-end;
+    
+    .message-content {
+      max-width: 80%;
+      padding: 12px 20px;
+      border-radius: $border-radius-md;
+      font-weight: 600;
+      background: linear-gradient(
+        225deg,
+        adjust-color($primary-color, $hue: -8deg),
+        $primary-color,
+      );
+      color: $background-white;
+      border-radius: $border-radius-md $border-radius-md 0 $border-radius-md;
+    }
   }
   
-  .message-content {
-    max-width: 70%;
-    padding: 12px 20px;
-    border-radius: $border-radius-md;
-    line-height: $line-height-base;
+  &.assistant {
+    position: relative;
+    
+    .message-content {
+      color: $text-primary;
+      // No background for assistant messages
+      background-color: transparent;
+      padding: 0;
+      max-width: 100%;
+    }
+    
+    // Add sender identifier for assistant (like ChatGPT style)
+    &::before {
+      content: "Chefie";
+      display: block;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 8px;
+      color: $text-primary;
+    }
   }
   
-  &.user .message-content {
-    font-weight: 600;
-    background: linear-gradient(
-      225deg,
-      adjust-color($primary-color, $hue: -8deg),
-      $primary-color,
-    );
-    color: $background-white;
-    border-radius: $border-radius-md $border-radius-md 0 $border-radius-md;
-  }
-  
-  &.assistant .message-content {
-    background-color: $message-assistant-bg;
-    color: $text-primary;
-    border-radius: $border-radius-md $border-radius-md $border-radius-md 0;
+  // Typing indicator special case for assistant
+  &.assistant.typing {
+    &::before {
+      content: "Chefie is typing";
+      opacity: 0.7;
+    }
+    
+    .message-content.typing-indicator {
+      background-color: transparent;
+      padding: 8px 0;
+    }
   }
   
   @include respond-to(medium) {
-    .message-content {
+    &.user .message-content {
       max-width: 85%;
     }
   }
