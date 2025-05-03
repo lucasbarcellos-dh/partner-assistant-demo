@@ -1,4 +1,4 @@
-// backend/server.js (using OpenAI Assistants API)
+// backend/server.js (updated to use OpenAI Responses API with streaming)
 require('dotenv').config();
 
 const express = require('express');
@@ -6,7 +6,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { OpenAI } = require('openai');
 const config = require('./config');
-const { getAssistantId, saveAssistantId } = require('./assistantConfig');
 
 const app = express();
 const port = config.port;
@@ -20,121 +19,169 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Retrieve assistant ID from config file
-let assistantId = getAssistantId();
+// Import the system prompt content
+const STATIC_SYSTEM_PROMPT = require('./static-prompt');
 
-async function initializeAssistant() {
-  try {
-    // Import the system prompt content
-    const STATIC_SYSTEM_PROMPT = require('./static-prompt');
-    
-    // Get the assistant ID from config
-    if (assistantId) {
-      console.log(`Using existing assistant with ID: ${assistantId}`);
-      return;
-    }
-    
-    // If no assistant ID exists in config, create a new one
-    console.log('Creating new assistant...');
-    const assistant = await openai.beta.assistants.create({
-      name: "Partner Assistant",
-      instructions: STATIC_SYSTEM_PROMPT,
-      model: config.model,
-      tools: []
-    });
-    
-    assistantId = assistant.id;
-    console.log(`Assistant created with ID: ${assistantId}`);
-    saveAssistantId(assistantId);
-    
-  } catch (error) {
-    console.error('Error initializing assistant:', error);
-    process.exit(1); // Exit if we can't initialize the assistant
-  }
-}
+// Store user conversations (in a real app, this would be in a database)
+const userConversations = {};
 
-// Store user threads (in a real app, this would be in a database)
-const userThreads = {};
-
-// Assistant endpoint
+// Assistant endpoint with streaming (POST version for regular AJAX requests)
 app.post('/api/assistant', async (req, res) => {
   try {
     const { message, userId = 'default-user' } = req.body;
     
-    // Create or retrieve the user's thread
-    if (!userThreads[userId]) {
-      const thread = await openai.beta.threads.create();
-      userThreads[userId] = thread.id;
-      console.log(`New thread created for user ${userId}: ${thread.id}`);
+    // Create or retrieve the user's conversation history
+    if (!userConversations[userId]) {
+      userConversations[userId] = [];
     }
     
-    const threadId = userThreads[userId];
-    
-    // Add the user message to the thread
-    await openai.beta.threads.messages.create(
-      threadId,
-      {
-        role: "user",
-        content: message
-      }
-    );
-    
-    // Run the assistant on the thread
-    const run = await openai.beta.threads.runs.create(
-      threadId,
-      {
-        assistant_id: assistantId
-      }
-    );
-    
-    // Poll for the run to complete
-    let completedRun;
-    while (true) {
-      completedRun = await openai.beta.threads.runs.retrieve(
-        threadId,
-        run.id
-      );
-      
-      if (completedRun.status === 'completed' || 
-          completedRun.status === 'failed' || 
-          completedRun.status === 'cancelled') {
-        break;
-      }
-      
-      // Wait before polling again
-      await new Promise(resolve => setTimeout(resolve, 500));
-    }
-    
-    if (completedRun.status !== 'completed') {
-      throw new Error(`Run failed with status: ${completedRun.status}`);
-    }
-    
-    // Retrieve the assistant's messages
-    const messages = await openai.beta.threads.messages.list(
-      threadId
-    );
-    
-    // Get the latest assistant message
-    const assistantMessages = messages.data.filter(msg => msg.role === 'assistant');
-    const latestMessage = assistantMessages[0]; // Messages are returned in reverse chronological order
-    
-    // Extract the content from the message
-    let responseContent = '';
-    if (latestMessage && latestMessage.content && latestMessage.content.length > 0) {
-      responseContent = latestMessage.content
-        .filter(item => item.type === 'text')
-        .map(item => item.text.value)
-        .join('\n');
-    }
-    
-    // Send the response
-    res.json({ 
-      response: responseContent 
+    // Add the new user message
+    userConversations[userId].push({
+      role: "user",
+      content: message
     });
+    
+    // Ensure we don't exceed the maximum conversation history
+    if (userConversations[userId].length > config.maxConversationHistory * 2) {
+      // Keep only the most recent messages (pairs of user and assistant messages)
+      userConversations[userId] = userConversations[userId].slice(-config.maxConversationHistory * 2);
+    }
+    
+    // Build the messages array for the API call
+    const messages = [
+      {
+        role: "system",
+        content: STATIC_SYSTEM_PROMPT
+      },
+      ...userConversations[userId]
+    ];
+    
+    // Set headers for SSE (Server-Sent Events)
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    
+    let responseContent = '';
+    
+    // Call the Responses API with streaming enabled
+    const stream = await openai.chat.completions.create({
+      model: config.model,
+      messages: messages,
+      temperature: 0.7,
+      stream: true,
+    });
+    
+    // Process the stream
+    for await (const chunk of stream) {
+      // Extract the content delta from the chunk
+      const content = chunk.choices[0]?.delta?.content || '';
+      
+      if (content) {
+        // Append to the full response
+        responseContent += content;
+        
+        // Send the chunk to the client
+        res.write(`data: ${JSON.stringify({ chunk: content })}\n\n`);
+      }
+    }
+    
+    // Store the assistant's response in the conversation history
+    userConversations[userId].push({
+      role: "assistant",
+      content: responseContent
+    });
+    
+    // Send the end event
+    res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
+    res.end();
     
   } catch (error) {
     console.error('Error calling OpenAI:', error);
-    res.status(500).json({ error: 'Failed to process request' });
+    // Send error as SSE
+    res.write(`data: ${JSON.stringify({ error: 'Failed to process request' })}\n\n`);
+    res.end();
+  }
+});
+
+// Assistant endpoint with streaming (GET version for EventSource)
+app.get('/api/assistant', async (req, res) => {
+  try {
+    const { message, userId = 'default-user' } = req.query;
+    
+    if (!message) {
+      return res.status(400).json({ error: 'Message is required' });
+    }
+    
+    // Create or retrieve the user's conversation history
+    if (!userConversations[userId]) {
+      userConversations[userId] = [];
+    }
+    
+    // Add the new user message
+    userConversations[userId].push({
+      role: "user",
+      content: message
+    });
+    
+    // Ensure we don't exceed the maximum conversation history
+    if (userConversations[userId].length > config.maxConversationHistory * 2) {
+      // Keep only the most recent messages (pairs of user and assistant messages)
+      userConversations[userId] = userConversations[userId].slice(-config.maxConversationHistory * 2);
+    }
+    
+    // Build the messages array for the API call
+    const messages = [
+      {
+        role: "system",
+        content: STATIC_SYSTEM_PROMPT
+      },
+      ...userConversations[userId]
+    ];
+    
+    // Set headers for SSE (Server-Sent Events)
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    
+    let responseContent = '';
+    
+    // Call the Responses API with streaming enabled
+    const stream = await openai.chat.completions.create({
+      model: config.model,
+      messages: messages,
+      temperature: 0.7,
+      stream: true,
+    });
+    
+    // Process the stream
+    for await (const chunk of stream) {
+      // Extract the content delta from the chunk
+      const content = chunk.choices[0]?.delta?.content || '';
+      
+      if (content) {
+        // Append to the full response
+        responseContent += content;
+        
+        // Send the chunk to the client
+        res.write(`data: ${JSON.stringify({ chunk: content })}\n\n`);
+      }
+    }
+    
+    // Store the assistant's response in the conversation history
+    userConversations[userId].push({
+      role: "assistant",
+      content: responseContent
+    });
+    
+    // Send the end event
+    res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
+    res.end();
+    
+  } catch (error) {
+    console.error('Error calling OpenAI:', error);
+    // Send error as SSE
+    res.write(`data: ${JSON.stringify({ error: 'Failed to process request' })}\n\n`);
+    res.end();
   }
 });
 
@@ -143,11 +190,9 @@ app.post('/api/reset', async (req, res) => {
   try {
     const { userId = 'default-user' } = req.body;
     
-    if (userThreads[userId]) {
-      // Create a new thread
-      const thread = await openai.beta.threads.create();
-      userThreads[userId] = thread.id;
-      console.log(`Reset thread for user ${userId}: ${thread.id}`);
+    // Clear conversation history
+    if (userConversations[userId]) {
+      userConversations[userId] = [];
     }
     
     res.json({ success: true, message: 'Conversation history reset successfully' });
@@ -157,13 +202,7 @@ app.post('/api/reset', async (req, res) => {
   }
 });
 
-// Initialize the assistant before starting the server
-initializeAssistant().then(() => {
-  // Start server
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-  });
-}).catch(error => {
-  console.error('Failed to initialize assistant:', error);
-  process.exit(1);
+// Start server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

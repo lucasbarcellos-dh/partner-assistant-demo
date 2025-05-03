@@ -173,110 +173,116 @@ const ChatDrawer = ({ isOpen, onClose }) => {
     };
   }, [input]);
 
-  // Handle selection of a suggested question and auto-submit
-  const handleSelectQuestion = (question) => {
-    // Set the input first
-    setInput(question);
-    
-    // Then trigger the send process with the selected question
-    // We need to use setTimeout to ensure the input state is updated before sending
-    setTimeout(() => {
-      // Create a copy of the question for the API call
-      const selectedQuestion = question;
-      
+  // Handle streamed response from the server
+  const handleStreamedResponse = async (userInput) => {
+    try {
       // Mark as interacted on first user message
       if (!hasInteracted) {
         setHasInteracted(true);
       }
       
       // Add user message to chat
-      const userMessage = { sender: 'user', content: selectedQuestion };
+      const userMessage = { sender: 'user', content: userInput };
       setMessages(prevMessages => [...prevMessages, userMessage]);
       setInput('');
       setIsLoading(true);
       
-      // Call your backend API
-      callAssistantAPI(selectedQuestion)
-        .then(response => {
-          // Add assistant response to chat
-          const assistantMessage = { sender: 'assistant', content: response };
-          setMessages(prevMessages => [...prevMessages, assistantMessage]);
-        })
-        .catch(error => {
-          console.error('Error calling assistant API:', error);
-          // Handle error - show message to user
-          setMessages(prevMessages => [
-            ...prevMessages, 
-            { sender: 'assistant', content: 'Sorry, I encountered an error. Please try again.' }
-          ]);
-        })
-        .finally(() => {
+      // Create an initial empty assistant message
+      const assistantMessageId = Date.now();
+      setMessages(prevMessages => [
+        ...prevMessages, 
+        { sender: 'assistant', content: '', id: assistantMessageId }
+      ]);
+      
+      // Set up event source for streaming
+      const eventSource = new EventSource(`${backendURL}/api/assistant?userId=user-123&message=${encodeURIComponent(userInput)}`);
+      
+      let fullResponse = '';
+      
+      // Handle streaming chunks
+      eventSource.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        
+        if (data.error) {
+          console.error('Error from server:', data.error);
+          eventSource.close();
           setIsLoading(false);
-          // Re-focus the textarea after sending
-          textareaRef.current?.focus();
-        });
+          return;
+        }
+        
+        if (data.done) {
+          // Stream complete
+          eventSource.close();
+          setIsLoading(false);
+          return;
+        }
+        
+        if (data.chunk) {
+          // Append the new chunk to the full response
+          fullResponse += data.chunk;
+          
+          // Update the assistant message with the accumulated response
+          setMessages(prevMessages => 
+            prevMessages.map(msg => 
+              msg.id === assistantMessageId 
+                ? { ...msg, content: fullResponse } 
+                : msg
+            )
+          );
+        }
+      };
+      
+      // Handle errors
+      eventSource.onerror = (error) => {
+        console.error('EventSource error:', error);
+        eventSource.close();
+        setIsLoading(false);
+        
+        // If we haven't received any content yet, show an error message
+        if (!fullResponse) {
+          setMessages(prevMessages => 
+            prevMessages.map(msg => 
+              msg.id === assistantMessageId 
+                ? { ...msg, content: 'Sorry, I encountered an error. Please try again.' } 
+                : msg
+            )
+          );
+        }
+      };
+      
+    } catch (error) {
+      console.error('Error setting up streaming:', error);
+      setIsLoading(false);
+    }
+  };
+
+  // Handle selection of a suggested question and auto-submit
+  const handleSelectQuestion = (question) => {
+    // Set the input first
+    setInput(question);
+    
+    // Then trigger the send process with the selected question
+    setTimeout(() => {
+      // Create a copy of the question for the API call
+      const selectedQuestion = question;
+      
+      // Use the streaming response handler
+      handleStreamedResponse(selectedQuestion);
+      
+      // Re-focus the textarea after sending
+      textareaRef.current?.focus();
     }, 0);
   };
 
+  // Handle sending a message
   const handleSend = async () => {
     if (input.trim() === '') return;
     
-    // Mark as interacted on first user message
-    if (!hasInteracted) {
-      setHasInteracted(true);
-    }
+    // Use the streaming response handler
+    await handleStreamedResponse(input);
     
-    // Add user message to chat
-    const userMessage = { sender: 'user', content: input };
-    setMessages(prevMessages => [...prevMessages, userMessage]);
-    setInput('');
-    setIsLoading(true);
-    
-    try {
-      // Call your backend API here
-      const response = await callAssistantAPI(input);
-      
-      // Add assistant response to chat
-      const assistantMessage = { sender: 'assistant', content: response };
-      setMessages(prevMessages => [...prevMessages, assistantMessage]);
-    } catch (error) {
-      console.error('Error calling assistant API:', error);
-      // Handle error - show message to user
-      setMessages(prevMessages => [
-        ...prevMessages, 
-        { sender: 'assistant', content: 'Sorry, I encountered an error. Please try again.' }
-      ]);
-    } finally {
-      setIsLoading(false);
-      // Re-focus the textarea after sending
-      textareaRef.current?.focus();
-    }
-  };
-
-  // Call the backend API
-  const callAssistantAPI = async (userInput) => {
-    try {
-      const response = await fetch(backendURL + '/api/assistant', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          message: userInput,
-          userId: 'user-123' // Optional: Add user identification for thread management
-        }),
-      });
-      
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
-      
-      const data = await response.json();
-      return data.response;
-    } catch (error) {
-      console.error('Error calling API:', error);
-      throw error;
-    }
+    // Re-focus the textarea after sending
+    textareaRef.current?.focus();
   };
 
   // Reset conversation
