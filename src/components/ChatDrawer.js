@@ -24,14 +24,17 @@ const FormattedMessageContent = ({ content }) => {
         );
       }
       
-      // Check if this is a list item (starts with -, *, or numbers followed by .)
-      const isListItem = /^\s*(?:[-*]|\d+\.)\s+/.test(line);
+      // Modify this section to handle list items better
+      // Only check for bullet points, remove the dash handling
+      const isBulletListItem = /^\s*[•]\s+/.test(line);
       
       if (line.trim() === '') {
-        // Empty line - add a line break
-        return <br key={i} />;
-      } else if (isListItem) {
-        // List item - add proper styling
+        // Empty line - reduce spacing between sections
+        // Don't add <br> for empty lines that follow headers or are at start
+        const isPrevHeading = i > 0 && text.split('\n')[i-1].match(/^(#{1,6})\s+(.+)$/);
+        return isPrevHeading ? null : <div key={i} style={{ height: '8px' }}></div>;
+      } else if (isBulletListItem) {
+        // List item - use consistent bullet styling
         return (
           <div key={i} className="list-item">
             {formatBoldText(line)}
@@ -41,7 +44,7 @@ const FormattedMessageContent = ({ content }) => {
         // Regular paragraph
         return <p key={i} className="paragraph">{formatBoldText(line)}</p>;
       }
-    });
+    }).filter(Boolean); // Remove nulls from the output
   };
   
   // Function to handle bold text formatting (text wrapped in ** or __)
