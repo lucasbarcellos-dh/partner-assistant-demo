@@ -1,4 +1,3 @@
-// backend/server.js (using OpenAI Chat Completions API with streaming)
 require('dotenv').config();
 
 const express = require('express');
