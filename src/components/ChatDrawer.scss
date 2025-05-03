@@ -263,8 +263,6 @@
   &.assistant {
     position: relative;
     
-    // Removed the ::before pseudo-element that displayed "Chefie"
-    
     .message-content {
       width: 95%;
       color: $text-primary;

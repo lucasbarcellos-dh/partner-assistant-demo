@@ -391,7 +391,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
         {/* Only show title and reset button after interaction */}
         <div className={`header-title ${!hasInteracted ? 'hidden' : ''}`}>
           <SparkIcon width={24} height={24} />
-          <h1>Assistant</h1>
+          <h1>Chefie</h1>
         </div>
         <div className="header-actions">
           {/* New conversation button - only visible after interaction */}
