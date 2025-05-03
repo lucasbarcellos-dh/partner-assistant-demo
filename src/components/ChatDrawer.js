@@ -1,4 +1,3 @@
-// src/components/ChatDrawer.js
 import React, { useState, useRef, useEffect } from 'react';
 import './ChatDrawer.scss';
 import SparkIcon from './SparkIcon'; // Import the SparkIcon component
@@ -113,9 +112,8 @@ const QuestionChips = ({ onSelectQuestion, isLoading }) => {
 };
 
 const ChatDrawer = ({ isOpen, onClose }) => {
-  const [messages, setMessages] = useState([
-    { sender: 'assistant', content: 'Hi there! How can I help you today?' }
-  ]);
+  // Remove initial welcome message
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
@@ -187,7 +185,6 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       setInput('');
       setIsLoading(true);
       
-      // Create a separate typing indicator message instead of embedding it in the assistant message
       // Remove any existing typing indicators first
       setMessages(prevMessages => prevMessages.filter(msg => !msg.isTypingIndicator));
       
@@ -358,9 +355,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       }
       
       // Reset the UI and interaction state
-      setMessages([
-        { sender: 'assistant', content: 'Hi there! How can I help you today?' }
-      ]);
+      setMessages([]);
       setHasInteracted(false);
       
       // Focus the textarea field after reset
@@ -393,7 +388,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
         {/* Only show title and reset button after interaction */}
         <div className={`header-title ${!hasInteracted ? 'hidden' : ''}`}>
           <SparkIcon width={24} height={24} />
-          <h1>Chefie</h1>
+          <h1>Assistant</h1>
         </div>
         <div className="header-actions">
           {/* New conversation button - only visible after interaction */}

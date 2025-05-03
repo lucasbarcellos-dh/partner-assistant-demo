@@ -263,15 +263,7 @@
   &.assistant {
     position: relative;
     
-    // Assistant sender label
-    &::before {
-      content: "Chefie";
-      display: block;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 4px;
-      color: $text-primary;
-    }
+    // Removed the ::before pseudo-element that displayed "Chefie"
     
     .message-content {
       width: 95%;
@@ -292,10 +284,7 @@
 
 // Typing indicator - Standalone component
 .message.assistant.typing-indicator {
-  &::before {
-    content: "Chefie is typing";
-    color: $text-secondary;
-  }
+  // Removed the ::before pseudo-element with the "Chefie is typing" text
   
   .message-content {
     display: flex;
