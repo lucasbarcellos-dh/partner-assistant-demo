@@ -23,66 +23,33 @@ const openai = new OpenAI({
 // Retrieve assistant ID from config file
 let assistantId = getAssistantId();
 
-// Initialize the assistant (run once at startup)
 async function initializeAssistant() {
   try {
     // Import the system prompt content
     const STATIC_SYSTEM_PROMPT = require('./static-prompt');
-    const ASSISTANT_NAME = "Partner Assistant";
     
-    // If we already have an assistant ID in our config, check if it's still valid
+    // Get the assistant ID from config
     if (assistantId) {
-      try {
-        console.log(`Checking existing assistant with ID: ${assistantId}`);
-        const existingAssistant = await openai.beta.assistants.retrieve(assistantId);
-        console.log(`Using existing assistant: ${existingAssistant.name}`);
-        
-        // Optionally update the assistant if needed
-        // await openai.beta.assistants.update(assistantId, {
-        //   instructions: STATIC_SYSTEM_PROMPT,
-        //   model: config.model,
-        // });
-        
-        return; // Assistant exists and is valid
-      } catch (error) {
-        // Assistant doesn't exist or can't be accessed
-        console.log('Stored assistant ID is invalid, creating a new one');
-        assistantId = null;
-      }
+      console.log(`Using existing assistant with ID: ${assistantId}`);
+      return;
     }
     
-    // If no valid assistant ID exists, check for one by name or create new
-    console.log('Looking for existing assistant by name...');
-    const assistants = await openai.beta.assistants.list({
-      limit: 100, // Adjust as needed
+    // If no assistant ID exists in config, create a new one
+    console.log('Creating new assistant...');
+    const assistant = await openai.beta.assistants.create({
+      name: "Partner Assistant",
+      instructions: STATIC_SYSTEM_PROMPT,
+      model: config.model,
+      tools: []
     });
     
-    // Find an assistant with matching name
-    const existingAssistant = assistants.data.find(
-      assistant => assistant.name === ASSISTANT_NAME
-    );
+    assistantId = assistant.id;
+    console.log(`Assistant created with ID: ${assistantId}`);
+    saveAssistantId(assistantId);
     
-    if (existingAssistant) {
-      // Use the existing assistant
-      assistantId = existingAssistant.id;
-      console.log(`Found existing assistant with ID: ${assistantId}`);
-      saveAssistantId(assistantId);
-    } else {
-      // Create a new assistant if none exists
-      console.log('Creating new assistant...');
-      const assistant = await openai.beta.assistants.create({
-        name: ASSISTANT_NAME,
-        instructions: STATIC_SYSTEM_PROMPT,
-        model: config.model,
-        tools: [] // Add tools like retrieval if needed
-      });
-      
-      assistantId = assistant.id;
-      console.log(`Assistant created with ID: ${assistantId}`);
-      saveAssistantId(assistantId);
-    }
   } catch (error) {
     console.error('Error initializing assistant:', error);
+    process.exit(1); // Exit if we can't initialize the assistant
   }
 }
 
