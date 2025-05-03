@@ -236,20 +236,20 @@
   @include transition(all, $transition-medium);
 }
 
-// Message Component - Updated for a plain style
+// Message Component - Updated for plain style for assistant
 .message {
   margin-bottom: $spacing-xl;
   animation: message-fade-in 0.3s ease;
   
   &.user {
-    margin-bottom: $spacing-md;
     display: flex;
     justify-content: flex-end;
+    margin-bottom: $spacing-lg;
     
     .message-content {
-      max-width: 80%;
+      max-width: 85%;
       padding: 12px 20px;
-      border-radius: $border-radius-md;
+      border-radius: $border-radius-md $border-radius-md 0 $border-radius-md;
       font-weight: 600;
       background: linear-gradient(
         225deg,
@@ -257,49 +257,51 @@
         $primary-color,
       );
       color: $background-white;
-      border-radius: $border-radius-md $border-radius-md 0 $border-radius-md;
     }
   }
   
   &.assistant {
     position: relative;
     
-    .message-content {
-      color: $text-primary;
-      // No background for assistant messages
-      background-color: transparent;
-      padding: 0;
-      max-width: 100%;
-    }
-    
-    // Add sender identifier for assistant (like ChatGPT style)
+    // Assistant sender label
     &::before {
       content: "Chefie";
       display: block;
+      font-size: 14px;
       font-weight: 700;
-      font-size: 15px;
-      margin-bottom: 8px;
+      margin-bottom: 4px;
       color: $text-primary;
     }
-  }
-  
-  // Typing indicator special case for assistant
-  &.assistant.typing {
-    &::before {
-      content: "Chefie is typing";
-      opacity: 0.7;
-    }
     
-    .message-content.typing-indicator {
+    .message-content {
+      width: 95%;
+      color: $text-primary;
       background-color: transparent;
-      padding: 8px 0;
+      padding: 0;
+      line-height: 1.5;
+      font-size: 16px;
     }
   }
   
   @include respond-to(medium) {
-    &.user .message-content {
-      max-width: 85%;
+    .message-content {
+      max-width: 95%;
     }
+  }
+}
+
+// Typing indicator - Standalone component
+.message.assistant.typing-indicator {
+  &::before {
+    content: "Chefie is typing";
+    color: $text-secondary;
+  }
+  
+  .message-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 24px;
   }
 }
 
@@ -317,7 +319,15 @@
   
   .list-item {
     margin-bottom: 4px;
-    margin-left: 0;
+    padding-left: 20px;
+    position: relative;
+    
+    &::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: $text-secondary;
+    }
   }
   
   .paragraph {
@@ -344,10 +354,13 @@
   .markdown-h1 {
     font-size: 1.75rem;
     border-bottom: 1px solid rgba($primary-color, 0.1);
+    padding-bottom: 4px;
+    margin-top: $spacing-lg;
   }
   
   .markdown-h2 {
     font-size: 1.5rem;
+    margin-top: $spacing-lg;
   }
   
   .markdown-h3 {
@@ -368,6 +381,34 @@
   }
 }
 
+// Typing Indicator
+.typing-indicator {
+  display: inline-flex;
+  align-items: center;
+  
+  span {
+    height: 8px;
+    width: 8px;
+    margin: 0 2px;
+    background-color: #888;
+    border-radius: $border-radius-full;
+    display: inline-block;
+    opacity: 0.4;
+    
+    &:nth-of-type(1) {
+      animation: blink 1s infinite 0.1s;
+    }
+    
+    &:nth-of-type(2) {
+      animation: blink 1s infinite 0.3s;
+    }
+    
+    &:nth-of-type(3) {
+      animation: blink 1s infinite 0.5s;
+    }
+  }
+}
+
 // Input Container
 .input-container {
   @include transition(all, $transition-medium);
@@ -380,7 +421,7 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: flex-end; // Change from center to flex-end to align with textarea bottom
+  align-items: flex-end; // Align with textarea bottom
 }
 
 // Chat Textarea
@@ -441,41 +482,6 @@
   }
 }
 
-// Typing Indicator
-.typing-indicator {
-  @include flex-center;
-  
-  span {
-    height: 6px;
-    width: 6px;
-    margin: 0 1px;
-    background-color: $background-white;
-    border-radius: $border-radius-full;
-    display: inline-block;
-    opacity: 0.7;
-  }
-  
-  // Message typing indicator
-  .message & span {
-    height: 8px;
-    width: 8px;
-    background-color: #888;
-    opacity: 0.4;
-  }
-  
-  span:nth-of-type(1) {
-    animation: blink 1s infinite 0.1s;
-  }
-  
-  span:nth-of-type(2) {
-    animation: blink 1s infinite 0.3s;
-  }
-  
-  span:nth-of-type(3) {
-    animation: blink 1s infinite 0.5s;
-  }
-}
-
 // Question Chips Container and Subtitle
 .question-chips-container {
   width: 100%;
@@ -492,23 +498,6 @@
   }
 }
 
-.chips-subtitle {
-  font-size: $font-size-small;
-  color: $text-branded-secondary;
-  margin-bottom: $spacing-xs;
-  text-align: left;
-  
-  // Style differences in different states
-  .centered-input & {
-    margin-bottom: $spacing-sm;
-  }
-  
-  .bottom-input & {
-    font-size: 11px;
-    margin-top: $spacing-xs;
-  }
-}
-
 // Question Chips - grid layout
 .question-chips {
   display: flex;
@@ -517,8 +506,6 @@
   padding: $spacing-xs 0 $spacing-md;
   width: 100%;
   justify-content: flex-start; // Left alignment
-  
-  // Grid behavior is handled by flex-wrap: wrap
   
   // Styles for initial state
   .centered-input & {
@@ -545,7 +532,7 @@
   box-shadow: none;
   
   &:hover {
-    border-color: 1.5px solid rgba($primary-color, 0.24);
+    border-color: rgba($primary-color, 0.24);
   }
   
   &:active {
@@ -587,15 +574,5 @@
       padding: 6px 12px;
       font-size: 13px;
     }
-  }
-}
-
-// Update input-container for new chips layout
-.input-container {
-  @include transition(all, $transition-medium);
-  
-  // Adjust padding when in bottom-input state to make room for chips
-  &.bottom-input & {
-    padding-bottom: $spacing-sm;
   }
 }

@@ -187,17 +187,26 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       setInput('');
       setIsLoading(true);
       
-      // Create an initial empty assistant message
-      const assistantMessageId = Date.now();
+      // Create a separate typing indicator message instead of embedding it in the assistant message
+      // Remove any existing typing indicators first
+      setMessages(prevMessages => prevMessages.filter(msg => !msg.isTypingIndicator));
+      
+      // Add typing indicator
+      const typingIndicatorId = Date.now() + '-typing';
       setMessages(prevMessages => [
-        ...prevMessages, 
-        { sender: 'assistant', content: '', id: assistantMessageId }
+        ...prevMessages,
+        { 
+          sender: 'assistant', 
+          isTypingIndicator: true, 
+          id: typingIndicatorId 
+        }
       ]);
       
       // Set up event source for streaming
       const eventSource = new EventSource(`${backendURL}/api/assistant?userId=user-123&message=${encodeURIComponent(userInput)}`);
       
       let fullResponse = '';
+      let assistantMessageId = null;
       
       // Handle streaming chunks
       eventSource.onmessage = (event) => {
@@ -206,29 +215,69 @@ const ChatDrawer = ({ isOpen, onClose }) => {
         if (data.error) {
           console.error('Error from server:', data.error);
           eventSource.close();
+          
+          // Remove typing indicator
+          setMessages(prevMessages => prevMessages.filter(msg => msg.id !== typingIndicatorId));
+          
           setIsLoading(false);
           return;
         }
         
         if (data.done) {
-          // Stream complete
+          // Stream complete - remove typing indicator
+          setMessages(prevMessages => prevMessages.filter(msg => msg.id !== typingIndicatorId));
+          
+          // If we never received any content, add an error message
+          if (!assistantMessageId) {
+            setMessages(prevMessages => [
+              ...prevMessages,
+              { 
+                sender: 'assistant', 
+                content: 'Sorry, I encountered an error. Please try again.',
+                id: Date.now()
+              }
+            ]);
+          }
+          
           eventSource.close();
           setIsLoading(false);
           return;
         }
         
         if (data.chunk) {
-          // Append the new chunk to the full response
-          fullResponse += data.chunk;
-          
-          // Update the assistant message with the accumulated response
-          setMessages(prevMessages => 
-            prevMessages.map(msg => 
-              msg.id === assistantMessageId 
-                ? { ...msg, content: fullResponse } 
-                : msg
-            )
-          );
+          // On first chunk, create the actual message
+          if (!assistantMessageId) {
+            assistantMessageId = Date.now();
+            fullResponse = data.chunk;
+            
+            // Add the assistant message
+            setMessages(prevMessages => [
+              ...prevMessages.filter(msg => msg.id !== typingIndicatorId), // Remove typing indicator
+              { 
+                sender: 'assistant', 
+                content: data.chunk,
+                id: assistantMessageId
+              },
+              // Re-add typing indicator at the end
+              { 
+                sender: 'assistant', 
+                isTypingIndicator: true, 
+                id: typingIndicatorId 
+              }
+            ]);
+          } else {
+            // Append the new chunk to the full response
+            fullResponse += data.chunk;
+            
+            // Update the assistant message with the accumulated response
+            setMessages(prevMessages => 
+              prevMessages.map(msg => 
+                msg.id === assistantMessageId 
+                  ? { ...msg, content: fullResponse } 
+                  : msg
+              )
+            );
+          }
         }
       };
       
@@ -236,17 +285,22 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       eventSource.onerror = (error) => {
         console.error('EventSource error:', error);
         eventSource.close();
+        
+        // Remove typing indicator
+        setMessages(prevMessages => prevMessages.filter(msg => msg.id !== typingIndicatorId));
+        
         setIsLoading(false);
         
         // If we haven't received any content yet, show an error message
-        if (!fullResponse) {
-          setMessages(prevMessages => 
-            prevMessages.map(msg => 
-              msg.id === assistantMessageId 
-                ? { ...msg, content: 'Sorry, I encountered an error. Please try again.' } 
-                : msg
-            )
-          );
+        if (!assistantMessageId) {
+          setMessages(prevMessages => [
+            ...prevMessages,
+            { 
+              sender: 'assistant', 
+              content: 'Sorry, I encountered an error. Please try again.',
+              id: Date.now()
+            }
+          ]);
         }
       };
       
@@ -360,24 +414,29 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       
       <div className={chatContainerClass}>
         <div className="messages-container">
-          {hasInteracted && messages.map((message, index) => (
-            <div key={index} className={`message ${message.sender}`}>
-              <div className="message-content">
-                <FormattedMessageContent content={message.content} />
+          {hasInteracted && messages.map((message, index) => {
+            // Special case for typing indicator
+            if (message.isTypingIndicator) {
+              return (
+                <div key={message.id} className="message assistant typing-indicator">
+                  <div className="message-content">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+              );
+            }
+            
+            // Regular message
+            return (
+              <div key={message.id || index} className={`message ${message.sender}`}>
+                <div className="message-content">
+                  <FormattedMessageContent content={message.content} />
+                </div>
               </div>
-            </div>
-          ))}
-          
-          {/* Only show typing indicator when loading and has interacted */}
-          {isLoading && hasInteracted && (
-            <div className="message assistant">
-              <div className="message-content typing-indicator">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-          )}
+            );
+          })}
           
           <div ref={messagesEndRef} />
         </div>
