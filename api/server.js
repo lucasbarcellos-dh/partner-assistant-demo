@@ -1,3 +1,4 @@
+// api/server.js (using OpenAI Chat Completions API with streaming)
 require('dotenv').config();
 
 const express = require('express');
@@ -124,5 +125,5 @@ app.post('/api/reset', async (req, res) => {
 
 // Start server
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`API server running on port ${port}`);
 });

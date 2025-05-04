@@ -123,7 +123,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null); // Reference to the textarea field
   
-  const backendURL = "https://partner-assistant-demo-backend.onrender.com"
+  const apiURL = "https://partner-assistant-demo-backend.onrender.com"
 
   // Handle initial transition when the drawer opens
   useEffect(() => {
@@ -203,7 +203,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       ]);
       
       // Set up event source for streaming
-      const eventSource = new EventSource(`${backendURL}/api/assistant?userId=user-123&message=${encodeURIComponent(userInput)}`);
+      const eventSource = new EventSource(`${apiURL}/api/assistant?userId=user-123&message=${encodeURIComponent(userInput)}`);
       
       let fullResponse = '';
       let assistantMessageId = null;
@@ -343,7 +343,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   const handleReset = async () => {
     try {
       // Reset the conversation history on the server
-      const response = await fetch(backendURL + '/api/reset', {
+      const response = await fetch(apiURL + '/api/reset', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
