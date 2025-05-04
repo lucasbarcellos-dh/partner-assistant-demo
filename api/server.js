@@ -60,69 +60,27 @@ app.get('/api/assistant', async (req, res) => {
           { previous_response_id: userConversations[userId].lastResponseId } : {})
       });
       
-      let streamContent = '';
       let responseId = null;
       
       // Send an initial message to keep the connection alive
       res.write(`data: ${JSON.stringify({ init: true })}\n\n`);
       
+      // Replace the existing chunk handling loop with this corrected version:
       for await (const chunk of response) {
-        // Log the full chunk structure for debugging
-        console.log('Raw chunk:', JSON.stringify(chunk, null, 2));
-        
         // Store response ID when available
         if (chunk.id && !responseId) {
           responseId = chunk.id;
-          console.log('Response ID captured:', responseId);
         }
-        
-        // Try various ways to extract text content
-        let textContent = null;
-        
-        // Method 1: Check if there's text directly on the chunk
-        if (chunk.text) {
-          textContent = chunk.text;
-          console.log('Method 1 - Direct text property:', textContent);
-        }
-        // Method 2: Check output array with content array
-        else if (chunk.output && Array.isArray(chunk.output) && chunk.output.length > 0) {
-          for (const outputItem of chunk.output) {
-            if (outputItem.content && Array.isArray(outputItem.content)) {
-              for (const contentItem of outputItem.content) {
-                if (contentItem.type === 'text' && contentItem.text) {
-                  textContent = contentItem.text;
-                  console.log('Method 2 - From output/content arrays:', textContent);
-                  break;
-                }
-              }
-              if (textContent) break;
-            }
-          }
-        }
-        // Method 3: Check for delta property (similar to Chat Completions)
-        else if (chunk.delta && chunk.delta.text) {
-          textContent = chunk.delta.text;
-          console.log('Method 3 - Delta property:', textContent);
-        }
-        // Method 4: Check for choices array (similar to Chat Completions)
-        else if (chunk.choices && chunk.choices.length > 0) {
-          const choice = chunk.choices[0];
-          if (choice.delta && choice.delta.text) {
-            textContent = choice.delta.text;
-            console.log('Method 4 - Choices array with delta:', textContent);
-          } else if (choice.text) {
-            textContent = choice.text;
-            console.log('Method 4 - Choices array with text:', textContent);
-          }
-        }
-        
-        // If we found text content using any method, process it
-        if (textContent) {
-          streamContent += textContent;
-          // Send content to client
-          res.write(`data: ${JSON.stringify({ chunk: textContent })}\n\n`);
-        } else {
-          console.log('No text content found in this chunk');
+
+        // Extract delta content from chunks
+        if (chunk.type === 'response.output_text.delta' && chunk.delta) {
+          // Debug logging
+          console.log('Delta content:', chunk.delta);
+
+          // Send the delta content immediately
+          res.write(`data: ${JSON.stringify({ chunk: chunk.delta })}\n\n`);
+          // Force flush the response stream
+          res.flushHeaders();
         }
       }
       
@@ -131,10 +89,10 @@ app.get('/api/assistant', async (req, res) => {
         userConversations[userId].lastResponseId = responseId;
       }
       
-      console.log('Stream complete. Total content length:', streamContent.length);
+      console.log('Stream complete');
       console.log('Response ID saved:', responseId);
       
-      // Send completion notification
+      // Send completion message
       res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
       res.end();
       

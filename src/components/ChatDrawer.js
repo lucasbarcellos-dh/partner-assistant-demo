@@ -99,86 +99,61 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       );
       setEventSource(newEventSource);
       
-      let fullResponse = '';
-      let assistantMessageId = null;
-      
       // Handle streaming chunks
       newEventSource.onmessage = (event) => {
         const data = JSON.parse(event.data);
+        
+        if (data.init) return;
+        
+        if (data.done) {
+          newEventSource.close();
+          setEventSource(null);
+          setIsLoading(false);
+          return;
+        }
         
         if (data.error) {
           console.error('Error from server:', data.error);
           newEventSource.close();
           setEventSource(null);
-          setMessages(prevMessages => prevMessages.filter(msg => msg.id !== typingIndicatorId));
           setIsLoading(false);
-          
-          // Add error message
           setMessages(prevMessages => [
-            ...prevMessages,
-            { 
-              sender: 'assistant', 
-              content: `Sorry, I encountered an error: ${data.error}`,
+            ...prevMessages.filter(msg => !msg.isTypingIndicator),
+            {
+              sender: 'assistant',
+              content: `Error: ${data.error}`,
               id: Date.now()
             }
           ]);
           return;
         }
-        
-        if (data.done) {
-          // Stream complete - remove typing indicator
-          setMessages(prevMessages => prevMessages.filter(msg => msg.id !== typingIndicatorId));
-          
-          // Add error message if no content received
-          if (!assistantMessageId) {
-            setMessages(prevMessages => [
-              ...prevMessages,
-              { 
-                sender: 'assistant', 
-                content: 'Sorry, I encountered an error processing your request. Please try again.',
-                id: Date.now()
-              }
-            ]);
-          }
-          
-          newEventSource.close();
-          setEventSource(null);
-          setIsLoading(false);
-          return;
-        }
-        
+
         if (data.chunk) {
-          // First chunk - create message
-          if (!assistantMessageId) {
-            assistantMessageId = Date.now();
-            fullResponse = data.chunk;
-            
-            // Add assistant message
-            setMessages(prevMessages => [
-              ...prevMessages.filter(msg => msg.id !== typingIndicatorId),
-              { 
-                sender: 'assistant', 
-                content: data.chunk,
-                id: assistantMessageId
-              },
-              // Re-add typing indicator
-              { 
-                sender: 'assistant', 
-                isTypingIndicator: true, 
-                id: typingIndicatorId 
-              }
-            ]);
-          } else {
-            // Update with accumulated response
-            fullResponse += data.chunk;
-            setMessages(prevMessages => 
-              prevMessages.map(msg => 
-                msg.id === assistantMessageId 
-                  ? { ...msg, content: fullResponse } 
-                  : msg
-              )
+          setMessages(prevMessages => {
+            // Find the last non-typing indicator message
+            const lastMessage = prevMessages.find(msg => 
+              !msg.isTypingIndicator && msg.sender === 'assistant'
             );
-          }
+            
+            if (lastMessage) {
+              // Update existing message
+              return prevMessages.map(msg =>
+                msg.id === lastMessage.id
+                  ? { ...msg, content: msg.content + data.chunk }
+                  : msg
+              );
+            } else {
+              // Create new message
+              return [
+                ...prevMessages.filter(msg => !msg.isTypingIndicator),
+                {
+                  sender: 'assistant',
+                  content: data.chunk,
+                  id: Date.now()
+                }
+              ];
+            }
+          });
         }
       };
       
@@ -190,16 +165,14 @@ const ChatDrawer = ({ isOpen, onClose }) => {
         setMessages(prevMessages => prevMessages.filter(msg => msg.id !== typingIndicatorId));
         setIsLoading(false);
         
-        if (!assistantMessageId) {
-          setMessages(prevMessages => [
-            ...prevMessages,
-            { 
-              sender: 'assistant', 
-              content: 'Sorry, I encountered a connection error. Please try again.',
-              id: Date.now()
-            }
-          ]);
-        }
+        setMessages(prevMessages => [
+          ...prevMessages,
+          { 
+            sender: 'assistant', 
+            content: 'Sorry, I encountered a connection error. Please try again.',
+            id: Date.now()
+          }
+        ]);
       };
       
     } catch (error) {
