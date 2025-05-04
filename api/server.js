@@ -1,4 +1,3 @@
-// api/server.js (using OpenAI Responses API with streaming)
 require('dotenv').config();
 
 const express = require('express');
@@ -61,9 +60,13 @@ app.get('/api/assistant', async (req, res) => {
       vectorStoreId,
     });
     
+    let previousResponseId = null
+    
     try {
       const response = await openai.responses.create({
         model: config.model,
+        previous_response_id: previousResponseId,
+        store: true,
         stream: true,
         instructions: STATIC_SYSTEM_PROMPT,
         input: message,
@@ -81,14 +84,20 @@ app.get('/api/assistant', async (req, res) => {
       // Replace the existing chunk handling loop with this corrected version:
       for await (const chunk of response) {
         // Log the chunk for debugging
-        console.log('Stream chunk:', chunk);
+        // console.log('Stream chunk:', chunk);
 
         // Extract delta content from chunks
         if (chunk.type === 'response.output_text.delta' && chunk.delta) {
           res.write(`data: ${JSON.stringify({ chunk: chunk.delta })}\n\n`);
           res.flushHeaders();
         }
+
+        if (chunk.type === 'response.content_part.done') {
+          previousResponseId = chunk.item_id;
+        }
       }
+
+      console.log(response.previous_response_id)
       
       // Send completion message
       res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
