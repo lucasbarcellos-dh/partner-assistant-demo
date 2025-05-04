@@ -31,23 +31,17 @@ const ChatDrawer = ({ isOpen, onClose }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
   
-  // When transitioning to interacted state
-  useEffect(() => {
-    if (hasInteracted) {
-      setTimeout(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
-  }, [hasInteracted]);
-  
   // Cleanup event source on unmount
   useEffect(() => {
     return () => {
-      if (eventSource) {
-        eventSource.close();
-      }
+      if (eventSource) eventSource.close();
     };
-  }, [eventSource]);
+    // Only run on unmount
+  }, []);
+
+  // Helper to remove typing indicators
+  const removeTypingIndicators = (msgs) =>
+    msgs.filter(msg => !msg.isTypingIndicator);
 
   // Stop streaming response
   const stopStreaming = () => {
@@ -55,7 +49,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       eventSource.close();
       setEventSource(null);
       setIsLoading(false);
-      setMessages(prevMessages => prevMessages.filter(msg => !msg.isTypingIndicator));
+      setMessages(prevMessages => removeTypingIndicators(prevMessages));
     }
   };
 
@@ -79,7 +73,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       }
       
       // Remove existing typing indicators
-      setMessages(prevMessages => prevMessages.filter(msg => !msg.isTypingIndicator));
+      setMessages(prevMessages => removeTypingIndicators(prevMessages));
       
       // Add typing indicator
       const typingIndicatorId = Date.now() + '-typing';
