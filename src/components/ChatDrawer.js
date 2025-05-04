@@ -1,4 +1,3 @@
-// src/components/ChatDrawer.js
 import React, { useState, useRef, useEffect } from 'react';
 import './ChatDrawer.scss';
 import SparkIcon from './SparkIcon';
@@ -16,7 +15,8 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   const textareaRef = useRef(null);
   const [eventSource, setEventSource] = useState(null);
   
-  const apiURL = "https://partner-assistant-demo-api.onrender.com";
+  // const apiURL = "https://partner-assistant-demo-api.onrender.com";
+  const apiURL = "http://localhost:3001";
 
   // Focus textarea when drawer opens
   useEffect(() => {
@@ -112,6 +112,16 @@ const ChatDrawer = ({ isOpen, onClose }) => {
           setEventSource(null);
           setMessages(prevMessages => prevMessages.filter(msg => msg.id !== typingIndicatorId));
           setIsLoading(false);
+          
+          // Add error message
+          setMessages(prevMessages => [
+            ...prevMessages,
+            { 
+              sender: 'assistant', 
+              content: `Sorry, I encountered an error: ${data.error}`,
+              id: Date.now()
+            }
+          ]);
           return;
         }
         
@@ -125,7 +135,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
               ...prevMessages,
               { 
                 sender: 'assistant', 
-                content: 'Sorry, I encountered an error. Please try again.',
+                content: 'Sorry, I encountered an error processing your request. Please try again.',
                 id: Date.now()
               }
             ]);
@@ -185,7 +195,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
             ...prevMessages,
             { 
               sender: 'assistant', 
-              content: 'Sorry, I encountered an error. Please try again.',
+              content: 'Sorry, I encountered a connection error. Please try again.',
               id: Date.now()
             }
           ]);
@@ -196,6 +206,16 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       console.error('Error setting up streaming:', error);
       setIsLoading(false);
       setEventSource(null);
+      
+      // Add error message
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { 
+          sender: 'assistant', 
+          content: 'Sorry, something went wrong. Please try again.',
+          id: Date.now()
+        }
+      ]);
     }
   };
 
