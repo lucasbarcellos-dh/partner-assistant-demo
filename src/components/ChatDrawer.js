@@ -129,28 +129,28 @@ const ChatDrawer = ({ isOpen, onClose }) => {
 
         if (data.chunk) {
           setMessages(prevMessages => {
-            // Find the last non-typing indicator message
-            const lastMessage = prevMessages.find(msg => 
-              !msg.isTypingIndicator && msg.sender === 'assistant'
-            );
-            
-            if (lastMessage) {
-              // Update existing message
-              return prevMessages.map(msg =>
-                msg.id === lastMessage.id
-                  ? { ...msg, content: msg.content + data.chunk }
-                  : msg
-              );
-            } else {
-              // Create new message
+            // Remove typing indicator
+            const filtered = prevMessages.filter(msg => !msg.isTypingIndicator);
+
+            // Check if the last message is an assistant message from this turn
+            const lastMsg = filtered[filtered.length - 1];
+            if (!lastMsg || lastMsg.sender !== 'assistant' || lastMsg.isTypingIndicator) {
+              // Create a new assistant message for this turn
               return [
-                ...prevMessages.filter(msg => !msg.isTypingIndicator),
+                ...filtered,
                 {
                   sender: 'assistant',
                   content: data.chunk,
                   id: Date.now()
                 }
               ];
+            } else {
+              // Append to the current assistant message
+              return filtered.map((msg, idx) =>
+                idx === filtered.length - 1
+                  ? { ...msg, content: msg.content + data.chunk }
+                  : msg
+              );
             }
           });
         }

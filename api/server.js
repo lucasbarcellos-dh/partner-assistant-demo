@@ -6,6 +6,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { OpenAI } = require('openai');
 const config = require('./config');
+const path = require('path');
+const fs = require('fs').promises;
+const fsSync = require('fs'); // Add this for createReadStream
+const { setupVectorStore } = require('./utils/vectorStore');
 
 const app = express();
 const port = config.port;
@@ -25,6 +29,12 @@ const STATIC_SYSTEM_PROMPT = require('./static-prompt');
 // Store user conversations (in a real app, this would be in a database)
 const userConversations = {};
 
+let vectorStoreId = null;
+
+(async () => {
+  vectorStoreId = await setupVectorStore(openai);
+})();
+
 // Assistant endpoint with streaming
 app.get('/api/assistant', async (req, res) => {
   try {
@@ -43,11 +53,18 @@ app.get('/api/assistant', async (req, res) => {
     if (!userConversations[userId]) {
       userConversations[userId] = {};
     }
+
+    // Wait for vector store to be ready
+    if (!vectorStoreId) {
+      res.write(`data: ${JSON.stringify({ error: 'Vector store not ready yet.' })}\n\n`);
+      return res.end();
+    }
     
     console.log('Making Responses API call with:', {
       model: config.model,
       input: message.length > 100 ? `${message.substring(0, 100)}...` : message,
-      previousResponseId: userConversations[userId].lastResponseId
+      previousResponseId: userConversations[userId].lastResponseId,
+      vectorStoreId,
     });
     
     try {
@@ -57,7 +74,13 @@ app.get('/api/assistant', async (req, res) => {
         instructions: STATIC_SYSTEM_PROMPT,
         input: message,
         ...(userConversations[userId].lastResponseId ? 
-          { previous_response_id: userConversations[userId].lastResponseId } : {})
+          { previous_response_id: userConversations[userId].lastResponseId } : {}),
+        tools: [
+          {
+            type: 'file_search',
+            vector_store_ids: [vectorStoreId]
+          }
+        ]
       });
       
       let responseId = null;
