@@ -15,7 +15,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   const textareaRef = useRef(null);
   const [eventSource, setEventSource] = useState(null);
   
-  const apiURL = process.env.REACT_APP_API_URL;
+  const apiURL = "https://partner-assistant-demo-api.onrender.com"
 
   // Focus textarea when drawer opens
   useEffect(() => {
