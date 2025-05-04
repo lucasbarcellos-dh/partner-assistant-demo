@@ -441,6 +441,18 @@
     background: $primary-color-dark;
     cursor: not-allowed;
   }
+
+  &.stop-button {
+    background: #f44336; // Red color for stop
+    
+    &:hover {
+      background: darken(#f44336, 10%);
+    }
+    
+    .material-symbols-rounded {
+      font-size: 20px; // Slightly smaller icon
+    }
+  }
   
   .material-symbols-rounded {
     font-size: 24px;

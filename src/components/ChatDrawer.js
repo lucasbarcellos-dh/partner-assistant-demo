@@ -122,6 +122,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   const [hasInteracted, setHasInteracted] = useState(false);
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null); // Reference to the textarea field
+  const [eventSource, setEventSource] = useState(null);
   
   const apiURL = "https://partner-assistant-demo-api.onrender.com"
 
@@ -149,6 +150,16 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       }, 100);
     }
   }, [hasInteracted]);
+  
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      // Close any open event source connection when unmounting
+      if (eventSource) {
+        eventSource.close();
+      }
+    };
+  }, [eventSource]);
 
   // Auto-resize textarea as content grows
   useEffect(() => {
@@ -174,6 +185,18 @@ const ChatDrawer = ({ isOpen, onClose }) => {
     };
   }, [input]);
 
+  // Stop the streamed response
+  const stopStreaming = () => {
+    if (eventSource) {
+      eventSource.close();
+      setEventSource(null);
+      setIsLoading(false);
+      
+      // Remove any typing indicators
+      setMessages(prevMessages => prevMessages.filter(msg => !msg.isTypingIndicator));
+    }
+  };
+
   // Handle streamed response from the server
   const handleStreamedResponse = async (userInput) => {
     try {
@@ -187,6 +210,11 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       setMessages(prevMessages => [...prevMessages, userMessage]);
       setInput('');
       setIsLoading(true);
+      
+      // Stop any existing stream first
+      if (eventSource) {
+        eventSource.close();
+      }
       
       // Remove any existing typing indicators first
       setMessages(prevMessages => prevMessages.filter(msg => !msg.isTypingIndicator));
@@ -203,18 +231,20 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       ]);
       
       // Set up event source for streaming
-      const eventSource = new EventSource(`${apiURL}/api/assistant?userId=user-123&message=${encodeURIComponent(userInput)}`);
+      const newEventSource = new EventSource(`${apiURL}/api/assistant?userId=user-123&message=${encodeURIComponent(userInput)}`);
+      setEventSource(newEventSource);
       
       let fullResponse = '';
       let assistantMessageId = null;
       
       // Handle streaming chunks
-      eventSource.onmessage = (event) => {
+      newEventSource.onmessage = (event) => {
         const data = JSON.parse(event.data);
         
         if (data.error) {
           console.error('Error from server:', data.error);
-          eventSource.close();
+          newEventSource.close();
+          setEventSource(null);
           
           // Remove typing indicator
           setMessages(prevMessages => prevMessages.filter(msg => msg.id !== typingIndicatorId));
@@ -239,7 +269,8 @@ const ChatDrawer = ({ isOpen, onClose }) => {
             ]);
           }
           
-          eventSource.close();
+          newEventSource.close();
+          setEventSource(null);
           setIsLoading(false);
           return;
         }
@@ -282,9 +313,10 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       };
       
       // Handle errors
-      eventSource.onerror = (error) => {
+      newEventSource.onerror = (error) => {
         console.error('EventSource error:', error);
-        eventSource.close();
+        newEventSource.close();
+        setEventSource(null);
         
         // Remove typing indicator
         setMessages(prevMessages => prevMessages.filter(msg => msg.id !== typingIndicatorId));
@@ -307,6 +339,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
     } catch (error) {
       console.error('Error setting up streaming:', error);
       setIsLoading(false);
+      setEventSource(null);
     }
   };
 
@@ -330,6 +363,13 @@ const ChatDrawer = ({ isOpen, onClose }) => {
 
   // Handle sending a message
   const handleSend = async () => {
+    // If we're loading (streaming in progress), stop the streaming
+    if (isLoading) {
+      stopStreaming();
+      return;
+    }
+    
+    // Otherwise, send a new message
     if (input.trim() === '') return;
     
     // Use the streaming response handler
@@ -342,6 +382,12 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   // Reset conversation
   const handleReset = async () => {
     try {
+      // Stop any active streaming
+      if (eventSource) {
+        eventSource.close();
+        setEventSource(null);
+      }
+      
       // Reset the conversation history on the server
       const response = await fetch(apiURL + '/api/reset', {
         method: 'POST',
@@ -360,6 +406,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
       // Reset the UI and interaction state
       setMessages([]);
       setHasInteracted(false);
+      setIsLoading(false);
       
       // Focus the textarea field after reset
       textareaRef.current?.focus();
@@ -458,17 +505,13 @@ const ChatDrawer = ({ isOpen, onClose }) => {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Ask something about your business…"
-              disabled={isLoading}
+              disabled={isLoading && !eventSource} // Only disable when loading without an active stream
               rows="1"
               className="chat-textarea"
             />
-            <button onClick={handleSend} disabled={isLoading} className="send-button">
+            <button onClick={handleSend} className="send-button">
               {isLoading ? (
-                <div className="typing-indicator">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
+                <span className="material-symbols-rounded">stop</span>
               ) : (
                 <span className="material-symbols-rounded">arrow_upward</span>
               )}
