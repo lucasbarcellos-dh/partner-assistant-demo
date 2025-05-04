@@ -54,14 +54,9 @@ app.get('/api/assistant', async (req, res) => {
       return res.end();
     }
     
-    console.log('Making Responses API call with:', {
-      model: config.model,
-      input: message.length > 100 ? `${message.substring(0, 100)}...` : message,
-      vectorStoreId,
-    });
-    
-    let previousResponseId = null
-    
+    // Get previous response id for this user
+    let previousResponseId = userConversations[userId]?.lastResponseId || null;
+
     try {
       const response = await openai.responses.create({
         model: config.model,
@@ -81,24 +76,20 @@ app.get('/api/assistant', async (req, res) => {
       // Send an initial message to keep the connection alive
       res.write(`data: ${JSON.stringify({ init: true })}\n\n`);
       
-      // Replace the existing chunk handling loop with this corrected version:
       for await (const chunk of response) {
-        // Log the chunk for debugging
-        // console.log('Stream chunk:', chunk);
-
         // Extract delta content from chunks
         if (chunk.type === 'response.output_text.delta' && chunk.delta) {
           res.write(`data: ${JSON.stringify({ chunk: chunk.delta })}\n\n`);
           res.flushHeaders();
         }
 
-        if (chunk.type === 'response.content_part.done') {
-          previousResponseId = chunk.item_id;
+        if (chunk.type === 'response.completed') {
+          // Store the response id for this user
+          if (!userConversations[userId]) userConversations[userId] = {};
+          userConversations[userId].lastResponseId = chunk.response.id;
         }
       }
 
-      console.log(response.previous_response_id)
-      
       // Send completion message
       res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
       res.end();
