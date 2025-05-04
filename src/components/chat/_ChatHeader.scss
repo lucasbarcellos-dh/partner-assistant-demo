@@ -1,0 +1,55 @@
+.chat-header {
+  padding: $spacing-lg $spacing-xl;
+  @include flex-between;
+  z-index: 2;
+  @include transition((opacity, transform), $transition-medium);
+  
+  .header-title,
+  .reset-button {
+    &.hidden {
+      display: none;
+    }
+  }
+  
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    
+    h1 {
+      font-size: $font-size-large;
+      margin: 0;
+    }
+    
+    // Apply gradient to sparkle icon in header
+    svg {
+      path, circle {
+        fill: url(#headerGradient);
+      }
+    }
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: $spacing-sm;
+    margin-left: auto; // Push to the right
+  }
+  
+  .reset-button,
+  .close-button {
+    @include button-reset;
+    width: 32px;
+    height: 32px;
+    border-radius: $border-radius-full;
+    @include flex-center;
+    color: $text-primary;
+    
+    .material-symbols-rounded {
+      font-size: 24px;
+    }
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+  }
+}

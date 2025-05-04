@@ -1,0 +1,72 @@
+// Input Wrapper
+.input-wrapper {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end; // Align with textarea bottom
+}
+
+// Chat Textarea
+.chat-textarea {
+  @include form-input;
+  padding-right: 64px; // Make room for the button
+  font-size: 20px;
+  resize: none; // Disable manual resizing
+  overflow-y: hidden; // Hide scrollbar
+  min-height: 56px; // Set a minimum height
+  max-height: 160px; // Limit maximum height
+  line-height: 1.5;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  width: 100%;
+  @include transition(all, $transition-fast);
+  
+  caret-color: $primary-color;
+
+  &:focus {
+    outline: none;
+  }
+  
+  &:disabled {
+    background-color: $background-white;
+    opacity: 0.7;
+  }
+}
+
+// Send Button
+.send-button {
+  position: absolute;
+  right: 12px;
+  top: 11px; // Adjust to align with textarea
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 12px;
+  @include flex-center;
+  cursor: pointer;
+  @include transition((background-color, transform), $transition-fast);
+  
+  // Apply gradient to the send button
+  background: linear-gradient(
+    225deg,
+    adjust-color($primary-color, $hue: +20deg, $saturation: 70%),
+    $primary-color,
+    adjust-color($primary-color, $hue: -20deg, $saturation: 70%)
+  );
+  color: $background-white;
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  &:disabled {
+    background: $primary-color-dark;
+    cursor: not-allowed;
+  }
+  
+  .material-symbols-rounded {
+    font-size: 24px;
+  }
+}

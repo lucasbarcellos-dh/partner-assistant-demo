@@ -1,0 +1,56 @@
+// Formatted Message Content
+.formatted-content {
+  width: 100%;
+  
+  p {
+    margin-bottom: 8px;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .list-item {
+    margin-bottom: 4px;
+    padding-left: 20px;
+    position: relative;
+    
+    &::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: $text-secondary;
+    }
+  }
+  
+  // Add proper spacing between sections
+  .markdown-heading {
+    font-weight: 600;
+    line-height: 1.3;
+    margin-top: 16px; // Consistent section spacing
+    margin-bottom: 8px;
+    color: $text-primary;
+  }
+  
+  // Don't add too much space for the first heading
+  .markdown-heading:first-child {
+    margin-top: 0;
+  }
+  
+  // Different heading levels
+  .markdown-h1 {
+    font-size: 1.5rem;
+  }
+  
+  .markdown-h2 {
+    font-size: 1.3rem;
+  }
+  
+  .markdown-h3 {
+    font-size: 1.1rem;
+  }
+  
+  .markdown-h4, .markdown-h5, .markdown-h6 {
+    font-size: 1rem;
+  }
+}

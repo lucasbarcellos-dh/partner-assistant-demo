@@ -1,0 +1,95 @@
+// Question Chips Container
+.question-chips-container {
+  width: 100%;
+  
+  // Container animation in the initial state
+  .centered-input & {
+    margin-top: $spacing-lg;
+    @include slide-in('up', 20px, 0.6s);
+  }
+  
+  // Less padding in conversation state to align with messages
+  .bottom-input & {
+    padding: 0 $spacing-lg;
+  }
+}
+
+// Question Chips - grid layout
+.question-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  padding: $spacing-xs 0 $spacing-md;
+  width: 100%;
+  justify-content: flex-start; // Left alignment
+  
+  // Styles for initial state
+  .centered-input & {
+    max-width: 100%;
+    justify-content: center; // Center in initial state
+  }
+  
+  // Make chips compact in bottom-input state
+  .bottom-input & {
+    padding: 0 0 $spacing-md;
+    margin-top: 0;
+  }
+}
+
+.question-chip {
+  @include button-reset;
+  color: $text-branded-secondary;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: $font-size-medium;
+  line-height: 1.5;
+  border: 1.5px solid rgba($primary-color, 0.12);
+  white-space: nowrap;
+  transition: all $transition-fast ease;
+  box-shadow: none;
+  
+  &:hover {
+    border-color: rgba($primary-color, 0.24);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    &:hover {
+      transform: none;
+      box-shadow: none;
+      background-color: $background-light;
+      border-color: $border-light;
+    }
+  }
+  
+  // Apply different styling when in initial state
+  .centered-input & {
+    &:hover {
+      border-color: rgba($primary-color, 0.2);
+    }
+  }
+  
+  // Apply more modest styling when in bottom state
+  .bottom-input & {
+    background-color: $background-light;
+    box-shadow: none;
+    font-size: 12px;
+    padding: 4px 12px;
+  }
+  
+  // Responsive styles
+  @include respond-to(medium) {
+    font-size: 11px;
+    padding: 3px 10px;
+    
+    .centered-input & {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+  }
+}
