@@ -5,9 +5,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { OpenAI } = require('openai');
 const config = require('./config');
-const path = require('path');
-const fs = require('fs').promises;
-const fsSync = require('fs'); // Add this for createReadStream
 const { setupVectorStore } = require('./utils/vectorStore');
 
 const app = express();
@@ -23,7 +20,7 @@ const openai = new OpenAI({
 });
 
 // Import the system prompt content
-const STATIC_SYSTEM_PROMPT = require('./static-prompt');
+const SYSTEM_PROMPT = require('./static-prompt');
 
 // Store user conversations (in a real app, this would be in a database)
 const userConversations = {};
@@ -63,7 +60,7 @@ app.get('/api/assistant', async (req, res) => {
         previous_response_id: previousResponseId,
         store: true,
         stream: true,
-        instructions: STATIC_SYSTEM_PROMPT,
+        instructions: SYSTEM_PROMPT,
         input: message,
         tools: [
           {
