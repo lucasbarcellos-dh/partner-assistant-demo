@@ -63,7 +63,7 @@ app.get('/api/assistant', async (req, res) => {
     console.log('Making Responses API call with:', {
       model: config.model,
       input: message.length > 100 ? `${message.substring(0, 100)}...` : message,
-      previousResponseId: userConversations[userId].lastResponseId,
+      previousResponseId: userConversations[userId].lastResponseId || null,
       vectorStoreId,
     });
     
@@ -90,19 +90,18 @@ app.get('/api/assistant', async (req, res) => {
       
       // Replace the existing chunk handling loop with this corrected version:
       for await (const chunk of response) {
-        // Store response ID when available
+        // Log the chunk for debugging
+        console.log('Stream chunk:', chunk);
+
+        // Store response ID when available (should be in the first chunk)
         if (chunk.id && !responseId) {
           responseId = chunk.id;
+          console.log('Captured responseId:', responseId);
         }
 
         // Extract delta content from chunks
         if (chunk.type === 'response.output_text.delta' && chunk.delta) {
-          // Debug logging
-          console.log('Delta content:', chunk.delta);
-
-          // Send the delta content immediately
           res.write(`data: ${JSON.stringify({ chunk: chunk.delta })}\n\n`);
-          // Force flush the response stream
           res.flushHeaders();
         }
       }
