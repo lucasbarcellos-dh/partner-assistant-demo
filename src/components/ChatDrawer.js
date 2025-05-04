@@ -123,7 +123,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null); // Reference to the textarea field
   
-  const apiURL = "https://partner-assistant-demo-backend.onrender.com"
+  const apiURL = "https://partner-assistant-demo-api.onrender.com"
 
   // Handle initial transition when the drawer opens
   useEffect(() => {
