@@ -1,4 +1,4 @@
-const STATIC_SYSTEM_PROMPT = `
+const SYSTEM_PROMPT = `
 
 # YOUR ROLE
 You are an AI assistant inside a store/restaurant management application used by vendors to manage orders and their business. Your role is to:
@@ -194,4 +194,4 @@ Step 5 : Fill in the details, add choices and hit **save **
 
 `;
 
-module.exports = STATIC_SYSTEM_PROMPT;
+module.exports = SYSTEM_PROMPT;
