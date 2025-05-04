@@ -49,11 +49,6 @@ app.get('/api/assistant', async (req, res) => {
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
     
-    // Create or retrieve the user's conversation history
-    if (!userConversations[userId]) {
-      userConversations[userId] = {};
-    }
-
     // Wait for vector store to be ready
     if (!vectorStoreId) {
       res.write(`data: ${JSON.stringify({ error: 'Vector store not ready yet.' })}\n\n`);
@@ -63,7 +58,6 @@ app.get('/api/assistant', async (req, res) => {
     console.log('Making Responses API call with:', {
       model: config.model,
       input: message.length > 100 ? `${message.substring(0, 100)}...` : message,
-      previousResponseId: userConversations[userId].lastResponseId || null,
       vectorStoreId,
     });
     
@@ -73,8 +67,6 @@ app.get('/api/assistant', async (req, res) => {
         stream: true,
         instructions: STATIC_SYSTEM_PROMPT,
         input: message,
-        ...(userConversations[userId].lastResponseId ? 
-          { previous_response_id: userConversations[userId].lastResponseId } : {}),
         tools: [
           {
             type: 'file_search',
@@ -82,8 +74,6 @@ app.get('/api/assistant', async (req, res) => {
           }
         ]
       });
-      
-      let responseId = null;
       
       // Send an initial message to keep the connection alive
       res.write(`data: ${JSON.stringify({ init: true })}\n\n`);
@@ -93,26 +83,12 @@ app.get('/api/assistant', async (req, res) => {
         // Log the chunk for debugging
         console.log('Stream chunk:', chunk);
 
-        // Store response ID when available (should be in the first chunk)
-        if (chunk.id && !responseId) {
-          responseId = chunk.id;
-          console.log('Captured responseId:', responseId);
-        }
-
         // Extract delta content from chunks
         if (chunk.type === 'response.output_text.delta' && chunk.delta) {
           res.write(`data: ${JSON.stringify({ chunk: chunk.delta })}\n\n`);
           res.flushHeaders();
         }
       }
-      
-      // Save response ID for future conversations if available
-      if (responseId) {
-        userConversations[userId].lastResponseId = responseId;
-      }
-      
-      console.log('Stream complete');
-      console.log('Response ID saved:', responseId);
       
       // Send completion message
       res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
