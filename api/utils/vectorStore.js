@@ -8,11 +8,11 @@ const fs = require('fs');
  */
 async function setupVectorStore(openai) {
   try {
-    // 1. Create vector store
+    // Create vector store
     const vectorStore = await openai.vectorStores.create({ name: 'partner_knowledge_base' });
     const vectorStoreId = vectorStore.id;
 
-    // 2. Read all files in the files directory
+    // Read all files in the files directory
     const filesDir = path.join(__dirname, '../files');
     const fileNames = fs.readdirSync(filesDir);
 
@@ -23,7 +23,7 @@ async function setupVectorStore(openai) {
         file: fileStream,
         purpose: 'assistants',
       });
-      // 3. Add file to vector store
+      // Add file to vector store
       await openai.vectorStores.files.create(vectorStoreId, { file_id: file.id });
       console.log(`Added file to vector store: ${fileName}`);
     }
