@@ -11,6 +11,7 @@ const FormattedMessageContent = ({ content }) => {
     // Process lines into structured content
     const elements = [];
     let currentList = null;
+    let currentTable = null;
     
     lines.forEach((line, index) => {
       const trimmedLine = line.trim();
@@ -36,6 +37,12 @@ const FormattedMessageContent = ({ content }) => {
           currentList = null;
         }
         
+        // Close any open table before adding heading
+        if (currentTable) {
+          elements.push(currentTable);
+          currentTable = null;
+        }
+        
         const level = headingMatch[1].length;
         const headingContent = formatInlineStyles(headingMatch[2]);
         
@@ -45,6 +52,89 @@ const FormattedMessageContent = ({ content }) => {
           </div>
         );
         return;
+      }
+      
+      // Check for table rows
+      // First check if it's a potential table row (contains | character)
+      if (trimmedLine.includes('|')) {
+        // Close any open list before starting a table
+        if (currentList) {
+          elements.push(currentList);
+          currentList = null;
+        }
+        
+        // Check if it's a separator row (contains only |, -, :)
+        const isSeparator = /^\|?([\s-:|]+\|)+[\s-:|]+\|?$/.test(trimmedLine);
+        
+        // If it's a separator, just skip (we'll use CSS for styling)
+        if (isSeparator) {
+          // If this is the first separator and we don't have a table yet, create one
+          if (!currentTable) {
+            currentTable = (
+              <div key={`table-${index}`} className="markdown-table-container">
+                <table className="markdown-table">
+                  <thead></thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            );
+          }
+          return;
+        }
+        
+        // Process the table cell content
+        const cells = trimmedLine
+          .replace(/^\||\|$/g, '') // Remove optional leading/trailing |
+          .split('|')
+          .map(cell => cell.trim());
+        
+        // Create table row
+        const rowContent = (
+          <tr key={`row-${index}`}>
+            {cells.map((cell, cellIndex) => (
+              <td key={`cell-${index}-${cellIndex}`}>{formatInlineStyles(cell)}</td>
+            ))}
+          </tr>
+        );
+        
+        // If we don't have a table yet, create one
+        if (!currentTable) {
+          // This is a header row
+          currentTable = (
+            <div key={`table-${index}`} className="markdown-table-container">
+              <table className="markdown-table">
+                <thead>
+                  <tr key={`header-${index}`}>
+                    {cells.map((cell, cellIndex) => (
+                      <th key={`header-${index}-${cellIndex}`}>{formatInlineStyles(cell)}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          );
+        } else {
+          // Add row to existing table
+          const tbody = currentTable.props.children.props.children[1];
+          const existingRows = tbody.props.children || [];
+          // Handle both single row and array of rows cases
+          const newRows = Array.isArray(existingRows) ? [...existingRows, rowContent] : [existingRows, rowContent].filter(Boolean);
+          
+          const newTbody = React.cloneElement(tbody, {}, newRows);
+          const table = currentTable.props.children;
+          const newTable = React.cloneElement(table, {}, [table.props.children[0], newTbody]);
+          
+          currentTable = React.cloneElement(currentTable, {}, newTable);
+        }
+        
+        return;
+      }
+      
+      // If we reach here and have an open table, close it
+      if (currentTable) {
+        elements.push(currentTable);
+        currentTable = null;
       }
       
       // Check for list items (bullet points)
@@ -88,9 +178,13 @@ const FormattedMessageContent = ({ content }) => {
       );
     });
     
-    // Add any remaining list
+    // Add any remaining list or table
     if (currentList) {
       elements.push(currentList);
+    }
+    
+    if (currentTable) {
+      elements.push(currentTable);
     }
     
     return elements;
