@@ -1,5 +1,4 @@
-// Import variables
-@import 'variables';
+@use "variables" as v;
 
 // Reset and base styles
 * {
@@ -13,61 +12,61 @@ html, body {
 }
 
 body {
-  font-family: $font-family-main;
-  font-size: $font-size-base;
-  background-color: $background-light;
-  color: $text-primary;
-  line-height: $line-height-base;
+  font-family: v.$font-family-main;
+  font-size: v.$font-size-base;
+  background-color: v.$background-light;
+  color: v.$text-primary;
+  line-height: v.$line-height-base;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 input {
-  caret-color: $primary-color;
+  caret-color: v.$primary-color;
 }
 
 code {
-  font-family: $font-family-code;
+  font-family: v.$font-family-code;
 }
 
 // Typography
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.2;
-  margin-bottom: $spacing-md;
+  margin-bottom: v.$spacing-md;
 }
 
 h1 {
-  font-size: $font-size-xxlarge;
+  font-size: v.$font-size-xxlarge;
 }
 
 h2 {
-  font-size: $font-size-xlarge;
+  font-size: v.$font-size-xlarge;
 }
 
 h3 {
-  font-size: $font-size-large;
+  font-size: v.$font-size-large;
 }
 
 p {
-  margin-bottom: $spacing-md;
+  margin-bottom: v.$spacing-md;
 }
 
 a {
-  color: $primary-color;
+  color: v.$primary-color;
   text-decoration: none;
   
   &:hover {
-    color: $primary-color-dark;
+    color: v.$primary-color-dark;
     text-decoration: underline;
   }
 }
 
 // Container
 .container {
-  max-width: $container-max-width;
+  max-width: v.$container-max-width;
   margin: 0 auto;
-  padding: 0 $content-padding;
+  padding: 0 v.$content-padding;
 }
 
 // Helper classes
@@ -76,33 +75,33 @@ a {
 }
 
 .text-primary {
-  color: $primary-color;
+  color: v.$primary-color;
 }
 
 .text-secondary {
-  color: $text-secondary;
+  color: v.$text-secondary;
 }
 
 .mt-1 {
-  margin-top: $spacing-sm;
+  margin-top: v.$spacing-sm;
 }
 
 .mt-2 {
-  margin-top: $spacing-md;
+  margin-top: v.$spacing-md;
 }
 
 .mt-3 {
-  margin-top: $spacing-lg;
+  margin-top: v.$spacing-lg;
 }
 
 .mb-1 {
-  margin-bottom: $spacing-sm;
+  margin-bottom: v.$spacing-sm;
 }
 
 .mb-2 {
-  margin-bottom: $spacing-md;
+  margin-bottom: v.$spacing-md;
 }
 
 .mb-3 {
-  margin-bottom: $spacing-lg;
+  margin-bottom: v.$spacing-lg;
 }
