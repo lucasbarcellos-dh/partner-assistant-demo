@@ -6,7 +6,8 @@
   @include m.flex-between;
   z-index: 2;
   @include m.transition((opacity, transform), v.$transition-medium);
-  
+  color: v.$text-primary;
+
   .header-title,
   .reset-button {
     &.hidden {
