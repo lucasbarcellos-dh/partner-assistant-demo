@@ -1,0 +1,28 @@
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+
+.quick-questions-card {  
+  .section-content {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.quick-questions-container {
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-sm;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: v.$spacing-sm;
+  color: v.$text-primary;
+}
+
+.section-description {
+  font-size: 14px;
+  color: v.$text-secondary;
+
+}
