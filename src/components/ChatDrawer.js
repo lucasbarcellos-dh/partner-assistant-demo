@@ -6,7 +6,7 @@ import MessageList from './chat/MessageList';
 import QuestionChips from './chat/QuestionChips';
 import ChatInput from './chat/ChatInput';
 
-const ChatDrawer = ({ isOpen, onClose }) => {
+const ChatDrawer = ({ isOpen, onClose, initialQuestion = '' }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -14,17 +14,36 @@ const ChatDrawer = ({ isOpen, onClose }) => {
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
   const [eventSource, setEventSource] = useState(null);
+  const [initialQuestionProcessed, setInitialQuestionProcessed] = useState(false);
   
-  const apiURL = process.env.REACT_APP_API_URL;
+  const apiURL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
+  // Handle initial question when drawer opens
+  useEffect(() => {
+    if (isOpen && initialQuestion && !initialQuestionProcessed) {
+      // Set a small delay to ensure the drawer is visible first
+      const timer = setTimeout(() => {
+        handleStreamedResponse(initialQuestion);
+        setInitialQuestionProcessed(true);
+      }, 500);
+      
+      return () => clearTimeout(timer);
+    }
+    
+    // Reset flag when drawer closes
+    if (!isOpen && initialQuestionProcessed) {
+      setInitialQuestionProcessed(false);
+    }
+  }, [isOpen, initialQuestion, initialQuestionProcessed]);
+  
   // Focus textarea when drawer opens
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !initialQuestion) {
       setTimeout(() => {
         textareaRef.current?.focus();
       }, 300);
     }
-  }, [isOpen]);
+  }, [isOpen, initialQuestion]);
   
   // Auto-scroll to bottom of messages
   useEffect(() => {
@@ -36,8 +55,7 @@ const ChatDrawer = ({ isOpen, onClose }) => {
     return () => {
       if (eventSource) eventSource.close();
     };
-    // Only run on unmount
-  }, []);
+  }, [eventSource]);
 
   // Helper to remove typing indicators
   const removeTypingIndicators = (msgs) =>
