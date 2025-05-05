@@ -1,3 +1,5 @@
+# Menu
+
 ## Categories
 | Category ID | Category Name | Description                                         | Sort Order |
 |:------------|:--------------|:----------------------------------------------------|:-----------|
@@ -9,7 +11,7 @@
 | 6           | Desserts      | Sweet treats to complete your dining experience     | 6          |
 | 7           | Beverages     | Refreshing drinks to complement your meal           | 7          |
 
-## Menu Items
+## Items
 | Item ID | Item Name              | Category ID | Description                                                               | Price (€)   | Vegetarian | Spice Level | Allergens        |
 |:--------|:-----------------------|:------------|:--------------------------------------------------------------------------|:------------|:-----------|:------------|:--------|:-----------------|
 | 101     | Vegetable Samosas      | 1           | Crispy pastry filled with spiced potatoes and peas                        | 8.50        | Yes        | Medium      | Gluten           |
