@@ -18,6 +18,13 @@ const ChatDrawer = ({ isOpen, onClose, initialQuestion = '' }) => {
   
   const apiURL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
+  // Immediately set hasInteracted to true when a quick question is provided
+  useEffect(() => {
+    if (isOpen && initialQuestion) {
+      setHasInteracted(true);
+    }
+  }, [isOpen, initialQuestion]);
+
   // Handle initial question when drawer opens
   useEffect(() => {
     if (isOpen && initialQuestion && !initialQuestionProcessed) {
