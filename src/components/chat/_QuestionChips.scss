@@ -1,16 +1,20 @@
+@use "sass:color";
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
 // Question Chips Container
 .question-chips-container {
   width: 100%;
   
   // Container animation in the initial state
   .centered-input & {
-    margin-top: $spacing-lg;
-    @include slide-in('up', 20px, 0.6s);
+    margin-top: v.$spacing-lg;
+    @include m.slide-in('up', 20px, 0.6s);
   }
   
   // Less padding in conversation state to align with messages
   .bottom-input & {
-    padding: 0 $spacing-lg;
+    padding: 0 v.$spacing-lg;
   }
 }
 
@@ -18,8 +22,8 @@
 .question-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: $spacing-sm;
-  padding: $spacing-xs 0 $spacing-md;
+  gap: v.$spacing-sm;
+  padding: v.$spacing-xs 0 v.$spacing-md;
   width: 100%;
   justify-content: flex-start; // Left alignment
   
@@ -31,25 +35,25 @@
   
   // Make chips compact in bottom-input state
   .bottom-input & {
-    padding: 0 0 $spacing-md;
+    padding: 0 0 v.$spacing-md;
     margin-top: 0;
   }
 }
 
 .question-chip {
-  @include button-reset;
-  color: $text-branded-secondary;
+  @include m.button-reset;
+  color: v.$text-branded-secondary;
   padding: 4px 12px;
   border-radius: 12px;
-  font-size: $font-size-medium;
+  font-size: v.$font-size-medium;
   line-height: 1.5;
-  border: 1.5px solid rgba($primary-color, 0.12);
+  border: 1.5px solid rgba(v.$primary-color, 0.12);
   white-space: nowrap;
-  transition: all $transition-fast ease;
+  transition: all v.$transition-fast ease;
   box-shadow: none;
   
   &:hover {
-    border-color: rgba($primary-color, 0.24);
+    border-color: rgba(v.$primary-color, 0.24);
   }
   
   &:active {
@@ -62,28 +66,28 @@
     &:hover {
       transform: none;
       box-shadow: none;
-      background-color: $background-light;
-      border-color: $border-light;
+      background-color: v.$background-light;
+      border-color: v.$border-light;
     }
   }
   
   // Apply different styling when in initial state
   .centered-input & {
     &:hover {
-      border-color: rgba($primary-color, 0.2);
+      border-color: rgba(v.$primary-color, 0.2);
     }
   }
   
   // Apply more modest styling when in bottom state
   .bottom-input & {
-    background-color: $background-light;
+    background-color: v.$background-light;
     box-shadow: none;
     font-size: 12px;
     padding: 4px 12px;
   }
   
   // Responsive styles
-  @include respond-to(medium) {
+  @include m.respond-to(medium) {
     font-size: 11px;
     padding: 3px 10px;
     
