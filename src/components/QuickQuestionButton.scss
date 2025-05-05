@@ -1,0 +1,38 @@
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+
+.quick-question-button {
+  @include m.button-reset;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: v.$background-light;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  width: 100%;
+  transition: all v.$transition-fast;
+  border: 1px solid transparent;
+  
+  .button-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    
+    svg {
+      path, circle {
+        fill: v.$primary-color;
+      }
+    }
+  }
+  
+  &:hover {
+    background-color: rgba(v.$primary-color, 0.05);
+    border-color: rgba(v.$primary-color, 0.2);
+  }
+  
+  &:active {
+    transform: scale(0.99);
+  }
+}
