@@ -4,6 +4,7 @@
 
 .messages-container {
   @include m.transition(all, v.$transition-medium);
+  position: relative; // Added for gradient positioning
 }
 
 // Message Component
