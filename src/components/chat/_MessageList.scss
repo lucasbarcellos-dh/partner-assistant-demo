@@ -1,79 +1,83 @@
+@use "sass:color";
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
 .messages-container {
-    @include transition(all, $transition-medium);
-  }
+  @include m.transition(all, v.$transition-medium);
+}
+
+// Message Component
+.message {
+  margin-bottom: 16px; // Compact spacing
+  animation: message-fade-in 0.3s ease;
   
-  // Message Component
-  .message {
-    margin-bottom: 16px; // Compact spacing
-    animation: message-fade-in 0.3s ease;
+  &.user {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: v.$spacing-lg;
     
-    &.user {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: $spacing-lg;
-      
-      .message-content {
-        max-width: 85%;
-        padding: 12px 16px;
-        border-radius: $border-radius-md $border-radius-md 0 $border-radius-md;
-        font-weight: 600;
-        background: linear-gradient(
-          225deg,
-          adjust-color($primary-color, $hue: -8deg),
-          $primary-color,
-        );
-        color: $background-white;
-      }
-    }
-    
-    &.assistant {
-      position: relative;
-      
-      .message-content {
-        width: 95%;
-        color: $text-primary;
-        background-color: transparent;
-        padding: 0;
-        line-height: 1.5;
-        font-size: 16px;
-      }
-    }
-    
-    @include respond-to(medium) {
-      .message-content {
-        max-width: 95%;
-      }
-    }
-  }
-  
-  // Typing indicator
-  .message.assistant.typing-indicator {
     .message-content {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      height: 24px;
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: v.$border-radius-md v.$border-radius-md 0 v.$border-radius-md;
+      font-weight: 600;
+      background: linear-gradient(
+        225deg,
+        color.adjust(v.$primary-color, $hue: -8deg),
+        v.$primary-color,
+      );
+      color: v.$background-white;
+    }
+  }
+  
+  &.assistant {
+    position: relative;
+    
+    .message-content {
+      width: 95%;
+      color: v.$text-primary;
+      background-color: transparent;
+      padding: 0;
+      line-height: 1.5;
+      font-size: 16px;
+    }
+  }
+  
+  @include m.respond-to(medium) {
+    .message-content {
+      max-width: 95%;
+    }
+  }
+}
+
+// Typing indicator
+.message.assistant.typing-indicator {
+  .message-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 24px;
+    
+    span {
+      height: 8px;
+      width: 8px;
+      margin: 0 2px;
+      background-color: #888;
+      border-radius: v.$border-radius-full;
+      display: inline-block;
+      opacity: 0.4;
       
-      span {
-        height: 8px;
-        width: 8px;
-        margin: 0 2px;
-        background-color: #888;
-        border-radius: $border-radius-full;
-        display: inline-block;
-        opacity: 0.4;
-        
-        &:nth-of-type(1) {
-          animation: blink 1s infinite 0.1s;
-        }
-        
-        &:nth-of-type(2) {
-          animation: blink 1s infinite 0.3s;
-        }
-        
-        &:nth-of-type(3) {
-          animation: blink 1s infinite 0.5s;
-        }
+      &:nth-of-type(1) {
+        animation: blink 1s infinite 0.1s;
+      }
+      
+      &:nth-of-type(2) {
+        animation: blink 1s infinite 0.3s;
+      }
+      
+      &:nth-of-type(3) {
+        animation: blink 1s infinite 0.5s;
       }
     }
   }
+}
