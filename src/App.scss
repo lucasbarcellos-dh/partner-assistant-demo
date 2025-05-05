@@ -1,6 +1,5 @@
-// src/App.scss
-@import './styles/variables';
-@import './styles/mixins';
+@use "styles/variables" as v;
+@use "styles/mixins" as m;
 
 .app {
   display: flex;
@@ -28,21 +27,21 @@
 .page-title {
   font-size: 28px;
   font-weight: 700;
-  color: $text-primary;
+  color: v.$text-primary;
 }
 
 .section-grid {
   display: flex;
   flex-direction: column;
-  gap: $spacing-lg;
+  gap: v.$spacing-lg;
 }
 
 .section-row {
   display: flex;
-  gap: $spacing-lg;
+  gap: v.$spacing-lg;
   width: 100%;
   
-  @include respond-to(medium) {
+  @include m.respond-to(medium) {
     flex-direction: column;
   }
 }
@@ -51,7 +50,7 @@
   background-color: white;
   border-radius: 12px;
   border: 1px solid rgba(0,0,0,0.08);
-  padding: $spacing-lg;
+  padding: v.$spacing-lg;
   flex: 1;
   min-height: 200px;
 }
@@ -59,8 +58,8 @@
 .section-title {
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: $spacing-md;
-  color: $text-primary;
+  margin-bottom: v.$spacing-md;
+  color: v.$text-primary;
 }
 
 .section-content {
