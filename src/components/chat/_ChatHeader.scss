@@ -1,8 +1,11 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
 .chat-header {
-  padding: $spacing-lg $spacing-xl;
-  @include flex-between;
+  padding: v.$spacing-lg v.$spacing-xl;
+  @include m.flex-between;
   z-index: 2;
-  @include transition((opacity, transform), $transition-medium);
+  @include m.transition((opacity, transform), v.$transition-medium);
   
   .header-title,
   .reset-button {
@@ -14,10 +17,10 @@
   .header-title {
     display: flex;
     align-items: center;
-    gap: $spacing-md;
+    gap: v.$spacing-md;
     
     h1 {
-      font-size: $font-size-large;
+      font-size: v.$font-size-large;
       margin: 0;
     }
     
@@ -31,18 +34,18 @@
   
   .header-actions {
     display: flex;
-    gap: $spacing-sm;
+    gap: v.$spacing-sm;
     margin-left: auto; // Push to the right
   }
   
   .reset-button,
   .close-button {
-    @include button-reset;
+    @include m.button-reset;
     width: 32px;
     height: 32px;
-    border-radius: $border-radius-full;
-    @include flex-center;
-    color: $text-primary;
+    border-radius: v.$border-radius-full;
+    @include m.flex-center;
+    color: v.$text-primary;
     
     .material-symbols-rounded {
       font-size: 24px;
