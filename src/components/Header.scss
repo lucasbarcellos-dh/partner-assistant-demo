@@ -1,6 +1,5 @@
-// src/components/Header.scss
-@import '../styles/variables';
-@import '../styles/mixins';
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
 
 .app-header {
   // width: 1312px;
@@ -57,7 +56,7 @@
   background: none;
   border: 1px solid rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  color: $text-primary;
+  color: v.$text-primary;
   transition: background-color 0.2s;
   
   &:hover {
@@ -79,7 +78,7 @@
     right: 10px;
     width: 8px;
     height: 8px;
-    background-color: $primary-color;
+    background-color: v.$primary-color;
     border-radius: 50%;
     border: 2px solid white;
   }
@@ -88,7 +87,7 @@
 .chat-toggle-button {
   padding-right: 2px;
   svg {
-    fill: $primary-color;
+    fill: v.$primary-color;
   }
 }
 
