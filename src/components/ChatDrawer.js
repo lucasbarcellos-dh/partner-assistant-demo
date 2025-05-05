@@ -18,12 +18,27 @@ const ChatDrawer = ({ isOpen, onClose, initialQuestion = '' }) => {
   
   const apiURL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
-  // Immediately set hasInteracted to true when a quick question is provided
+  // Reset chat and set hasInteracted to true when a quick question is provided
   useEffect(() => {
     if (isOpen && initialQuestion) {
+      // Reset messages when a new quick question comes in
+      setMessages([]);
       setHasInteracted(true);
+      
+      // Also reset conversation with the server
+      (async () => {
+        try {
+          await fetch(`${apiURL}/api/reset`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: 'user-123' })
+          });
+        } catch (error) {
+          console.error('Error resetting conversation:', error);
+        }
+      })();
     }
-  }, [isOpen, initialQuestion]);
+  }, [isOpen, initialQuestion, apiURL]);
 
   // Handle initial question when drawer opens
   useEffect(() => {
