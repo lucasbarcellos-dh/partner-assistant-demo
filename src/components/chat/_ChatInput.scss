@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
 // Input Wrapper
 .input-wrapper {
   position: relative;
@@ -10,7 +14,7 @@
 
 // Chat Textarea
 .chat-textarea {
-  @include form-input;
+  @include m.form-input;
   padding-right: 64px; // Make room for the button
   font-size: 20px;
   resize: none; // Disable manual resizing
@@ -21,16 +25,16 @@
   padding-top: 14px;
   padding-bottom: 14px;
   width: 100%;
-  @include transition(all, $transition-fast);
+  @include m.transition(all, v.$transition-fast);
   
-  caret-color: $primary-color;
+  caret-color: v.$primary-color;
 
   &:focus {
     outline: none;
   }
   
   &:disabled {
-    background-color: $background-white;
+    background-color: v.$background-white;
     opacity: 0.7;
   }
 }
@@ -44,25 +48,25 @@
   height: 36px;
   border: none;
   border-radius: 12px;
-  @include flex-center;
+  @include m.flex-center;
   cursor: pointer;
-  @include transition((background-color, transform), $transition-fast);
+  @include m.transition((background-color, transform), v.$transition-fast);
   
   // Apply gradient to the send button
   background: linear-gradient(
     225deg,
-    adjust-color($primary-color, $hue: +20deg, $saturation: 70%),
-    $primary-color,
-    adjust-color($primary-color, $hue: -20deg, $saturation: 70%)
+    color.adjust(v.$primary-color, $hue: +20deg, $saturation: 70%),
+    v.$primary-color,
+    color.adjust(v.$primary-color, $hue: -20deg, $saturation: 70%)
   );
-  color: $background-white;
+  color: v.$background-white;
   
   &:active {
     transform: scale(0.95);
   }
   
   &:disabled {
-    background: $primary-color-dark;
+    background: v.$primary-color-dark;
     cursor: not-allowed;
   }
   
