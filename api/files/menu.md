@@ -13,7 +13,7 @@
 
 ## Items
 | Item ID | Item Name              | Category ID | Description                                                               | Price (€)   | Vegetarian | Spice Level | Allergens        |
-|:--------|:-----------------------|:------------|:--------------------------------------------------------------------------|:------------|:-----------|:------------|:--------|:-----------------|
+|:--------|:-----------------------|:------------|:--------------------------------------------------------------------------|:------------|:-----------|:------------|:-----------------|
 | 101     | Vegetable Samosas      | 1           | Crispy pastry filled with spiced potatoes and peas                        | 8.50        | Yes        | Medium      | Gluten           |
 | 102     | Onion Bhaji            | 1           | Crispy onion fritters with chickpea batter                                | 7.00        | Yes        | Mild        | None             |
 | 103     | Chicken Tikka          | 1           | Tender pieces of chicken marinated in yogurt and spices                   | 12.50       | No         | Medium      | Dairy            |
