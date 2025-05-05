@@ -1,59 +1,59 @@
 # Spice Garden Orders - Last 30 Days
 
-| Order ID | Date       | Time     | Status    | Type      | Items                                           | Customer Name       | Ready | Total Value (€) | Neighborhood       |
-|:---------|:-----------|:---------|:----------|:----------|:------------------------------------------------|:--------------------|:------|:----------------|:-------------------|
-| 4821     | 2025-04-06 | 18:35:22 | Completed | Delivery  | 1x101, 2x201, 1x302, 2x401                     | Maria Garcia        | Yes   | 52.50           | Mitte              |
-| 4822     | 2025-04-06 | 19:12:45 | Completed | Delivery  | 1x102, 1x202, 1x301, 1x401, 1x701              | James Wilson        | Yes   | 36.00           | Kreuzberg          |
-| 4823     | 2025-04-06 | 20:05:18 | Completed | Pickup    | 2x103, 1x203, 2x302, 1x401                     | Emma Thompson       | Yes   | 52.00           | Prenzlauer Berg    |
-| 4824     | 2025-04-07 | 12:30:56 | Completed | Delivery  | 1x501, 1x505, 1x303, 1x402, 1x601              | Rahul Sharma        | Yes   | 40.00           | Neukölln           |
-| 4825     | 2025-04-07 | 18:45:32 | Completed | Delivery  | 1x103, 1x201, 1x304, 1x401                     | Sophie Martin       | Yes   | 35.50           | Friedrichshain     |
-| 4826     | 2025-04-07 | 19:20:15 | Completed | Pickup    | 2x104, 1x502, 1x301, 1x401, 1x602              | Thomas Johnson      | Yes   | 43.00           | Mitte              |
-| 4827     | 2025-04-08 | 13:10:42 | Completed | Delivery  | 1x105, 1x204, 1x302, 1x401, 1x703              | Priya Patel         | Yes   | 44.50           | Schöneberg         |
-| 4828     | 2025-04-08 | 19:05:28 | Completed | Delivery  | 2x101, 1x501, 1x303, 1x401, 1x701              | David Brown         | Yes   | 46.00           | Tiergarten         |
-| 4829     | 2025-04-09 | 18:22:37 | Completed | Pickup    | 1x102, 1x202, 1x302, 1x402, 1x601              | Linda Miller        | Yes   | 37.00           | Moabit             |
-| 4830     | 2025-04-09 | 20:15:54 | Completed | Delivery  | 1x103, 1x203, 1x301, 1x401, 1x704              | Amit Kumar          | Yes   | 42.50           | Wedding            |
-| 4831     | 2025-04-10 | 13:45:32 | Completed | Delivery  | 1x104, 1x504, 1x301, 1x401, 1x702              | Jessica Taylor      | Yes   | 25.50           | Charlottenburg     |
-| 4832     | 2025-04-10 | 18:30:29 | Completed | Pickup    | 2x105, 1x205, 1x304, 2x401                     | Michael Anderson    | Yes   | 40.00           | Prenzlauer Berg    |
-| 4833     | 2025-04-11 | 19:10:15 | Completed | Delivery  | 1x101, 1x501, 1x302, 1x401, 1x701              | Sarah Wilson        | Yes   | 36.50           | Friedrichshain     |
-| 4834     | 2025-04-12 | 12:50:22 | Completed | Delivery  | 1x102, 1x202, 1x303, 1x402, 1x703              | Daniel Martinez     | Yes   | 37.50           | Mitte              |
-| 4835     | 2025-04-12 | 19:25:48 | Completed | Pickup    | 2x103, 1x204, 2x302, 1x401, 1x602              | Emily Johnson       | Yes   | 50.50           | Kreuzberg          |
-| 4836     | 2025-04-13 | 13:15:33 | Completed | Delivery  | 1x104, 1x506, 1x304, 1x403, 1x601              | Rajiv Gupta         | Yes   | 49.00           | Neukölln           |
-| 4837     | 2025-04-13 | 18:40:27 | Completed | Delivery  | 1x105, 1x205, 1x301, 1x401, 1x704              | Olivia Harris       | Yes   | 43.00           | Tiergarten         |
-| 4838     | 2025-04-14 | 19:05:18 | Completed | Pickup    | 2x101, 1x203, 1x302, 1x402, 1x701              | Arun Verma          | Yes   | 47.50           | Moabit             |
-| 4839     | 2025-04-15 | 12:30:42 | Completed | Delivery  | 1x102, 1x501, 1x301, 1x401, 1x603              | Jennifer Robinson   | Yes   | 38.00           | Charlottenburg     |
-| 4840     | 2025-04-15 | 18:55:36 | Completed | Pickup    | 1x103, 1x202, 1x303, 1x402, 1x702              | Mohammed Al-Farsi   | Yes   | 40.00           | Wedding            |
-| 4841     | 2025-04-16 | 13:20:29 | Completed | Delivery  | 1x104, 1x206, 1x304, 1x401, 1x601              | Sophia Martinez     | Yes   | 44.00           | Prenzlauer Berg    |
-| 4842     | 2025-04-16 | 19:10:15 | Completed | Delivery  | 2x105, 1x502, 1x302, 1x403, 1x703              | William Johnson     | Yes   | 58.50           | Friedrichshain     |
-| 4843     | 2025-04-17 | 18:35:22 | Completed | Pickup    | 1x101, 1x204, 1x303, 1x401, 1x704              | Aarti Singh         | Yes   | 41.50           | Kreuzberg          |
-| 4844     | 2025-04-18 | 12:45:48 | Completed | Delivery  | 1x102, 1x205, 1x301, 1x402, 1x602              | Robert White        | Yes   | 43.50           | Neukölln           |
-| 4845     | 2025-04-18 | 19:20:33 | Completed | Pickup    | 1x103, 1x503, 1x302, 1x401, 1x601              | Meera Reddy         | Yes   | 38.00           | Mitte              |
-| 4846     | 2025-04-19 | 13:05:27 | Completed | Delivery  | 2x104, 1x205, 1x304, 1x401, 1x703              | Christopher Lee     | Yes   | 46.00           | Schöneberg         |
-| 4847     | 2025-04-19 | 18:50:15 | Completed | Delivery  | 1x105, 1x504, 1x303, 1x402, 1x702              | Lakshmi Krishnan    | Yes   | 37.50           | Tiergarten         |
-| 4848     | 2025-04-20 | 19:15:36 | Completed | Pickup    | 1x101, 1x202, 1x301, 1x403, 1x601              | Natalie Johnson     | Yes   | 48.00           | Moabit             |
-| 4849     | 2025-04-21 | 12:40:42 | Completed | Delivery  | 1x102, 1x206, 1x302, 1x401, 1x704              | Samuel Wilson       | Yes   | 41.00           | Wedding            |
-| 4850     | 2025-04-21 | 18:25:29 | Completed | Pickup    | 2x103, 1x505, 1x304, 1x402, 1x703              | Pooja Sharma        | Yes   | 48.00           | Charlottenburg     |
-| 4851     | 2025-04-22 | 13:15:15 | Completed | Delivery  | 1x104, 1x203, 1x303, 1x401, 1x601              | Elizabeth Brown     | Yes   | 42.00           | Kreuzberg          |
-| 4852     | 2025-04-22 | 19:30:27 | Completed | Delivery  | 1x105, 1x501, 1x302, 1x403, 1x702              | Vikram Singh        | Yes   | 52.00           | Prenzlauer Berg    |
-| 4853     | 2025-04-23 | 18:45:48 | Completed | Pickup    | 1x101, 1x204, 1x301, 1x402, 1x603              | Katherine Davis     | Yes   | 44.00           | Friedrichshain     |
-| 4854     | 2025-04-24 | 12:55:33 | Completed | Delivery  | 2x102, 1x502, 1x302, 1x401, 1x701              | Arjun Patel         | Yes   | 39.50           | Neukölln           |
-| 4855     | 2025-04-24 | 19:10:18 | Completed | Pickup    | 1x103, 1x205, 1x304, 1x401, 1x602              | Hannah Wilson       | Yes   | 42.00           | Mitte              |
-| 4856     | 2025-04-25 | 13:30:36 | Completed | Delivery  | 1x104, 1x503, 1x301, 1x403, 1x703              | Sanjeev Kumar       | Yes   | 44.50           | Schöneberg         |
-| 4857     | 2025-04-25 | 18:20:24 | Completed | Delivery  | 1x105, 1x204, 1x302, 1x402, 1x601              | Nicole Johnson      | Yes   | 47.00           | Tiergarten         |
-| 4858     | 2025-04-26 | 19:25:42 | Completed | Pickup    | 2x101, 1x506, 1x303, 1x401, 1x704              | Ravi Desai          | Yes   | 44.50           | Moabit             |
-| 4859     | 2025-04-27 | 12:35:15 | Completed | Delivery  | 1x102, 1x201, 1x304, 1x402, 1x602              | Amanda Martinez     | Yes   | 38.00           | Wedding            |
-| 4860     | 2025-04-27 | 18:50:33 | Completed | Pickup    | 1x103, 1x505, 1x301, 1x401, 1x703              | Deepak Chopra       | Yes   | 38.00           | Charlottenburg     |
-| 4861     | 2025-04-28 | 13:40:27 | Completed | Delivery  | 1x104, 1x202, 1x302, 1x403, 1x601              | Lauren Taylor       | Yes   | 47.50           | Kreuzberg          |
-| 4862     | 2025-04-28 | 19:15:18 | Completed | Delivery  | 2x105, 1x504, 1x303, 1x401, 1x702              | Aditya Sharma       | Yes   | 43.00           | Prenzlauer Berg    |
-| 4863     | 2025-04-29 | 18:30:36 | Completed | Pickup    | 1x101, 1x206, 1x304, 1x402, 1x601              | Benjamin White      | Yes   | 42.00           | Friedrichshain     |
-| 4864     | 2025-04-30 | 12:50:24 | Completed | Delivery  | 1x102, 1x203, 1x301, 1x401, 1x603              | Ananya Patel        | Yes   | 37.50           | Neukölln           |
-| 4865     | 2025-04-30 | 19:05:42 | Accepted  | Pickup    | 1x103, 1x201, 1x302, 1x402, 1x701              | Justin Robinson     | Yes   | 43.00           | Mitte              |
-| 4866     | 2025-05-01 | 13:25:15 | Accepted  | Delivery  | 2x104, 1x502, 1x303, 1x401, 1x702              | Neha Reddy          | Yes   | 48.50           | Schöneberg         |
-| 4867     | 2025-05-01 | 18:40:33 | Accepted  | Delivery  | 1x105, 1x205, 1x301, 1x403, 1x601              | Thomas Parker       | Yes   | 50.00           | Tiergarten         |
-| 4868     | 2025-05-02 | 12:15:27 | Accepted  | Pickup    | 1x101, 1x503, 1x304, 1x401, 1x703              | Priyanka Chopra     | No    | 32.50           | Moabit             |
-| 4869     | 2025-05-02 | 19:30:18 | Accepted  | Delivery  | 1x102, 1x501, 1x302, 1x402, 1x602              | Alexander Johnson   | No    | 44.00           | Wedding            |
-| 4870     | 2025-05-03 | 18:45:36 | Accepted  | Pickup    | 2x103, 1x204, 1x303, 1x401, 1x601              | Kavita Singh        | No    | 46.00           | Charlottenburg     |
-| 4871     | 2025-05-04 | 13:00:24 | New       | Delivery  | 1x104, 1x202, 1x301, 1x403, 1x704              | William Davis       | No    | 47.50           | Kreuzberg          |
-| 4872     | 2025-05-04 | 19:20:42 | New       | Pickup    | 1x105, 1x504, 1x302, 1x401, 1x702              | Sunita Sharma       | No    | 37.50           | Prenzlauer Berg    |
-| 4873     | 2025-05-05 | 12:35:15 | New       | Delivery  | 1x101, 1x505, 1x304, 1x402, 1x703              | Richard Wilson      | No    | 35.50           | Friedrichshain     |
-| 4874     | 2025-05-05 | 18:55:33 | New       | Delivery  | 2x102, 1x206, 1x301, 1x401, 1x601              | Maya Patel          | No    | 42.50           | Neukölln           |
-| 4875     | 2025-05-05 | 19:40:27 | New       | Pickup    | 1x103, 1x502, 1x303, 1x403, 1x704              | Jason Taylor        | No    | 43.00           | Mitte              |
+| Order ID | Date       | Time     | Status    | Type      | Items                                           | Customer Name       | Ready | Total Value (€) | Neighborhood       | Prep Time (min) | Cancelled | Delayed |
+|:---------|:-----------|:---------|:----------|:----------|:------------------------------------------------|:--------------------|:------|:----------------|:-------------------|:----------------|:----------|:--------|
+| 4821     | 2025-04-06 | 18:35:22 | Completed | Delivery  | 1x101, 2x201, 1x302, 2x401                     | Maria Garcia        | Yes   | 52.50           | Mitte              | 25              | No        | No      |
+| 4822     | 2025-04-06 | 19:12:45 | Completed | Delivery  | 1x102, 1x202, 1x301, 1x401, 1x701              | James Wilson        | Yes   | 36.00           | Kreuzberg          | 22              | No        | No      |
+| 4823     | 2025-04-06 | 20:05:18 | Completed | Pickup    | 2x103, 1x203, 2x302, 1x401                     | Emma Thompson       | Yes   | 52.00           | Prenzlauer Berg    | 28              | No        | No      |
+| 4824     | 2025-04-07 | 12:30:56 | Completed | Delivery  | 1x501, 1x505, 1x303, 1x402, 1x601              | Rahul Sharma        | Yes   | 40.00           | Neukölln           | 20              | No        | No      |
+| 4825     | 2025-04-07 | 18:45:32 | Completed | Delivery  | 1x103, 1x201, 1x304, 1x401                     | Sophie Martin       | Yes   | 35.50           | Friedrichshain     | 18              | No        | No      |
+| 4826     | 2025-04-07 | 19:20:15 | Completed | Pickup    | 2x104, 1x502, 1x301, 1x401, 1x602              | Thomas Johnson      | Yes   | 43.00           | Mitte              | 24              | No        | No      |
+| 4827     | 2025-04-08 | 13:10:42 | Completed | Delivery  | 1x105, 1x204, 1x302, 1x401, 1x703              | Priya Patel         | Yes   | 44.50           | Schöneberg         | 26              | No        | No      |
+| 4828     | 2025-04-08 | 19:05:28 | Completed | Delivery  | 2x101, 1x501, 1x303, 1x401, 1x701              | David Brown         | Yes   | 46.00           | Tiergarten         | 23              | No        | No      |
+| 4829     | 2025-04-09 | 18:22:37 | Completed | Pickup    | 1x102, 1x202, 1x302, 1x402, 1x601              | Linda Miller        | Yes   | 37.00           | Moabit             | 21              | No        | No      |
+| 4830     | 2025-04-09 | 20:15:54 | Completed | Delivery  | 1x103, 1x203, 1x301, 1x401, 1x704              | Amit Kumar          | Yes   | 42.50           | Wedding            | 25              | No        | No      |
+| 4831     | 2025-04-10 | 13:45:32 | Completed | Delivery  | 1x104, 1x504, 1x301, 1x401, 1x702              | Jessica Taylor      | Yes   | 25.50           | Charlottenburg     | 19              | No        | No      |
+| 4832     | 2025-04-10 | 18:30:29 | Completed | Pickup    | 2x105, 1x205, 1x304, 2x401                     | Michael Anderson    | Yes   | 40.00           | Prenzlauer Berg    | 22              | No        | No      |
+| 4833     | 2025-04-11 | 19:10:15 | Completed | Delivery  | 1x101, 1x501, 1x302, 1x401, 1x701              | Sarah Wilson        | Yes   | 36.50           | Friedrichshain     | 24              | No        | No      |
+| 4834     | 2025-04-12 | 12:50:22 | Completed | Delivery  | 1x102, 1x202, 1x303, 1x402, 1x703              | Daniel Martinez     | Yes   | 37.50           | Mitte              | 20              | No        | No      |
+| 4835     | 2025-04-12 | 19:25:48 | Completed | Pickup    | 2x103, 1x204, 2x302, 1x401, 1x602              | Emily Johnson       | Yes   | 50.50           | Kreuzberg          | 27              | No        | No      |
+| 4836     | 2025-04-13 | 13:15:33 | Completed | Delivery  | 1x104, 1x506, 1x304, 1x403, 1x601              | Rajiv Gupta         | Yes   | 49.00           | Neukölln           | 30              | No        | Yes     |
+| 4837     | 2025-04-13 | 18:40:27 | Completed | Delivery  | 1x105, 1x205, 1x301, 1x401, 1x704              | Olivia Harris       | Yes   | 43.00           | Tiergarten         | 23              | No        | No      |
+| 4838     | 2025-04-14 | 19:05:18 | Completed | Pickup    | 2x101, 1x203, 1x302, 1x402, 1x701              | Arun Verma          | Yes   | 47.50           | Moabit             | 25              | No        | No      |
+| 4839     | 2025-04-15 | 12:30:42 | Completed | Delivery  | 1x102, 1x501, 1x301, 1x401, 1x603              | Jennifer Robinson   | Yes   | 38.00           | Charlottenburg     | 22              | No        | No      |
+| 4840     | 2025-04-15 | 18:55:36 | Completed | Pickup    | 1x103, 1x202, 1x303, 1x402, 1x702              | Mohammed Al-Farsi   | Yes   | 40.00           | Wedding            | 24              | No        | No      |
+| 4841     | 2025-04-16 | 13:20:29 | Completed | Delivery  | 1x104, 1x206, 1x304, 1x401, 1x601              | Sophia Martinez     | Yes   | 44.00           | Prenzlauer Berg    | 26              | No        | No      |
+| 4842     | 2025-04-16 | 19:10:15 | Completed | Delivery  | 2x105, 1x502, 1x302, 1x403, 1x703              | William Johnson     | Yes   | 58.50           | Friedrichshain     | 28              | No        | No      |
+| 4843     | 2025-04-17 | 18:35:22 | Completed | Pickup    | 1x101, 1x204, 1x303, 1x401, 1x704              | Aarti Singh         | Yes   | 41.50           | Kreuzberg          | 23              | No        | No      |
+| 4844     | 2025-04-18 | 12:45:48 | Completed | Delivery  | 1x102, 1x205, 1x301, 1x402, 1x602              | Robert White        | Yes   | 43.50           | Neukölln           | 25              | No        | No      |
+| 4845     | 2025-04-18 | 19:20:33 | Completed | Pickup    | 1x103, 1x503, 1x302, 1x401, 1x601              | Meera Reddy         | Yes   | 38.00           | Mitte              | 22              | No        | No      |
+| 4846     | 2025-04-19 | 13:05:27 | Completed | Delivery  | 2x104, 1x205, 1x304, 1x401, 1x703              | Christopher Lee     | Yes   | 46.00           | Schöneberg         | 25              | No        | No      |
+| 4847     | 2025-04-19 | 18:50:15 | Completed | Delivery  | 1x105, 1x504, 1x303, 1x402, 1x702              | Lakshmi Krishnan    | Yes   | 37.50           | Tiergarten         | 20              | No        | No      |
+| 4848     | 2025-04-20 | 19:15:36 | Completed | Pickup    | 1x101, 1x202, 1x301, 1x403, 1x601              | Natalie Johnson     | Yes   | 48.00           | Moabit             | 27              | No        | No      |
+| 4849     | 2025-04-21 | 12:40:42 | Completed | Delivery  | 1x102, 1x206, 1x302, 1x401, 1x704              | Samuel Wilson       | Yes   | 41.00           | Wedding            | 23              | No        | No      |
+| 4850     | 2025-04-21 | 18:25:29 | Completed | Pickup    | 2x103, 1x505, 1x304, 1x402, 1x703              | Pooja Sharma        | Yes   | 48.00           | Charlottenburg     | 26              | No        | No      |
+| 4851     | 2025-04-22 | 13:15:15 | Completed | Delivery  | 1x104, 1x203, 1x303, 1x401, 1x601              | Elizabeth Brown     | Yes   | 42.00           | Kreuzberg          | 24              | No        | No      |
+| 4852     | 2025-04-22 | 19:30:27 | Completed | Delivery  | 1x105, 1x501, 1x302, 1x403, 1x702              | Vikram Singh        | Yes   | 52.00           | Prenzlauer Berg    | 29              | No        | Yes     |
+| 4853     | 2025-04-23 | 18:45:48 | Completed | Pickup    | 1x101, 1x204, 1x301, 1x402, 1x603              | Katherine Davis     | Yes   | 44.00           | Friedrichshain     | 25              | No        | No      |
+| 4854     | 2025-04-24 | 12:55:33 | Completed | Delivery  | 2x102, 1x502, 1x302, 1x401, 1x701              | Arjun Patel         | Yes   | 39.50           | Neukölln           | 22              | No        | No      |
+| 4855     | 2025-04-24 | 19:10:18 | Completed | Pickup    | 1x103, 1x205, 1x304, 1x401, 1x602              | Hannah Wilson       | Yes   | 42.00           | Mitte              | 25              | No        | No      |
+| 4856     | 2025-04-25 | 13:30:36 | Completed | Delivery  | 1x104, 1x503, 1x301, 1x403, 1x703              | Sanjeev Kumar       | Yes   | 44.50           | Schöneberg         | 27              | No        | No      |
+| 4857     | 2025-04-25 | 18:20:24 | Completed | Delivery  | 1x105, 1x204, 1x302, 1x402, 1x601              | Nicole Johnson      | Yes   | 47.00           | Tiergarten         | 23              | No        | No      |
+| 4858     | 2025-04-26 | 19:25:42 | Completed | Pickup    | 2x101, 1x506, 1x303, 1x401, 1x704              | Ravi Desai          | Yes   | 44.50           | Moabit             | 26              | No        | No      |
+| 4859     | 2025-04-27 | 12:35:15 | Completed | Delivery  | 1x102, 1x201, 1x304, 1x402, 1x602              | Amanda Martinez     | Yes   | 38.00           | Wedding            | 21              | No        | No      |
+| 4860     | 2025-04-27 | 18:50:33 | Completed | Pickup    | 1x103, 1x505, 1x301, 1x401, 1x703              | Deepak Chopra       | Yes   | 38.00           | Charlottenburg     | 24              | No        | No      |
+| 4861     | 2025-04-28 | 13:40:27 | Completed | Delivery  | 1x104, 1x202, 1x302, 1x403, 1x601              | Lauren Taylor       | Yes   | 47.50           | Kreuzberg          | 28              | No        | No      |
+| 4862     | 2025-04-28 | 19:15:18 | Completed | Delivery  | 2x105, 1x504, 1x303, 1x401, 1x702              | Aditya Sharma       | Yes   | 43.00           | Prenzlauer Berg    | 25              | No        | No      |
+| 4863     | 2025-04-29 | 18:30:36 | Completed | Pickup    | 1x101, 1x206, 1x304, 1x402, 1x601              | Benjamin White      | Yes   | 42.00           | Friedrichshain     | 23              | No        | No      |
+| 4864     | 2025-04-30 | 12:50:24 | Completed | Delivery  | 1x102, 1x203, 1x301, 1x401, 1x603              | Ananya Patel        | Yes   | 37.50           | Neukölln           | 21              | No        | No      |
+| 4865     | 2025-04-30 | 19:05:42 | Accepted  | Pickup    | 1x103, 1x201, 1x302, 1x402, 1x701              | Justin Robinson     | Yes   | 43.00           | Mitte              | 24              | No        | No      |
+| 4866     | 2025-05-01 | 13:25:15 | Accepted  | Delivery  | 2x104, 1x502, 1x303, 1x401, 1x702              | Neha Reddy          | Yes   | 48.50           | Schöneberg         | 26              | No        | No      |
+| 4867     | 2025-05-01 | 18:40:33 | Accepted  | Delivery  | 1x105, 1x205, 1x301, 1x403, 1x601              | Thomas Parker       | Yes   | 50.00           | Tiergarten         | 28              | No        | No      |
+| 4868     | 2025-05-02 | 12:15:27 | Accepted  | Pickup    | 1x101, 1x503, 1x304, 1x401, 1x703              | Priyanka Chopra     | No    | 32.50           | Moabit             | 22              | No        | No      |
+| 4869     | 2025-05-02 | 19:30:18 | Accepted  | Delivery  | 1x102, 1x501, 1x302, 1x402, 1x602              | Alexander Johnson   | No    | 44.00           | Wedding            | 25              | No        | No      |
+| 4870     | 2025-05-03 | 18:45:36 | Accepted  | Pickup    | 2x103, 1x204, 1x303, 1x401, 1x601              | Kavita Singh        | No    | 46.00           | Charlottenburg     | 27              | No        | No      |
+| 4871     | 2025-05-04 | 13:00:24 | New       | Delivery  | 1x104, 1x202, 1x301, 1x403, 1x704              | William Davis       | No    | 47.50           | Kreuzberg          | -               | No        | No      |
+| 4872     | 2025-05-04 | 19:20:42 | New       | Pickup    | 1x105, 1x504, 1x302, 1x401, 1x702              | Sunita Sharma       | No    | 37.50           | Prenzlauer Berg    | -               | No        | No      |
+| 4873     | 2025-05-05 | 12:35:15 | New       | Delivery  | 1x101, 1x505, 1x304, 1x402, 1x703              | Richard Wilson      | No    | 35.50           | Friedrichshain     | -               | No        | No      |
+| 4874     | 2025-05-05 | 18:55:33 | New       | Delivery  | 2x102, 1x206, 1x301, 1x401, 1x601              | Maya Patel          | No    | 42.50           | Neukölln           | -               | No        | No      |
+| 4875     | 2025-05-05 | 19:40:27 | New       | Pickup    | 1x103, 1x502, 1x303, 1x403, 1x704              | Jason Taylor        | No    | 43.00           | Mitte              | -               | No        | No      |
