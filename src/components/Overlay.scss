@@ -1,5 +1,5 @@
-@import '../styles/variables';
-@import '../styles/mixins';
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
 
 .overlay {
   position: fixed;
@@ -7,7 +7,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: $overlay-background;
-  z-index: $z-index-overlay;
-  @include fade-in($duration: $transition-medium);
+  background-color: v.$overlay-background;
+  z-index: v.$z-index-overlay;
+  @include m.fade-in($duration: v.$transition-medium);
 }
