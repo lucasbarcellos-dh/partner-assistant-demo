@@ -25,23 +25,18 @@ function App() {
     setIsChatOpen(true);
   };
 
-  // Custom questions with display text and query
   const customQuestions = [
     {
       display: "How did last week go?",
       query: "How did my business perform last week?"
     },
     {
-      display: "Show me recent reviews",
+      display: "What are customers saying?",
       query: "What are my customers saying in recent reviews?"
     },
     {
       display: "What's popular on my menu?",
       query: "What are my most popular menu items?"
-    },
-    {
-      display: "How's my rating trending?",
-      query: "How has my restaurant rating been trending over the past month?"
     }
   ];
 
