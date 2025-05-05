@@ -1,13 +1,12 @@
-# Gino's Deli Al Sufouh 1
+# Spice Garden Business Overview
 
-## Business Overview
-
-**Store Name:** Gino's Deli  
-**Location:** Al Sufouh 1  
+## Basic Information
+**Store Name:** Spice Garden  
+**Location:** Kreuzberg, Berlin  
 **Restaurant ID:** 625391  
 
 ## Description
-Gino's Deli is a specialty food establishment offering a variety of gourmet sandwiches, salads, wraps, and artisanal ice creams. Our signature dishes include the popular Cowboy Chicken, Bean Me Up Salad, and a selection of fresh-pressed juices. We pride ourselves on using quality ingredients and offering a balance of healthy options alongside indulgent treats.
+Spice Garden is an authentic Indian restaurant offering a variety of traditional dishes from across India. Our signature dishes include the popular Butter Chicken, Lamb Rogan Josh, and a selection of freshly baked naan breads. We pride ourselves on using quality ingredients and authentic spices to create a memorable dining experience that captures the essence of Indian cuisine.
 
 ## Current Status
 **Status:** Open  
@@ -24,13 +23,14 @@ Gino's Deli is a specialty food establishment offering a variety of gourmet sand
 **Recent Order Volume:** 649 completed orders (out of 727 total)
 
 ## Business Highlights
-- **Popular Items:** Vegan Salted Caramel Cheesecake, D's Qunioa Wrap, Cowboy Chicken
+- **Popular Items:** Butter Chicken, Paneer Tikka, Lamb Biryani
 - **Peak Hours:** 7:00 PM - 8:00 PM (highest order volume)
 - **Payment Methods:** Online (89%), Cash (11%)
-- **Order Types:** 100% Delivery (no pickup currently available)
+- **Order Types:** Delivery (80%), Pickup (20%)
 
 ## Current Promotions
-- 10% off orders over €50 (code: SAVE10)
-- Free delivery on Mondays (code: MONDAYFREE)
+- 15% off orders over €50 (code: SPICE15)
+- Free delivery on weekdays before 5 PM (code: EARLYBIRD)
+- Family meal bundle for 4 people - €65 (code: FAMILYFEAST)
 
 *Last updated: May 05, 2025*
