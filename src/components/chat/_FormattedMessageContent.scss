@@ -73,6 +73,37 @@
     margin-bottom: 8px;
   }
   
+  // Table styles
+  .markdown-table-container {
+    margin: 16px 0;
+    width: 100%;
+    overflow-x: auto;
+  }
+  
+  .markdown-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    
+    th, td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+    
+    th {
+      font-weight: 600;
+      color: v.$text-primary;
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+  }
+  
   // Inline styles
   strong {
     font-weight: 600;
