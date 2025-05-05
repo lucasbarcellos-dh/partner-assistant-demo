@@ -9,8 +9,7 @@
 Spice Garden is an authentic Indian restaurant offering a variety of traditional dishes from across India. Our signature dishes include the popular Butter Chicken, Lamb Rogan Josh, and a selection of freshly baked naan breads. We pride ourselves on using quality ingredients and authentic spices to create a memorable dining experience that captures the essence of Indian cuisine.
 
 ## Current Status
-**Status:** Open  
-**Last Status Update:** May 05, 2025
+**Status:** Open
 
 ## Operating Hours
 **Weekdays (Mon-Fri):** 9:00 AM - 8:00 PM  
