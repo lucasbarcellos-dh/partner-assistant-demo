@@ -1,4 +1,4 @@
-# Spice Garden Orders - Last 30 Days
+# Orders (Last 30 Days)
 
 | Order ID | Date       | Time     | Status    | Type      | Items                                           | Customer Name       | Ready | Total Value (€) | Neighborhood       | Prep Time (min) | Cancelled | Delayed |
 |:---------|:-----------|:---------|:----------|:----------|:------------------------------------------------|:--------------------|:------|:----------------|:-------------------|:----------------|:----------|:--------|
