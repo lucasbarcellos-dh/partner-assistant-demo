@@ -1,19 +1,22 @@
+@use "sass:color";
+@use "variables" as v;
+
 // Responsive Breakpoints
 @mixin respond-to($breakpoint) {
   @if $breakpoint == small {
-    @media (max-width: $breakpoint-sm) {
+    @media (max-width: v.$breakpoint-sm) {
       @content;
     }
   } @else if $breakpoint == medium {
-    @media (max-width: $breakpoint-md) {
+    @media (max-width: v.$breakpoint-md) {
       @content;
     }
   } @else if $breakpoint == large {
-    @media (max-width: $breakpoint-lg) {
+    @media (max-width: v.$breakpoint-lg) {
       @content;
     }
   } @else if $breakpoint == xlarge {
-    @media (max-width: $breakpoint-xl) {
+    @media (max-width: v.$breakpoint-xl) {
       @content;
     }
   }
@@ -38,7 +41,7 @@
 }
 
 // Transitions
-@mixin transition($properties: all, $duration: $transition-medium, $timing: ease) {
+@mixin transition($properties: all, $duration: v.$transition-medium, $timing: ease) {
   transition: $properties $duration $timing;
 }
 
@@ -53,13 +56,13 @@
   cursor: pointer;
 }
 
-@mixin icon-button($size: 40px, $color: $primary-color, $hover-color: $primary-color-dark) {
+@mixin icon-button($size: 40px, $color: v.$primary-color, $hover-color: v.$primary-color-dark) {
   @include button-reset;
   @include flex-center;
   width: $size;
   height: $size;
-  border-radius: $border-radius-full;
-  background-color: $background-white;
+  border-radius: v.$border-radius-full;
+  background-color: v.$background-white;
   border: 1px solid rgba(0, 0, 0, 0.08);
   
   &:hover {
@@ -78,18 +81,18 @@
 
 // Box Shadows
 @mixin card-shadow {
-  box-shadow: $box-shadow-light;
+  box-shadow: v.$box-shadow-light;
 }
 
 @mixin card-shadow-hover {
-  box-shadow: $box-shadow-branded;
+  box-shadow: v.$box-shadow-branded;
 }
 
 // Container Styles
 @mixin container {
-  max-width: $container-max-width;
+  max-width: v.$container-max-width;
   margin: 0 auto;
-  padding: 0 $content-padding;
+  padding: 0 v.$content-padding;
 }
 
 // Animations
@@ -138,13 +141,13 @@
 
 // Typography
 @mixin heading-1 {
-  font-size: $font-size-xxlarge;
+  font-size: v.$font-size-xxlarge;
   font-weight: 600;
   line-height: 1.2;
 }
 
 @mixin heading-2 {
-  font-size: $font-size-xlarge;
+  font-size: v.$font-size-xlarge;
   font-weight: 600;
   line-height: 1.3;
 }
@@ -157,27 +160,27 @@
 
 // Cards & Containers
 @mixin card {
-  background-color: $background-white;
-  border-radius: $border-radius-sm;
-  padding: $spacing-lg;
+  background-color: v.$background-white;
+  border-radius: v.$border-radius-sm;
+  padding: v.$spacing-lg;
   @include card-shadow;
 }
 
 // Input Styles
 @mixin form-input {
   width: 100%;
-  padding: $spacing-md 20px;
+  padding: v.$spacing-md 20px;
   border: none;
   border-radius: 20px;
   font-size: 20px;
-  line-height: $line-height-base;
-  font-family: $font-family-main;
+  line-height: v.$line-height-base;
+  font-family: v.$font-family-main;
   outline: none;
-  background-color: $background-white;
+  background-color: v.$background-white;
   @include transition(border-color);
 
   &::placeholder {
-    color: $text-branded-disabled;
+    color: v.$text-branded-disabled;
   }
   
   &:focus {
@@ -187,8 +190,8 @@
 
 @mixin branded-gradient {
   background: linear-gradient(
-    adjust-color($primary-color, $hue: -33deg, $saturation: 100%),
-    rgba($primary-color),
-    adjust-color($primary-color, $hue: +33deg, $saturation: 100%)
+    color.adjust(v.$primary-color, $hue: -33deg, $saturation: 100%),
+    rgba(v.$primary-color),
+    color.adjust(v.$primary-color, $hue: +33deg, $saturation: 100%)
   );
 }
