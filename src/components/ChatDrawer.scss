@@ -1,6 +1,11 @@
-// src/components/ChatDrawer.scss
-@import '../styles/variables';
-@import '../styles/mixins';
+@use "sass:color";
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+@use './chat/ChatHeader';
+@use './chat/MessageList';
+@use './chat/ChatInput';
+@use './chat/QuestionChips';
+@use './chat/FormattedMessageContent';
 
 // Keyframes for animations
 @keyframes message-fade-in {
@@ -16,14 +21,14 @@
 .chat-drawer {
   position: fixed;
   top: 0;
-  right: -$drawer-width;
-  width: $drawer-width;
+  right: - v.$drawer-width;
+  width: v.$drawer-width;
   height: 100vh;
-  background-color: $background-white;
-  @include transition(right, $transition-medium, cubic-bezier(0, 0, 0.2, 1));
-  @include flex-column;
-  z-index: $z-index-drawer;
-  border-radius: $border-radius-lg 0 0 32px;
+  background-color: v.$background-white;
+  @include m.transition(right, v.$transition-medium, cubic-bezier(0, 0, 0.2, 1));
+  @include m.flex-column;
+  z-index: v.$z-index-drawer;
+  border-radius: v.$border-radius-lg 0 0 32px;
   
   &.open {
     right: 0;
@@ -38,34 +43,28 @@
         rgba(rgba(255,255,255), 1),
       ),
       linear-gradient(
-        rgba(adjust-color($primary-color, $hue: -33deg, $saturation: 100%), 0.04),
-        rgba($primary-color, 0.04),
-        rgba(adjust-color($primary-color, $hue: +33deg, $saturation: 100%), 0.04),
+        rgba(color.adjust(v.$primary-color, $hue: -33deg, $saturation: 100%), 0.04),
+        rgba(v.$primary-color, 0.04),
+        rgba(color.adjust(v.$primary-color, $hue: +33deg, $saturation: 100%), 0.04),
       );
-    @include transition(all, $transition-medium, cubic-bezier(0, 0, 0.2, 1));
+    @include m.transition(all, v.$transition-medium, cubic-bezier(0, 0, 0.2, 1));
   }
   
-  @include respond-to(medium) {
+  @include m.respond-to(medium) {
     border-radius: 0;
     width: 100%;
     right: -100%;
   }
 }
 
-// Import component style modules
-@import './chat/ChatHeader';
-@import './chat/MessageList';
-@import './chat/ChatInput';
-@import './chat/QuestionChips';
-@import './chat/FormattedMessageContent';
 
 // Chat Container Styles
 .chat-container {
   flex: 1;
-  @include flex-column;
+  @include m.flex-column;
   overflow: hidden;
   position: relative;
-  @include transition(all, $transition-medium);
+  @include m.transition(all, v.$transition-medium);
   
   // Centered input state (initial)
   &.centered-input {
@@ -78,33 +77,33 @@
     
     .input-container {
       position: relative;
-      @include flex-column;
+      @include m.flex-column;
       align-items: center;
       margin: 0 48px;
       padding-bottom: 30%;
     }
     
     .welcome-section {
-      @include flex-column;
+      @include m.flex-column;
       align-items: center;
     }
     
     .welcome-text {
       text-align: center;
       font-size: 18px;
-      color: $text-branded-primary;
-      line-height: $line-height-base;
-      margin-bottom: $spacing-xl;
-      @include slide-in('up', 20px, 0.5s);
+      color: v.$text-branded-primary;
+      line-height: v.$line-height-base;
+      margin-bottom: v.$spacing-xl;
+      @include m.slide-in('up', 20px, 0.5s);
     }
     
     .input-wrapper {
-      @include slide-in('up', 20px, 0.5s);
+      @include m.slide-in('up', 20px, 0.5s);
     }
     
     // Apply branded shadow in initial state
     .input-wrapper .chat-textarea {
-      box-shadow: $box-shadow-branded;
+      box-shadow: v.$box-shadow-branded;
       border: none;
     }
   }
@@ -112,18 +111,18 @@
   // Bottom input state (after interaction)
   &.bottom-input {
     justify-content: space-between;
-    @include slide-in('up', 20px, 0.3s);
+    @include m.slide-in('up', 20px, 0.3s);
     
     .messages-container {
       flex: 1;
       overflow-y: auto;
-      padding: 16px $spacing-xl $spacing-xl;
+      padding: 16px v.$spacing-xl v.$spacing-xl;
       display: block;
     }
     
     .input-container {
       position: relative;
-      padding: $spacing-lg;
+      padding: v.$spacing-lg;
       display: flex;
       flex-direction: row;
       width: 100%;
@@ -132,10 +131,10 @@
     // Apply subtle border after interaction
     .input-wrapper .chat-textarea {
       box-shadow: none;
-      border: 1px solid $border-light;
+      border: 1px solid v.$border-light;
       font-size: 18px;
       &::placeholder {
-        color: rgba($text-primary, 0.37);
+        color: rgba(v.$text-primary, 0.37);
       }
     }
   }
@@ -149,7 +148,7 @@
 .centered-icon {
   display: flex;
   justify-content: center;
-  margin-bottom: $spacing-xl;
+  margin-bottom: v.$spacing-xl;
   animation: message-fade-in 0.5s ease-out;
   
   // Apply gradient to centered sparkle icon
@@ -162,7 +161,7 @@
 
 // Centered Title
 .centered-title {
-  font-size: $font-size-xxlarge;
+  font-size: v.$font-size-xxlarge;
   letter-spacing: -0.5px;
   font-weight: 700;
   margin: 0 0 12px 0;
@@ -170,24 +169,24 @@
   color: transparent;  // Make text color transparent to show gradient
   background: linear-gradient(
     225deg,
-    adjust-color($primary-color, $hue: +20deg, $saturation: 70%),
-    $primary-color,
-    adjust-color($primary-color, $hue: -20deg, $saturation: 70%)
+    color.adjust(v.$primary-color, $hue: +20deg, $saturation: 70%),
+    v.$primary-color,
+    color.adjust(v.$primary-color, $hue: -20deg, $saturation: 70%)
   );
   -webkit-background-clip: text;
   background-clip: text;
   width: 100%;
   opacity: 1;
-  @include transition(opacity);
-  @include slide-in('up', 20px, 0.5s);
+  @include m.transition(opacity);
+  @include m.slide-in('up', 20px, 0.5s);
 }
 
 // Welcome Text 
 .welcome-text {
-  @include transition(opacity);
+  @include m.transition(opacity);
 }
 
 // Input Container
 .input-container {
-  @include transition(all, $transition-medium);
+  @include m.transition(all, v.$transition-medium);
 }
