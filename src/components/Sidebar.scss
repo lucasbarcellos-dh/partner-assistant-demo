@@ -1,6 +1,5 @@
-// src/components/Sidebar.scss
-@import '../styles/variables';
-@import '../styles/mixins';
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
 
 .sidebar {
   width: 280px;
@@ -8,7 +7,7 @@
   border-right: 1px solid rgba(0, 0, 0, 0.04);
   overflow-y: auto;
   height: 100vh;
-  padding: $spacing-md 0;
+  padding: v.$spacing-md 0;
   position: sticky;
   top: 0;
 }
@@ -29,12 +28,12 @@
 }
 
 .nav-section {
-  margin-bottom: $spacing-lg;
+  margin-bottom: v.$spacing-lg;
   
   .nav-section-title {
     padding: 0 32px;
     font-size: 14px;
-    color: $text-secondary;
+    color: v.$text-secondary;
     margin-bottom: 8px;
   }
 }
@@ -53,18 +52,18 @@
   display: flex;
   align-items: center;
   padding: 8px 32px;
-  color: $text-primary;
+  color: v.$text-primary;
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
   transition: background-color 0.2s;
   
   &:hover, &.active {
-    background-color: rgba($primary-color, 0.05);
-    color: $primary-color;
+    background-color: rgba(v.$primary-color, 0.05);
+    color: v.$primary-color;
     
     .nav-icon {
-      color: $primary-color;
+      color: v.$primary-color;
     }
   }
   
@@ -80,7 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: $text-primary;
+  color: v.$text-primary;
   
   .material-symbols-rounded {
     font-size: 24px;
