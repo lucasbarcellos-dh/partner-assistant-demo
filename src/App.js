@@ -5,9 +5,11 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ChatDrawer from './components/ChatDrawer';
 import Overlay from './components/Overlay';
+import QuickQuestionsCard from './components/QuickQuestionsCard';
 
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [quickQuestion, setQuickQuestion] = useState('');
 
   const openChat = () => {
     setIsChatOpen(true);
@@ -15,6 +17,12 @@ function App() {
 
   const closeChat = () => {
     setIsChatOpen(false);
+    setQuickQuestion('');
+  };
+
+  const handleQuickQuestion = (question) => {
+    setQuickQuestion(question);
+    setIsChatOpen(true);
   };
 
   return (
@@ -26,9 +34,7 @@ function App() {
           <div className="section-grid">
             {/* First row */}
             <div className="section-row">
-              <div className="section-card">
-                <div className="section-content"></div>
-              </div>
+              <QuickQuestionsCard onQuestionSelect={handleQuickQuestion} />
               <div className="section-card">
                 <div className="section-content"></div>
               </div>
@@ -64,7 +70,7 @@ function App() {
         </main>
       </div>
       <Overlay isVisible={isChatOpen} onClick={closeChat} />
-      <ChatDrawer isOpen={isChatOpen} onClose={closeChat} />
+      <ChatDrawer isOpen={isChatOpen} onClose={closeChat} initialQuestion={quickQuestion} />
     </div>
   );
 }
