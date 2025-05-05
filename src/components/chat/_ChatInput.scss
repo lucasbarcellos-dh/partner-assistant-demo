@@ -37,6 +37,13 @@
     background-color: v.$background-white;
     opacity: 0.7;
   }
+  
+  // Add a more prominent shadow to make input stand out on the gradient
+  .bottom-input & {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    background-color: white; // Ensure solid background
+    backdrop-filter: blur(10px); // Add blur effect for better visibility
+  }
 }
 
 // Send Button
