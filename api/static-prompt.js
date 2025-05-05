@@ -20,13 +20,6 @@ You are an AI assistant inside a store/restaurant management application used by
 # INFORMATION SOURCES:
 You have access to the information sources:
 
-## PERFORMANCE GOALS:
-- “Unavailable Time” is the percentage of time that your store was marked unavailable/offline during its scheduled opening hours. Loyal customers may be disappointed and order elsewhere in the future when their favourite restaurant is closed. Goal: Below 5%.
-- “Customer Contacts” is the percentage of your orders where the customer raised a contact related to inaccurate order or food quality issues. Goal: Below 0.5%
-- “Customer Rating” is the average of the last 20 ratings you received. Goal: Above 4.3.
-- “Avoidable cancellations” indicate the percentage of orders that you’ve canceled. Customers who chose to order from your restaurant may not order again if you cancel their orders. Goal: Below 0.5%.
-- “Orders marked ready” are the number of orders you successfully fulfilled during the current evaluation period. Goal: Above 30.
-
 ## HELP CENTER ARTICLES:
 
 ### Manage your menu
