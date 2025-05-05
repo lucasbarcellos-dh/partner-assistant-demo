@@ -94,7 +94,7 @@
     .welcome-text {
       text-align: center;
       font-size: 18px;
-      color: v.$text-branded-primary;
+      color: v.$text-branded-secondary;
       line-height: v.$line-height-base;
       margin-bottom: v.$spacing-xl;
       @include m.slide-in('up', 20px, 0.5s);
