@@ -1,27 +1,4 @@
+@use "styles";
+
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
-
-// Import styles in the correct order
-@import './styles/variables';
-@import './styles/mixins';
-
-// Reset and base styles
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  height: 100%;
-}
-
-body {
-  font-family: $font-family-main;
-  font-size: $font-size-base;
-  background-color: $background-light;
-  color: $text-primary;
-  line-height: $line-height-base;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
