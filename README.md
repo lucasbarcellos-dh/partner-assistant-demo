@@ -8,4 +8,4 @@ https://partner-assistant-demo.onrender.com
 - **Frontend:** `/src` — React app
 - **Backend/API:** `/api` — Node.js Express server (OpenAI integration)
 - **File Search Sources:** `/api/files/` — Markdown files used for vector search
-- **System Prompt:** `/api/static-prompt.js` — Prompt that defines the assistant's behavior
+- **System Prompt:** `/api/system-prompt.md` — Prompt that defines the assistant's behavior
