@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const { OpenAI } = require('openai');
 const config = require('./config');
 const { setupVectorStore } = require('./utils/vectorStore');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const port = config.port;
@@ -19,8 +21,11 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Import the system prompt content
-const SYSTEM_PROMPT = require('./static-prompt');
+// Read system prompt from Markdown file
+const SYSTEM_PROMPT = fs.readFileSync(
+  path.join(__dirname, 'system-prompt.md'),
+  'utf8'
+);
 
 // Store user conversations (in a real app, this would be in a database)
 const userConversations = {};
