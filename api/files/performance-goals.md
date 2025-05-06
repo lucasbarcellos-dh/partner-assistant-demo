@@ -16,6 +16,6 @@
 - Indicate the percentage of orders that you’ve canceled. Customers who chose to order from your restaurant may not order again if you cancel their orders.
 - Goal: Below 0.5%.
 
-## Orders marked ready
-- The number of orders you marked as 'ready for delivery.' It facilitates order handoffs to riders and improves the accuracy of preparation time estimates.
+## Orders marked as ready
+- The number of orders you marked as ready. It facilitates order handoffs to riders and improves the accuracy of preparation time estimates.
 - Goal: Above 80%
