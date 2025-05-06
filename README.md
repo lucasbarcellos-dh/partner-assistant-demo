@@ -1,5 +1,6 @@
 # Partner Assistant Demo
-This is an AI assistant demo for the Partner Portal using OpenAI's [Responses API](https://platform.openai.com/docs/api-reference/responses). The project's goal is to help us quickly explore and iterate on AI assistance ideas and design a smart assistant experience in a live environment with realistic data.
+This is an AI assistant demo for the Partner Portal using OpenAI's [Responses API](https://platform.openai.com/docs/api-reference/responses). Its purpose is to help us quickly explore, iterate, and design an AI assistance experience with realistic vendor data in a live environment. 
+
 
 ## Try it out
 https://partner-assistant-demo.onrender.com
