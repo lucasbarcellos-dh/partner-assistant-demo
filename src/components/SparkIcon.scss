@@ -1,0 +1,272 @@
+@use "../styles/variables" as v;
+
+.spark-icon-wrapper {
+  display: inline-block;
+  transform-origin: center;
+  position: relative;
+}
+
+.spark-icon-svg {
+  display: block;
+}
+
+// Sparkle Pulse Animation
+.spark-icon--pulse {
+  animation: sparkle-pulse 2s ease-in-out infinite;
+  
+  .spark-icon-svg .spark-elements {
+    path {
+      fill: url(#brandedGradient);
+    }
+  }
+}
+
+@keyframes sparkle-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    filter: drop-shadow(0 0 0 rgba(255, 89, 0, 0));
+  }
+  50% { 
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px rgba(255, 89, 0, 0.3));
+  }
+}
+
+// Rotating Shimmer Animation
+.spark-icon--shimmer {
+  .spark-icon-svg .spark-small--top-right {
+    animation: rotate-clockwise 4s linear infinite;
+    transform-origin: 12px 12px;
+    fill: url(#brandedGradient);
+  }
+  
+  .spark-icon-svg .spark-small--bottom-right {
+    animation: rotate-counter-clockwise 3s linear infinite;
+    transform-origin: 12px 12px;
+    fill: url(#brandedGradient);
+  }
+  
+  .spark-icon-svg .spark-large--center {
+    animation: gentle-rotate 6s linear infinite;
+    transform-origin: 12px 12px;
+    fill: url(#brandedGradient);
+  }
+}
+
+@keyframes rotate-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-counter-clockwise {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes gentle-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(180deg); }
+}
+
+// Floating Bounce Animation
+.spark-icon--bounce {
+  animation: floating-bounce 2.5s ease-in-out infinite;
+  
+  .spark-icon-svg .spark-elements {
+    path {
+      fill: url(#brandedGradient);
+    }
+  }
+}
+
+@keyframes floating-bounce {
+  0%, 100% { 
+    transform: translateY(0px);
+  }
+  50% { 
+    transform: translateY(-4px);
+  }
+}
+
+// Gradient Flow Animation
+.spark-icon--flow {
+  .spark-icon-svg .spark-elements {
+    path {
+      fill: url(#animatedGradient);
+    }
+  }
+}
+
+// Combined Magical Animation (pulse + gentle shimmer)
+.spark-icon--magical {
+  animation: sparkle-pulse 2s ease-in-out infinite, gentle-float 3s ease-in-out infinite;
+  
+  .spark-icon-svg .spark-small--top-right {
+    animation: gentle-twinkle 2.5s ease-in-out infinite;
+    fill: url(#brandedGradient);
+  }
+  
+  .spark-icon-svg .spark-small--bottom-right {
+    animation: gentle-twinkle 2.5s ease-in-out infinite 0.8s;
+    fill: url(#brandedGradient);
+  }
+  
+  .spark-icon-svg .spark-large--center {
+    fill: url(#brandedGradient);
+  }
+}
+
+@keyframes gentle-float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% { 
+    transform: translateY(-2px) rotate(1deg);
+  }
+  66% { 
+    transform: translateY(1px) rotate(-1deg);
+  }
+}
+
+@keyframes gentle-twinkle {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+}
+
+// Enhanced hover effects for chat button
+.chat-toggle-button {
+  position: relative;
+  transition: all 0.4s ease, box-shadow 0.4s ease, border 0.4s ease, background 0.4s ease;
+  border: 1px solid rgba(0, 0, 0, 0.08); // Default border
+  background: white;
+  
+  // Smooth fade-in glow and border effects (on hover OR when tooltip is shown)
+  &:hover,
+  &.highlighted {
+    border: 1px solid transparent;
+    border-radius: 50%; // Ensure circular shape is maintained
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(
+                  45deg,
+                  rgba(255, 229, 0, 0.4),
+                  rgba(255, 89, 0, 0.5),
+                  rgba(255, 0, 51, 0.4),
+                  rgba(255, 229, 0, 0.3)
+                ) border-box;
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+    box-shadow: 
+      0 0 20px rgba(255, 229, 0, 0.4),
+      0 0 40px rgba(255, 89, 0, 0.2);
+    animation: rotating-glow-colors 3s linear infinite 0.4s; // Delay animation start
+  }
+  
+  .spark-icon-wrapper {
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+  
+  // Icon enhancement on hover OR when tooltip is shown
+  &:hover .spark-icon-wrapper,
+  &.highlighted .spark-icon-wrapper {
+    .spark-icon-svg .spark-elements path {
+      fill: url(#brandedGradient);
+    }
+  }
+  
+  // Scale effect only on direct hover (not when tooltip is shown)
+  &:hover .spark-icon-wrapper {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes rotating-glow-colors {
+  0% {
+    box-shadow: 
+      0 0 20px rgba(255, 229, 0, 0.4),
+      0 0 40px rgba(255, 89, 0, 0.2);
+  }
+  25% {
+    box-shadow: 
+      0 0 20px rgba(255, 89, 0, 0.4),
+      0 0 40px rgba(255, 0, 51, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 20px rgba(255, 0, 51, 0.4),
+      0 0 40px rgba(255, 229, 0, 0.2);
+  }
+  75% {
+    box-shadow: 
+      0 0 20px rgba(255, 89, 0, 0.4),
+      0 0 40px rgba(255, 0, 51, 0.2);
+  }
+  100% {
+    box-shadow: 
+      0 0 20px rgba(255, 229, 0, 0.4),
+      0 0 40px rgba(255, 89, 0, 0.2);
+  }
+}
+
+// Hover effects for centered icon in chat drawer
+.centered-icon {
+  position: relative;
+  z-index: 1;
+  
+  .spark-icon-wrapper {
+    &::before {
+      top: -16px;
+      left: -16px;
+      right: -16px;
+      bottom: -16px;
+      background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(255, 229, 0, 0.2),
+        rgba(255, 89, 0, 0.3),
+        rgba(255, 0, 51, 0.2),
+        transparent,
+        rgba(255, 229, 0, 0.15),
+        rgba(255, 89, 0, 0.25),
+        transparent
+      );
+      z-index: -2;
+    }
+  }
+}
+
+// Hover effects for quick question buttons
+.quick-question-button {
+  position: relative;
+  z-index: 1;
+  
+  &:hover .spark-icon-wrapper {
+    &::before {
+      opacity: 0.7;
+      top: -6px;
+      left: -6px;
+      right: -6px;
+      bottom: -6px;
+      background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(255, 89, 0, 0.2),
+        rgba(255, 0, 51, 0.15),
+        transparent,
+        rgba(255, 229, 0, 0.1),
+        rgba(255, 89, 0, 0.15),
+        transparent
+      );
+      z-index: -2;
+    }
+  }
+}
