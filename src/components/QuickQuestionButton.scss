@@ -8,7 +8,7 @@
   justify-content: space-between;
   padding: 16px;
   background-color: v.$background-light;
-  border-radius: 12px;
+  border-radius: v.$spacing-medium;
   font-size: 16px;
   font-weight: 500;
   width: 100%;
@@ -18,7 +18,7 @@
   .button-content {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: v.$spacing-medium;
     
     svg {
       path, circle {
