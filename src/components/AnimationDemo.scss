@@ -1,0 +1,142 @@
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+
+.animation-demo {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.demo-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: v.$foreground-primary;
+  }
+  
+  p {
+    color: v.$foreground-secondary;
+    font-size: 1.1rem;
+  }
+}
+
+.demo-preview {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  
+  .preview-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 20px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.demo-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.demo-button {
+  @include m.button-reset;
+  padding: 0.75rem 1rem;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  background: white;
+  color: v.$foreground-primary;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  
+  &:hover {
+    border-color: v.$primary-color;
+    background: rgba(v.$primary-color, 0.05);
+  }
+  
+  &.active {
+    border-color: v.$primary-color;
+    background: v.$primary-color;
+    color: white;
+  }
+}
+
+.demo-code {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border-left: 4px solid v.$primary-color;
+  
+  h3 {
+    margin: 0 0 0.5rem 0;
+    color: v.$foreground-primary;
+  }
+  
+  code {
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    background: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    display: block;
+    border: 1px solid #dee2e6;
+    color: #d73a49;
+  }
+}
+
+.demo-sizes {
+  h3 {
+    margin-bottom: 1rem;
+    color: v.$foreground-primary;
+  }
+}
+
+.size-examples {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.size-example {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background: white;
+  
+  span {
+    font-size: 0.875rem;
+    color: v.$foreground-secondary;
+    font-weight: 500;
+  }
+}
+
+@include m.respond-to(medium) {
+  .animation-demo {
+    padding: 1rem;
+  }
+  
+  .demo-controls {
+    grid-template-columns: 1fr;
+  }
+  
+  .size-examples {
+    gap: 1rem;
+  }
+} 
