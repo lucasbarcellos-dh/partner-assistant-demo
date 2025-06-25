@@ -16,7 +16,7 @@
 .chat-textarea {
   @include m.form-input;
   padding-right: 64px; // Make room for the button
-  font-size: 20px;
+  font-size: v.$spacing-xlarge;
   resize: none; // Disable manual resizing
   overflow-y: hidden; // Hide scrollbar
   min-height: 56px; // Set a minimum height
@@ -40,7 +40,7 @@
   
   // Add a more prominent shadow to make input stand out on the gradient
   .bottom-input & {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 16px rgba(v.$foreground-primary, 0.12);
     background-color: white; // Ensure solid background
     backdrop-filter: blur(10px); // Add blur effect for better visibility
   }
@@ -49,12 +49,12 @@
 // Send Button
 .send-button {
   position: absolute;
-  right: 12px;
-  top: 11px; // Adjust to align with textarea
+  right: v.$spacing-medium;
+  top: 11px;
   width: 36px;
   height: 36px;
   border: none;
-  border-radius: 12px;
+  border-radius: v.$spacing-medium;
   @include m.flex-center;
   cursor: pointer;
   @include m.transition((background-color, transform), v.$transition-fast);
@@ -62,9 +62,9 @@
   // Apply gradient to the send button
   background: linear-gradient(
     225deg,
-    color.adjust(v.$primary-color, $hue: +20deg, $saturation: 70%),
+    color.adjust(v.$primary-color, $hue: +20deg),
     v.$primary-color,
-    color.adjust(v.$primary-color, $hue: -20deg, $saturation: 70%)
+    color.adjust(v.$primary-color, $hue: -20deg)
   );
   color: v.$background-white;
   
