@@ -2,8 +2,9 @@
 import React from 'react';
 import './Header.scss';
 import SparkIcon from './SparkIcon';
+import ChatTooltip from './ChatTooltip';
 
-const Header = ({ openChat }) => {
+const Header = ({ openChat, showChatTooltip, onCloseChatTooltip }) => {
   return (
     <header className="app-header">
       <div className="header-container">
@@ -20,13 +21,22 @@ const Header = ({ openChat }) => {
             <span className="material-symbols-rounded">notifications</span>
           </button>
           
-          <button 
-            className="action-button chat-toggle-button"
-            onClick={openChat}
-            aria-label="Open chat assistant"
-          >
-            <SparkIcon width={24} height={24} />
-          </button>
+          <div className="chat-button-container">
+            <button 
+              id="chat-toggle-button"
+              className={`action-button chat-toggle-button ${showChatTooltip ? 'highlighted' : ''}`}
+              onClick={openChat}
+              aria-label="Open chat assistant"
+            >
+              <SparkIcon width={30} height={30} animation="magical" />
+            </button>
+            
+            <ChatTooltip 
+              isVisible={showChatTooltip} 
+              onClose={onCloseChatTooltip}
+              onOpenChat={openChat}
+            />
+          </div>
           
           <div className="user-profile">
             <div className="user-avatar">
