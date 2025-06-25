@@ -1,0 +1,132 @@
+@use "../styles/variables" as v;
+
+.chat-tooltip-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+
+.chat-tooltip {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: -16px; // Align right edge with some offset
+  z-index: 1000;
+  background: #161616;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+  padding: 0;
+  width: 320px;
+  max-width: 90vw;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    margin-right: 16px;
+  }
+
+  &__arrow {
+    position: absolute;
+    top: -6px;
+    right: 16px; // 16px from right edge
+    width: 12px;
+    height: 12px;
+    background: #161616;
+    border-radius: 2px;
+    transform: rotate(45deg);
+  }
+
+  &__content {
+    padding: 16px;
+  }
+
+  &__title {
+    margin: 0 0 v.$spacing-small 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.5;
+
+    .new-badge {
+      display: inline-block;
+      color: v.$primary-color;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+
+  &__description {
+    margin: 0 0 16px 0;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    align-items: center;
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+
+      .dont-show-checkbox {
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        accent-color: v.$primary-color;
+        cursor: pointer;
+      }
+
+      .checkbox-text {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1;
+      }
+
+      &:hover .checkbox-text {
+        color: white;
+      }
+    }
+
+    .btn {
+      width: auto;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &--primary {
+        background: v.$primary-color;
+        color: white;
+        
+        &:hover {
+          background: v.$primary-color;
+        }
+      }
+    }
+  }
+}
+
+// Enhanced highlight for the chat button when tooltip is shown
+.chat-toggle-button.highlighted {
+  position: relative;
+  z-index: 1001;
+  
+  // Removed the white outline effect since we now have the beautiful gradient glow
+} 
