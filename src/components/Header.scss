@@ -21,7 +21,7 @@
 .status-indicator {
   display: flex;
   align-items: center;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(v.$foreground-primary, 0.08);
   height: 48px;
   padding: 0 16px;
   border-radius: 24px;
@@ -31,7 +31,7 @@
     height: 16px;
     background-color: #4caf50;
     border-radius: 50%;
-    margin-right: 12px;
+    margin-right: v.$spacing-medium;
   }
   
   .status-text {
@@ -46,6 +46,12 @@
   gap: 8px;
 }
 
+.chat-button-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .action-button {
   width: 48px;
   height: 48px;
@@ -54,13 +60,13 @@
   align-items: center;
   justify-content: center;
   background: none;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(v.$foreground-primary, 0.08);
   cursor: pointer;
-  color: v.$text-primary;
+      color: v.$foreground-primary;
   transition: background-color 0.2s;
   
   &:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: rgba(v.$foreground-primary, 0.04);
   }
   
   .material-symbols-rounded {
@@ -70,18 +76,17 @@
 
 .notification-button {
   position: relative;
-  
-  &::after {
-    content: "";
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    width: 8px;
-    height: 8px;
-    background-color: v.$primary-color;
-    border-radius: 50%;
-    border: 2px solid white;
-  }
+  // &::after {
+  //   content: "";
+  //   position: absolute;
+  //   top: 8px;
+  //   right: 10px;
+  //   width: 8px;
+  //   height: 8px;
+  //   background-color: v.$primary-color;
+  //   border-radius: 50%;
+  //   border: 2px solid white;
+  // }
 }
 
 .chat-toggle-button {
@@ -103,5 +108,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(v.$foreground-primary, 0.08);
 }
