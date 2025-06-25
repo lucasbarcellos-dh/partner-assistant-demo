@@ -306,9 +306,9 @@ const ChatDrawer = ({ isOpen, onClose, initialQuestion = '' }) => {
                 <SparkIcon width={64} height={64} />
               </div>
               <h1 className="centered-title">What can I help with?</h1>
-              <div className="welcome-text">
+              {/* <div className="welcome-text">
                 You can ask me about your business operations, performance, customer reviews, advertising and more.
-              </div>
+              </div> */}
             </div>
           )}
           
