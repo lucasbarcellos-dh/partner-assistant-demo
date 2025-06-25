@@ -1,0 +1,146 @@
+@use "sass:color";
+@use "../styles/variables" as v;
+@use "../styles/mixins" as m;
+
+.introduction-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: v.$overlay-background;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+}
+
+.introduction-modal {
+  background-color: #fff;
+  background-image:
+    linear-gradient(
+      rgba(rgba(255,255,255), 0),
+      rgba(rgba(255,255,255), 1) 85%,
+    ),
+    linear-gradient(
+      -45deg,
+      rgba(color.adjust(v.$primary-color, $hue: -20deg), 0.1),
+      rgba(v.$primary-color, 0.1),
+      rgba(color.adjust(v.$primary-color, $hue: +20deg), 0.1),
+    );
+  border-radius: 24px;
+  width: 560px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 v.$spacing-xlarge 60px rgba(v.$foreground-primary, 0.15);
+
+  &__close {
+    position: absolute;
+    top: v.$spacing-xlarge;
+    right: v.$spacing-xlarge;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color v.$transition-fast;
+    z-index: 10;
+
+    &:hover {
+      background-color: rgba(v.$foreground-primary, 0.05);
+    }
+  }
+
+  &__content {
+    padding: v.$spacing-2xlarge v.$spacing-2xlarge;
+    text-align: center;
+  }
+
+  &__preview {
+    margin-bottom: -164px;
+    display: flex;
+    justify-content: center;
+
+    .sara-preview-image {
+      max-width: 70%;
+      height: auto;
+      border-radius: v.$spacing-medium;
+    }
+  }
+
+  &__announcement {
+    margin-bottom: v.$spacing-medium;
+
+    .announcement-badge {
+      background-color: rgba(v.$primary-color, 0.12);
+      color: v.$primary-color;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 600;
+      display: inline-block;
+    }
+  }
+
+  &__main {
+    margin-bottom: v.$spacing-6xlarge;
+
+    &-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: v.$foreground-primary;
+      margin: 0 0 v.$spacing-medium 0;
+      line-height: 1.2;
+    }
+  }
+
+  &__description {
+    font-size: 16px;
+    color: v.$foreground-secondary;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  &__actions {
+    display: flex;
+    gap: v.$spacing-large;
+    justify-content: space-between;
+  }
+
+  &__btn {
+    padding: 14px 24px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: v.$font-family-main;
+    cursor: pointer;
+    transition: all v.$transition-fast;
+    border: none;
+    
+    &--primary {
+      background-color: v.$primary-color;
+      color: white;
+
+      &:hover {
+        background-color: darken(v.$primary-color, 5%);
+      }
+    }
+
+    &--secondary {
+      background-color: transparent;
+      color: v.$primary-color;
+      border: 1px solid v.$primary-color;
+
+      &:hover {
+        background-color: rgba(v.$primary-color, 0.05);
+      }
+    }
+  }
+} 
