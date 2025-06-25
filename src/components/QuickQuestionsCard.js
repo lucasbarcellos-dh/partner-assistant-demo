@@ -6,7 +6,7 @@ const QuickQuestionsCard = ({
   onQuestionSelect, 
   questions = [], 
   title = "Quick Questions", 
-  description = "Ask Chefie about your business" 
+  description = "Ask Sara about your business" 
 }) => {
   const handleQuestionClick = (question) => {
     // If question is an object with display and query properties, use those
