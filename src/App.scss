@@ -26,18 +26,18 @@
 .page-title {
   font-size: 28px;
   font-weight: 700;
-  color: v.$text-primary;
+  color: v.$foreground-primary;
 }
 
 .section-grid {
   display: flex;
   flex-direction: column;
-  gap: v.$spacing-lg;
+  gap: v.$spacing-2xlarge;
 }
 
 .section-row {
   display: flex;
-  gap: v.$spacing-lg;
+  gap: v.$spacing-2xlarge;
   width: 100%;
   
   @include m.respond-to(medium) {
@@ -47,9 +47,9 @@
 
 .section-card {
   background-color: white;
-  border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.08);
-  padding: v.$spacing-lg;
+  border-radius: v.$spacing-medium;
+  border: 1px solid rgba(0,0,0,0.06);
+  padding: v.$spacing-2xlarge;
   flex: 1;
   min-height: 196px;
 }
