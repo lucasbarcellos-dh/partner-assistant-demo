@@ -6,7 +6,7 @@ const ChatHeader = ({ hasInteracted, onReset, onClose }) => {
     <header className="chat-header">
       <div className={`header-title ${!hasInteracted ? 'hidden' : ''}`}>
         <SparkIcon width={24} height={24} />
-        <h1>Chefie</h1>
+        <h1>Sara</h1>
       </div>
       <div className="header-actions">
         <button 
