@@ -11,18 +11,18 @@
 .quick-questions-container {
   display: flex;
   flex-direction: column;
-  gap: v.$spacing-sm;
+  gap: v.$spacing-small;
 }
 
 .section-title {
   font-size: 18px;
   font-weight: 600;
-  margin-bottom: v.$spacing-sm;
-  color: v.$text-primary;
+  margin-bottom: v.$spacing-small;
+      color: v.$foreground-primary;
 }
 
 .section-description {
   font-size: 14px;
-  color: v.$text-secondary;
+      color: v.$foreground-secondary;
 
 }
