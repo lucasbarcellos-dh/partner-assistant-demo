@@ -1,21 +1,21 @@
 @use "sass:color";
 
 // Colors
-$primary-color: #FF2B85;
-$primary-color-dark: #cb0e5c;
+$primary-color: #FF5A00;
+$primary-color-dark: #4F3122;
 $secondary-color: #4a6fa5;
-$text-primary: #161616;
-$text-secondary: #666;
-$text-branded-primary: color.adjust($primary-color, $lightness: -30%, $saturation: 20%);
-$text-branded-secondary: color.adjust($primary-color, $lightness: -10%, $saturation: -70%);
-$text-branded-disabled: color.adjust($primary-color, $lightness: 16%, $saturation: -70%);
-$background-light: #f9f9f9;
+$foreground-primary: #161616;
+$foreground-secondary: #666;
+$foreground-branded-primary: color.adjust($primary-color, $lightness: -28%, $saturation: -60%);
+$foreground-branded-secondary: color.adjust($primary-color, $lightness: -4%, $saturation: -60%);
+$foreground-branded-disabled: color.adjust($primary-color, $lightness: 16%, $saturation: -60%);
+$background-light: rgba($foreground-primary, 0.04);
 $background-white: #ffffff;
-$border-light: rgba(0, 0, 0, 0.12);
-$shadow-color: rgba(0, 0, 0, 0.05);
-$shadow-color-hover: rgba(0, 0, 0, 0.08);
-$overlay-background: rgba(0, 0, 0, 0.4);
-$message-user-bg: $primary-color;
+$border-light: rgba($foreground-primary, 0.12);
+$shadow-color: rgba($foreground-primary, 0.05);
+$shadow-color-hover: rgba($foreground-primary, 0.08);
+$overlay-background: rgba($foreground-primary, 0.4);
+$message-user-bg: $background-light;
 $message-assistant-bg: #f0f2f5;
 
 // Typography
@@ -30,13 +30,18 @@ $font-size-xxlarge: 2.25rem;
 $line-height-base: 1.5;
 
 // Spacing
-$spacing-xs: 4px;
-$spacing-sm: 8px;
-$spacing-md: 16px;
-$spacing-lg: 24px;
-$spacing-xl: 32px;
-$spacing-xxl: 48px;
-$spacing-xxxl: 64px;
+$spacing-tiny: 2px;
+$spacing-xsmall: 4px;
+$spacing-small: 8px;
+$spacing-medium: 12px;
+$spacing-large: 16px;
+$spacing-xlarge: 20px;
+$spacing-2xlarge: 24px;
+$spacing-3xlarge: 32px;
+$spacing-4xlarge: 36px;
+$spacing-5xlarge: 40px;
+$spacing-6xlarge: 48px;
+$spacing-7xlarge: 56px;
 
 // Border radius
 $border-radius-sm: 8px;
@@ -50,8 +55,8 @@ $box-shadow-light: 0 2px 6px $shadow-color;
 $box-shadow-medium: 0 8px 12px $shadow-color;
 $box-shadow-hover: 0 2px 8px $shadow-color-hover;
 $box-shadow-branded:
-    0px 8px 56px 0px rgba($primary-color, 0.12),
-    0px 12px 28px 0px rgba($primary-color, 0.04),
+    0px 4px 52px 0px rgba($primary-color, 0.10),
+    0px 12px 24px 0px rgba($primary-color, 0.04),
     0px 2px 4px 0px rgba($primary-color, 0.04);
 
 // Transitions
@@ -68,7 +73,7 @@ $breakpoint-xl: 1200px;
 $header-height: 80px;
 $drawer-width: 600px;
 $container-max-width: 1200px;
-$content-padding: 20px;
+$content-padding: $spacing-xlarge;
 
 // Z-index
 $z-index-header: 100;
