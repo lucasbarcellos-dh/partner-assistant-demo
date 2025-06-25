@@ -2,11 +2,11 @@
 @use "../../styles/mixins" as m;
 
 .chat-header {
-  padding: v.$spacing-lg v.$spacing-xl;
+  padding: v.$spacing-2xlarge v.$spacing-3xlarge;
   @include m.flex-between;
   z-index: 2;
   @include m.transition((opacity, transform), v.$transition-medium);
-  color: v.$text-primary;
+  color: v.$foreground-primary;
 
   .header-title,
   .reset-button {
@@ -18,7 +18,7 @@
   .header-title {
     display: flex;
     align-items: center;
-    gap: v.$spacing-md;
+    gap: v.$spacing-large;
     
     h1 {
       font-size: v.$font-size-large;
@@ -35,7 +35,7 @@
   
   .header-actions {
     display: flex;
-    gap: v.$spacing-sm;
+    gap: v.$spacing-small;
     margin-left: auto; // Push to the right
   }
   
@@ -46,14 +46,14 @@
     height: 32px;
     border-radius: v.$border-radius-full;
     @include m.flex-center;
-    color: v.$text-primary;
+    color: v.$foreground-primary;
     
     .material-symbols-rounded {
       font-size: 24px;
     }
     
     &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
+      background-color: rgba(v.$foreground-primary, 0.04);
     }
   }
 }
