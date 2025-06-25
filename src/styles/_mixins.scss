@@ -63,10 +63,10 @@
   height: $size;
   border-radius: v.$border-radius-full;
   background-color: v.$background-white;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba($foreground-primary, 0.08);
   
   &:hover {
-    border-color: rgba(0, 0, 0, 0.16);
+    border-color: rgba($foreground-primary, 0.16);
   }
   
   &:active {
@@ -109,7 +109,7 @@
   }
 }
 
-@mixin slide-in($direction: 'up', $distance: 20px, $duration: 0.3s) {
+@mixin slide-in($direction: 'up', $distance: v.$spacing-xlarge, $duration: 0.3s) {
   @if $direction == 'up' {
     animation: slideUp $duration ease-out;
     
@@ -162,17 +162,17 @@
 @mixin card {
   background-color: v.$background-white;
   border-radius: v.$border-radius-sm;
-  padding: v.$spacing-lg;
+  padding: v.$spacing-2xlarge;
   @include card-shadow;
 }
 
 // Input Styles
 @mixin form-input {
   width: 100%;
-  padding: v.$spacing-md 20px;
+  padding: v.$spacing-large v.$spacing-xlarge;
   border: none;
-  border-radius: 20px;
-  font-size: 20px;
+  border-radius: v.$spacing-xlarge;
+  font-size: v.$spacing-xlarge;
   line-height: v.$line-height-base;
   font-family: v.$font-family-main;
   outline: none;
@@ -180,7 +180,7 @@
   @include transition(border-color);
 
   &::placeholder {
-    color: v.$text-branded-disabled;
+    color: v.$foreground-branded-disabled;
   }
   
   &:focus {
@@ -190,8 +190,8 @@
 
 @mixin branded-gradient {
   background: linear-gradient(
-    color.adjust(v.$primary-color, $hue: -33deg, $saturation: 100%),
+    color.adjust(v.$primary-color, $hue: -22deg),
     rgba(v.$primary-color),
-    color.adjust(v.$primary-color, $hue: +33deg, $saturation: 100%)
+    color.adjust(v.$primary-color, $hue: +22deg)
   );
 }
