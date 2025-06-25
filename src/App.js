@@ -6,13 +6,18 @@ import Sidebar from './components/Sidebar';
 import ChatDrawer from './components/ChatDrawer';
 import Overlay from './components/Overlay';
 import QuickQuestionsCard from './components/QuickQuestionsCard';
+import IntroductionModal from './components/IntroductionModal';
+
 
 function App() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [quickQuestion, setQuickQuestion] = useState('');
+  const [isIntroModalOpen, setIsIntroModalOpen] = useState(true);
+  const [showChatTooltip, setShowChatTooltip] = useState(false);
 
   const openChat = () => {
     setIsChatOpen(true);
+    setShowChatTooltip(false); // Hide tooltip when chat opens
   };
 
   const closeChat = () => {
@@ -23,6 +28,19 @@ function App() {
   const handleQuickQuestion = (question) => {
     setQuickQuestion(question);
     setIsChatOpen(true);
+  };
+
+  const closeIntroModal = () => {
+    setIsIntroModalOpen(false);
+  };
+
+  const showSara = () => {
+    setIsIntroModalOpen(false);
+    setShowChatTooltip(true); // Show tooltip instead of directly opening chat
+  };
+
+  const closeChatTooltip = () => {
+    setShowChatTooltip(false);
   };
 
   const customQuestions = [
@@ -44,7 +62,7 @@ function App() {
     <div className="app">
       <Sidebar />
       <div className="main-container">
-        <Header openChat={openChat} />
+        <Header openChat={openChat} showChatTooltip={showChatTooltip} onCloseChatTooltip={closeChatTooltip} />
         <main className="main-content">          
           <div className="section-grid">
             {/* First row */}
@@ -52,7 +70,7 @@ function App() {
               <QuickQuestionsCard 
                 onQuestionSelect={handleQuickQuestion}
                 questions={customQuestions}
-                title="Ask Chefie"
+                title="Ask Sara"
                 description="Get quick insights about your business"
               />
               <div className="section-card">
@@ -91,6 +109,12 @@ function App() {
       </div>
       <Overlay isVisible={isChatOpen} onClick={closeChat} />
       <ChatDrawer isOpen={isChatOpen} onClose={closeChat} initialQuestion={quickQuestion} />
+      <IntroductionModal 
+        isOpen={isIntroModalOpen} 
+        onClose={closeIntroModal} 
+        onShowSara={showSara} 
+      />
+
     </div>
   );
 }
