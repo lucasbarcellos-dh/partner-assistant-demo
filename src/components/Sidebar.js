@@ -1,13 +1,14 @@
 // src/components/Sidebar.js
 import React from 'react';
 import './Sidebar.scss';
+import DHLogo from './DHLogo';
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="logo-container">
         <div className="logo">
-          <img src="/dh-logo.svg" alt="Deliveryhero Logo" className="dh-logo" />
+        <DHLogo fill="var(--primary-color)" />
         </div>
       </div>
       
@@ -39,7 +40,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <span className="material-symbols-rounded">monitoring</span>
+                <span className="material-symbols-rounded">insert_chart</span>
               </span>
               <span className="nav-text">Reports</span>
             </a>
@@ -55,7 +56,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <span className="material-symbols-rounded">star</span>
+                <span className="material-symbols-rounded">favorite</span>
               </span>
               <span className="nav-text">Reviews</span>
             </a>
@@ -85,7 +86,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <span className="material-symbols-rounded">campaign</span>
+                <span className="material-symbols-rounded">ads_click</span>
               </span>
               <span className="nav-text">Advertising</span>
             </a>
@@ -107,7 +108,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <span className="material-symbols-rounded">restaurant_menu</span>
+                <span className="material-symbols-rounded">book_5</span>
               </span>
               <span className="nav-text">Menu</span>
             </a>
@@ -123,7 +124,7 @@ const Sidebar = () => {
           <li className="nav-item">
             <a href="#" className="nav-link">
               <span className="nav-icon">
-                <span className="material-symbols-rounded">account_balance_wallet</span>
+                <span className="material-symbols-rounded">account_balance</span>
               </span>
               <span className="nav-text">Finances</span>
             </a>
