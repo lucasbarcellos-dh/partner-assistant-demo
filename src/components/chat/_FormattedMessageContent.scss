@@ -6,7 +6,7 @@
   width: 100%;
   
   p.paragraph {
-    margin-bottom: 12px;
+    margin-bottom: v.$spacing-medium;
     line-height: 1.5;
     
     &:last-child {
@@ -21,14 +21,14 @@
   
   .list-item {
     margin-bottom: 6px;
-    padding-left: 20px;
+    padding-left: v.$spacing-xlarge;
     position: relative;
     
     &::before {
       content: "•";
       position: absolute;
       left: 0;
-      color: v.$text-secondary;
+      color: v.$foreground-secondary;
     }
     
     &:last-child {
@@ -40,9 +40,9 @@
   .markdown-heading {
     font-weight: 600;
     line-height: 1.3;
-    margin-top: 20px;
-    margin-bottom: 12px;
-    color: v.$text-primary;
+      margin-top: v.$spacing-xlarge;
+  margin-bottom: v.$spacing-medium;
+    color: v.$foreground-primary;
     
     // First heading doesn't need top margin
     &:first-child {
@@ -86,9 +86,9 @@
     font-size: 14px;
     
     th, td {
-      padding: 8px 12px;
+      padding: v.$spacing-small v.$spacing-medium;
       text-align: left;
-      border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+      border-bottom: 0.5px solid rgba(v.$foreground-primary, 0.08);
       &:first-child {
         padding-left: 0;
       }
@@ -96,7 +96,7 @@
     
     th {
       font-weight: 600;
-      color: v.$text-primary;
+      color: v.$foreground-primary;
     }
     
     tr:last-child td {
