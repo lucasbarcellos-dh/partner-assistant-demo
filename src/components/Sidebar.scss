@@ -4,10 +4,10 @@
 .sidebar {
   width: 280px;
   background-color: white;
-  border-right: 1px solid rgba(0, 0, 0, 0.04);
+  border-right: 1px solid rgba(v.$foreground-primary, 0.04);
   overflow-y: auto;
   height: 100vh;
-  padding: v.$spacing-md 0;
+  padding: v.$spacing-large 0;
   position: sticky;
   top: 0;
 }
@@ -28,12 +28,12 @@
 }
 
 .nav-section {
-  margin-bottom: v.$spacing-lg;
+  margin-bottom: v.$spacing-2xlarge;
   
   .nav-section-title {
     padding: 0 32px;
     font-size: 14px;
-    color: v.$text-secondary;
+    color: v.$foreground-secondary;
     margin-bottom: 8px;
   }
 }
@@ -52,7 +52,7 @@
   display: flex;
   align-items: center;
   padding: 8px 32px;
-  color: v.$text-primary;
+  color: v.$foreground-primary;
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
@@ -79,7 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: v.$text-primary;
+  color: v.$foreground-primary;
   
   .material-symbols-rounded {
     font-size: 24px;
