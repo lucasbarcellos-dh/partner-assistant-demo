@@ -1,5 +1,14 @@
 @use "variables" as v;
 
+// CSS Custom Properties (CSS Variables) for JavaScript access
+:root {
+  --primary-color: #{v.$primary-color};
+  --primary-color-dark: #{v.$primary-color-dark};
+  --secondary-color: #{v.$secondary-color};
+  --text-primary: #{v.$foreground-primary};
+  --text-secondary: #{v.$foreground-secondary};
+}
+
 // Reset and base styles
 * {
   box-sizing: border-box;
@@ -15,7 +24,7 @@ body {
   font-family: v.$font-family-main;
   font-size: v.$font-size-base;
   background-color: v.$background-light;
-  color: v.$text-primary;
+  color: v.$foreground-primary;
   line-height: v.$line-height-base;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -33,7 +42,7 @@ code {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.2;
-  margin-bottom: v.$spacing-md;
+  margin-bottom: v.$spacing-large;
 }
 
 h1 {
@@ -49,7 +58,7 @@ h3 {
 }
 
 p {
-  margin-bottom: v.$spacing-md;
+  margin-bottom: v.$spacing-large;
 }
 
 a {
@@ -78,29 +87,29 @@ a {
 }
 
 .text-secondary {
-  color: v.$text-secondary;
+  color: v.$foreground-secondary;
 }
 
 .mt-1 {
-  margin-top: v.$spacing-sm;
+  margin-top: v.$spacing-small;
 }
 
 .mt-2 {
-  margin-top: v.$spacing-md;
+  margin-top: v.$spacing-large;
 }
 
 .mt-3 {
-  margin-top: v.$spacing-lg;
+  margin-top: v.$spacing-2xlarge;
 }
 
 .mb-1 {
-  margin-bottom: v.$spacing-sm;
+  margin-bottom: v.$spacing-small;
 }
 
 .mb-2 {
-  margin-bottom: v.$spacing-md;
+  margin-bottom: v.$spacing-large;
 }
 
 .mb-3 {
-  margin-bottom: v.$spacing-lg;
+  margin-bottom: v.$spacing-2xlarge;
 }
