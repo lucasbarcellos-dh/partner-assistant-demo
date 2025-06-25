@@ -8,8 +8,8 @@
   
   // Container animation in the initial state
   .centered-input & {
-    margin-top: v.$spacing-lg;
-    @include m.slide-in('up', 20px, 0.6s);
+    margin-top: v.$spacing-2xlarge;
+    @include m.slide-in('up', v.$spacing-xlarge, 0.6s);
   }
   
   // Less padding in conversation state to align with messages
@@ -25,8 +25,8 @@
 .question-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: v.$spacing-sm;
-  padding: v.$spacing-xs 0 v.$spacing-md;
+  gap: v.$spacing-small;
+  padding: v.$spacing-xsmall 0 v.$spacing-large;
   width: 100%;
   justify-content: flex-start; // Left alignment
   
@@ -45,9 +45,9 @@
 
 .question-chip {
   @include m.button-reset;
-  color: v.$text-branded-secondary;
-  padding: 4px 12px;
-  border-radius: 12px;
+      color: v.$foreground-branded-secondary;
+  padding: v.$spacing-xsmall v.$spacing-medium;
+  border-radius: v.$spacing-medium;
   font-size: v.$font-size-medium;
   line-height: 1.5;
   border: 1px solid rgba(v.$primary-color, 0.12);
@@ -85,8 +85,8 @@
   .bottom-input & {
     background-color: v.$background-light;
     box-shadow: none;
-    font-size: 12px;
-    padding: 4px 12px;
+      font-size: v.$spacing-medium;
+  padding: v.$spacing-xsmall v.$spacing-medium;
   }
   
   // Responsive styles
@@ -95,7 +95,7 @@
     padding: 3px 10px;
     
     .centered-input & {
-      padding: 6px 12px;
+      padding: 6px v.$spacing-medium;
       font-size: 13px;
     }
   }
