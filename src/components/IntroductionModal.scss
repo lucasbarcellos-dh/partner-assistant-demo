@@ -2,6 +2,27 @@
 @use "../styles/variables" as v;
 @use "../styles/mixins" as m;
 
+// Animation keyframes for slide-in effect
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .introduction-modal-overlay {
   position: fixed;
   top: 0;
@@ -13,6 +34,7 @@
   align-items: center;
   justify-content: center;
   z-index: 1100;
+  animation: overlayFadeIn 0.3s ease-out;
 }
 
 .introduction-modal {
@@ -35,112 +57,113 @@
   overflow-y: auto;
   position: relative;
   box-shadow: 0 v.$spacing-xlarge 60px rgba(v.$foreground-primary, 0.15);
+  animation: modalSlideIn 0.4s ease-out;
+}
 
-  &__close {
-    position: absolute;
-    top: v.$spacing-xlarge;
-    right: v.$spacing-xlarge;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color v.$transition-fast;
-    z-index: 10;
+.introduction-modal-close {
+  position: absolute;
+  top: v.$spacing-xlarge;
+  right: v.$spacing-xlarge;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color v.$transition-fast;
+  z-index: 10;
+
+  &:hover {
+    background-color: rgba(v.$foreground-primary, 0.05);
+  }
+}
+
+.introduction-modal-content {
+  padding: v.$spacing-2xlarge v.$spacing-2xlarge;
+  text-align: center;
+}
+
+.introduction-modal-preview {
+  margin-bottom: -164px;
+  display: flex;
+  justify-content: center;
+
+  .sara-preview-image {
+    max-width: 70%;
+    height: auto;
+    border-radius: v.$spacing-medium;
+  }
+}
+
+.introduction-modal-announcement {
+  margin-bottom: v.$spacing-medium;
+
+  .announcement-badge {
+    background-color: rgba(v.$primary-color, 0.12);
+    color: v.$primary-color;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    display: inline-block;
+  }
+}
+
+.introduction-modal-main {
+  margin-bottom: v.$spacing-6xlarge;
+}
+
+.introduction-modal-main-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: v.$foreground-primary;
+  margin: 0 0 v.$spacing-medium 0;
+  line-height: 1.2;
+}
+
+.introduction-modal-description {
+  font-size: 16px;
+  color: v.$foreground-secondary;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.introduction-modal-actions {
+  display: flex;
+  gap: v.$spacing-large;
+  justify-content: space-between;
+}
+
+.introduction-modal-btn {
+  padding: 14px 24px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: v.$font-family-main;
+  cursor: pointer;
+  transition: all v.$transition-fast;
+  border: none;
+  
+  &.primary {
+    background-color: v.$primary-color;
+    color: white;
 
     &:hover {
-      background-color: rgba(v.$foreground-primary, 0.05);
+      background-color: darken(v.$primary-color, 5%);
     }
   }
 
-  &__content {
-    padding: v.$spacing-2xlarge v.$spacing-2xlarge;
-    text-align: center;
-  }
+  &.secondary {
+    background-color: transparent;
+    color: v.$primary-color;
+    border: 1px solid v.$primary-color;
 
-  &__preview {
-    margin-bottom: -164px;
-    display: flex;
-    justify-content: center;
-
-    .sara-preview-image {
-      max-width: 70%;
-      height: auto;
-      border-radius: v.$spacing-medium;
-    }
-  }
-
-  &__announcement {
-    margin-bottom: v.$spacing-medium;
-
-    .announcement-badge {
-      background-color: rgba(v.$primary-color, 0.12);
-      color: v.$primary-color;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 14px;
-      line-height: 20px;
-      font-weight: 600;
-      display: inline-block;
-    }
-  }
-
-  &__main {
-    margin-bottom: v.$spacing-6xlarge;
-
-    &-title {
-      font-size: 28px;
-      font-weight: 700;
-      color: v.$foreground-primary;
-      margin: 0 0 v.$spacing-medium 0;
-      line-height: 1.2;
-    }
-  }
-
-  &__description {
-    font-size: 16px;
-    color: v.$foreground-secondary;
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  &__actions {
-    display: flex;
-    gap: v.$spacing-large;
-    justify-content: space-between;
-  }
-
-  &__btn {
-    padding: 14px 24px;
-    width: 100%;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: v.$font-family-main;
-    cursor: pointer;
-    transition: all v.$transition-fast;
-    border: none;
-    
-    &--primary {
-      background-color: v.$primary-color;
-      color: white;
-
-      &:hover {
-        background-color: darken(v.$primary-color, 5%);
-      }
-    }
-
-    &--secondary {
-      background-color: transparent;
-      color: v.$primary-color;
-      border: 1px solid v.$primary-color;
-
-      &:hover {
-        background-color: rgba(v.$primary-color, 0.05);
-      }
+    &:hover {
+      background-color: rgba(v.$primary-color, 0.05);
     }
   }
 } 
