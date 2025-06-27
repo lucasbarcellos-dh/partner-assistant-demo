@@ -33,6 +33,7 @@ function App() {
 
   const closeIntroModal = () => {
     setIsIntroModalOpen(false);
+    setShowChatTooltip(true); // Show tooltip when modal is closed
   };
 
   const showSara = () => {
