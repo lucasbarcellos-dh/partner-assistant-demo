@@ -7,6 +7,7 @@ import ChatDrawer from './components/ChatDrawer';
 import Overlay from './components/Overlay';
 import QuickQuestionsCard from './components/QuickQuestionsCard';
 import IntroductionModal from './components/IntroductionModal';
+import DemoNotice from './components/DemoNotice';
 
 
 function App() {
@@ -114,6 +115,7 @@ function App() {
         onClose={closeIntroModal} 
         onShowSara={showSara} 
       />
+      <DemoNotice />
 
     </div>
   );
