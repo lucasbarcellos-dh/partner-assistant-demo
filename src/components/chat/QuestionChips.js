@@ -4,7 +4,7 @@ const QuestionChips = ({ onSelectQuestion, isLoading }) => {
   // Sample suggested questions
   const suggestedQuestions = [
     "How did last week go?",
-    "Is it worth investing in ads?",
+    "Ideas for a new menu item",
     "What do people order most on weekends?",
     "How are my recent reviews?",
   ];
