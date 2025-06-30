@@ -13,10 +13,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes blink {
-  50% { opacity: 1; }
-}
-
 // Main ChatDrawer component
 .chat-drawer {
   position: fixed;
