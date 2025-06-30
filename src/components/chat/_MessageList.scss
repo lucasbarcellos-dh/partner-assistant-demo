@@ -54,27 +54,30 @@
     align-items: center;
     justify-content: flex-start;
     height: 24px;
+    gap: v.$spacing-medium;
     
-    span {
-      height: 8px;
-      width: 8px;
-      margin: 0 2px;
-      background-color: #888;
-      border-radius: v.$border-radius-full;
-      display: inline-block;
-      opacity: 0.4;
-      
-      &:nth-of-type(1) {
-        animation: blink 1s infinite 0.1s;
-      }
-      
-      &:nth-of-type(2) {
-        animation: blink 1s infinite 0.3s;
-      }
-      
-      &:nth-of-type(3) {
-        animation: blink 1s infinite 0.5s;
+    // Override SparkIcon colors to match thinking text
+    .spark-icon-svg .spark-elements {
+      path {
+        fill: v.$foreground-tertiary !important;
       }
     }
+    
+    .thinking-text {
+      font-size: 16px;
+      font-weight: 500;
+      color: v.$foreground-tertiary;
+      font-style: italic;
+      animation: thinking-fade 2s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes thinking-fade {
+  0%, 100% { 
+    opacity: 0.6;
+  }
+  50% { 
+    opacity: 1;
   }
 }
