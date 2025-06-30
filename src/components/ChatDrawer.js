@@ -303,7 +303,7 @@ const ChatDrawer = ({ isOpen, onClose, initialQuestion = '' }) => {
           {!hasInteracted && (
             <div className="welcome-section">
               <div className="centered-icon">
-                <SparkIcon width={64} height={64} />
+                <SparkIcon width={64} height={64} animation="magical" />
               </div>
               <h1 className="centered-title">What can I help with?</h1>
               {/* <div className="welcome-text">
