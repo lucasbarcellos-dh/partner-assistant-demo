@@ -116,6 +116,20 @@
   }
 }
 
+// Magical animation without glow for centered icon in chat drawer
+.centered-icon .spark-icon--magical {
+  animation: sparkle-pulse-no-glow 2s ease-in-out infinite, gentle-float 3s ease-in-out infinite;
+}
+
+@keyframes sparkle-pulse-no-glow {
+  0%, 100% { 
+    transform: scale(1);
+  }
+  50% { 
+    transform: scale(1.1);
+  }
+}
+
 @keyframes gentle-float {
   0%, 100% { 
     transform: translateY(0px) rotate(0deg);
