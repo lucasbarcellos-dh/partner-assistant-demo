@@ -1,5 +1,6 @@
 import React from 'react';
 import FormattedMessageContent from './FormattedMessageContent';
+import SparkIcon from '../SparkIcon';
 
 const MessageList = ({ messages, messagesEndRef }) => {
   return (
@@ -10,9 +11,8 @@ const MessageList = ({ messages, messagesEndRef }) => {
           return (
             <div key={message.id} className="message assistant typing-indicator">
               <div className="message-content">
-                <span></span>
-                <span></span>
-                <span></span>
+                <SparkIcon width={20} height={20} animation="pulse" />
+                <span className="thinking-text">Thinking</span>
               </div>
             </div>
           );
