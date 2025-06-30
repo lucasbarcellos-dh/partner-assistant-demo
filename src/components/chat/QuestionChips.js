@@ -24,7 +24,7 @@ const QuestionChips = ({ onSelectQuestion, isLoading }) => {
       query: "What do customers mention most positively in their reviews and feedback?"
     },
     {
-      display: "Best performing days?",
+      display: "What are my best performing days?",
       query: "Which days of the week does my business perform best and why?"
     },
   ];
