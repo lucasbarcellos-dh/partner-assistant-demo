@@ -1,13 +1,43 @@
 import React from 'react';
 
 const QuestionChips = ({ onSelectQuestion, isLoading }) => {
-  // Sample suggested questions
+  // Suggested questions with display and query properties
   const suggestedQuestions = [
-    "How did last week go?",
-    "Ideas for a new menu item",
-    "What do people order most on weekends?",
-    "How are my recent reviews?",
+    {
+      display: "How did last week go?",
+      query: "How did my business perform last week?"
+    },
+    {
+      display: "What's ordered most on weekends?",
+      query: "What are the most popular menu items customers order on weekends?"
+    },
+    {
+      display: "Give me ideas for a new menu item",
+      query: "What are some ideas for new menu items I could add to my restaurant?"
+    },
+    {
+      display: "How are my recent reviews?",
+      query: "What are customers saying in my recent reviews?"
+    },
+    {
+      display: "What makes customers happy?",
+      query: "What do customers mention most positively in their reviews and feedback?"
+    },
+    {
+      display: "Best performing days?",
+      query: "Which days of the week does my business perform best and why?"
+    },
   ];
+
+  const handleQuestionClick = (question) => {
+    // If question is an object with display and query properties, use those
+    if (typeof question === 'object' && question.display && question.query) {
+      onSelectQuestion(question.query);
+    } else {
+      // Otherwise, just use the question as is (fallback for backwards compatibility)
+      onSelectQuestion(question);
+    }
+  };
 
   return (
     <div className="question-chips-container">
@@ -16,10 +46,10 @@ const QuestionChips = ({ onSelectQuestion, isLoading }) => {
           <button 
             key={index} 
             className="question-chip"
-            onClick={() => onSelectQuestion(question)}
+            onClick={() => handleQuestionClick(question)}
             disabled={isLoading}
           >
-            {question}
+            {typeof question === 'object' ? question.display : question}
           </button>
         ))}
       </div>
