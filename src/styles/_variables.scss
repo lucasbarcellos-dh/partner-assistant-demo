@@ -5,7 +5,8 @@ $primary-color: #FF5A00;
 $primary-color-dark: #4F3122;
 $secondary-color: #4a6fa5;
 $foreground-primary: #161616;
-$foreground-secondary: #666;
+$foreground-secondary: #6B6B6B;
+$foreground-tertiary: #A3A3A3;
 $foreground-branded-primary: color.adjust($primary-color, $lightness: -28%, $saturation: -60%);
 $foreground-branded-secondary: color.adjust($primary-color, $lightness: -4%, $saturation: -60%);
 $foreground-branded-disabled: color.adjust($primary-color, $lightness: 16%, $saturation: -60%);
@@ -71,7 +72,7 @@ $breakpoint-xl: 1200px;
 
 // Layout
 $header-height: 80px;
-$drawer-width: 600px;
+$drawer-width: 680px;
 $container-max-width: 1200px;
 $content-padding: $spacing-xlarge;
 
