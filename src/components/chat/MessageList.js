@@ -11,7 +11,7 @@ const MessageList = ({ messages, messagesEndRef }) => {
           return (
             <div key={message.id} className="message assistant typing-indicator">
               <div className="message-content">
-                <SparkIcon width={20} height={20} animation="pulse" />
+                <SparkIcon width={16} height={16} animation="pulse" />
                 <span className="thinking-text">Thinking</span>
               </div>
             </div>
