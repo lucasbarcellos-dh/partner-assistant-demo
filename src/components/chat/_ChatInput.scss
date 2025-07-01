@@ -17,7 +17,7 @@
   @include m.form-input;
   padding-right: 64px; // Make room for the button
   font-size: v.$spacing-xlarge;
-  resize: none; // Disable manual resizing
+  resize: none;
   overflow-y: hidden; // Hide scrollbar
   min-height: 56px; // Set a minimum height
   max-height: 160px; // Limit maximum height
