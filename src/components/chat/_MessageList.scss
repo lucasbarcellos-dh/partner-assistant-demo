@@ -54,12 +54,13 @@
     align-items: center;
     justify-content: flex-start;
     height: 24px;
-    gap: v.$spacing-medium;
+    gap: v.$spacing-small;
     
     // Override SparkIcon colors to match thinking text
     .spark-icon-svg .spark-elements {
       path {
         fill: v.$foreground-tertiary !important;
+        animation: thinking-fade 2s ease-in-out infinite;
       }
     }
     
