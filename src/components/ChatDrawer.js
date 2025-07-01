@@ -16,7 +16,16 @@ const ChatDrawer = ({ isOpen, onClose, initialQuestion = '' }) => {
   const [eventSource, setEventSource] = useState(null);
   const [initialQuestionProcessed, setInitialQuestionProcessed] = useState(false);
   
+  // TEMP: Flag to freeze on thinking for styling
+  const [freezeOnThinking, setFreezeOnThinking] = useState(true);
+  
   const apiURL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+
+  // TEMP: Toggle freeze state
+  const toggleFreeze = () => {
+    setFreezeOnThinking(prev => !prev);
+    console.log('🎨 Freeze toggle:', !freezeOnThinking);
+  };
 
   // Reset chat and set hasInteracted to true when a quick question is provided
   useEffect(() => {
@@ -125,6 +134,12 @@ const ChatDrawer = ({ isOpen, onClose, initialQuestion = '' }) => {
           id: typingIndicatorId 
         }
       ]);
+      
+      // TEMP: If freezeOnThinking is true, stop here to allow styling the thinking indicator
+      if (freezeOnThinking) {
+        console.log('🎨 Frozen on thinking state for styling purposes');
+        return;
+      }
       
       // Set up event source for streaming
       const newEventSource = new EventSource(
@@ -289,6 +304,8 @@ const ChatDrawer = ({ isOpen, onClose, initialQuestion = '' }) => {
         hasInteracted={hasInteracted}
         onReset={handleReset}
         onClose={onClose}
+        freezeOnThinking={freezeOnThinking}
+        onToggleFreeze={toggleFreeze}
       />
       
       <div className={chatContainerClass}>
