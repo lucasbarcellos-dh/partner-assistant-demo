@@ -20,7 +20,7 @@
     .message-content {
       max-width: 85%;
       padding: v.$spacing-medium v.$spacing-large;
-      border-radius: v.$border-radius-md v.$border-radius-md 0 v.$border-radius-md;
+      border-radius: v.$border-radius-md;
       font-weight: 500;
       background-color: v.$message-user-bg;
       color: v.$foreground-primary;
