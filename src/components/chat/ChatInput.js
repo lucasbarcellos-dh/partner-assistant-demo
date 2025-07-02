@@ -27,10 +27,12 @@ const ChatInput = ({ input, setInput, isLoading, onSend, textareaRef }) => {
 
   // Handle key down event for textarea
   const handleKeyDown = (e) => {
-    // If Enter is pressed without Shift, send the message
+    // If Enter is pressed without Shift, send the message (only if not loading)
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault(); // Prevent default to avoid new line
-      onSend();
+      if (!isLoading) {
+        onSend();
+      }
     }
   };
 
@@ -42,16 +44,15 @@ const ChatInput = ({ input, setInput, isLoading, onSend, textareaRef }) => {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Ask something about your business…"
-        disabled={isLoading && !input} // Only disable when loading without text
         rows="1"
         className="chat-textarea"
       />
-      <button onClick={onSend} className="send-button">
-        {isLoading ? (
-          <span className="material-symbols-rounded">stop</span>
-        ) : (
-          <span className="material-symbols-rounded">arrow_upward</span>
-        )}
+      <button 
+        onClick={isLoading ? undefined : onSend} 
+        className="send-button"
+        disabled={isLoading}
+      >
+        <span className="material-symbols-rounded">arrow_upward</span>
       </button>
     </div>
   );
